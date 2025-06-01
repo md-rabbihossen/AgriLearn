@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriLearn Replica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* slate-50 */
+        }
+        .nav-link-active {
+            color: #22c55e; /* green-500 */
+            border-bottom: 2px solid #22c55e;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #16a34a; /* green-600 */
+        }
+        .content-section {
+            display: none; /* Hidden by default */
+            padding-top: 4rem; /* Space for fixed header, adjust if header height changes */
+            min-height: calc(100vh - 4rem); /* Ensure content can fill screen below header */
+        }
+        .content-section.active {
+            display: block;
+        }
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        /* Custom scrollbar for aesthetics (optional) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .course-card {
+            cursor: pointer;
+        }
+        .contact-social-icon {
+            transition: transform 0.2s ease-in-out;
+        }
+        .contact-social-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-white shadow-md fixed w-full z-50 top-0">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-green-600" id="logoLink" data-target="home">AgriLearn</a>
+                </div>
+
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" data-target="home" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium nav-link-active">Home</a>
+                    <a href="#" data-target="courses" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Courses</a>
+                    <a href="#" data-target="resources" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Resources</a>
+                    <a href="#" data-target="about" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+                    <a href="#" data-target="contact" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">Contact Us</a>
+                </nav>
+
+                <div class="hidden md:block">
+                    <a href="#" data-target="courses" class="nav-link-action bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                        Get Started
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-gray-800 bg-opacity-75 md:hidden z-40 hidden">
+            <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-5 z-50">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-xl font-bold text-green-600">AgriLearn</span>
+                    <button id="mobile-menu-close-button" class="text-gray-600 hover:text-green-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-4">
+                    <a href="#" data-target="home" class="nav-link-mobile text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="#" data-target="courses" class="nav-link-mobile text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium">Courses</a>
+                    <a href="#" data-target="resources" class="nav-link-mobile text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium">Resources</a>
+                    <a href="#" data-target="about" class="nav-link-mobile text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium">About Us</a>
+                    <a href="#" data-target="contact" class="nav-link-mobile text-gray-700 hover:text-green-600 block px-3 py-2 rounded-md text-base font-medium">Contact Us</a>
+                    <a href="#" data-target="courses" class="nav-link-action mt-4 bg-green-500 hover:bg-green-600 text-white text-center font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 block">
+                        Get Started
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16"> <section id="home" class="content-section active bg-slate-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 flex items-center min-h-[calc(100vh-4rem)]">
+                <div class="grid md:grid-cols-2 gap-8 items-center w-full">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
+                            Welcome to <span class="text-green-600">AgriLearn</span>
+                        </h1>
+                        <p class="text-lg text-gray-600 mb-8">
+                            Your ultimate platform for agricultural knowledge and interactive quizzes. Sharpen your skills and expand your understanding of the agricultural world.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                            <a href="#" data-target="courses" class="nav-link-action bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 text-lg">
+                                Explore Courses
+                            </a>
+                            <a href="#" data-target="about" class="nav-link-action bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 text-lg">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="https://www.techedmagazine.com/wp-content/uploads/2023/01/Agricultual-Science-800x445.jpg" alt="Agricultural Illustration" class="rounded-lg shadow-xl mx-auto max-h-[450px] w-auto object-contain" onerror="this.src='https://placehold.co/600x450/e0e0e0/757575?text=Image+Not+Found'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="content-section bg-slate-50 py-12 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div id="course-main-view">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">Our Courses</h2>
+                        <p class="mt-4 text-lg text-gray-600">Explore our range of agricultural courses and dive into specific chapters.</p>
+                    </div>
+                    <div id="course-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </div>
+                </div>
+                <div id="chapter-view" class="hidden">
+                    <button id="back-to-courses" class="mb-6 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
+                        &larr; Back to Courses
+                    </button>
+                    <h3 id="selected-course-name" class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6"></h3>
+                    <div id="chapters-list" class="space-y-3">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="content-section bg-slate-50 py-12 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">Explore Our Resources</h2>
+                    <p class="mt-4 text-lg text-gray-600">Access a wealth of agricultural information and learning materials.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v11.494m0 0a8.485 8.485 0 0011.92 0M12 17.747a8.485 8.485 0 01-11.92 0M12 17.747l-.004-.004h.008l-.004.004zm0 0l.004-.004h-.008l.004.004zM3 12c0-4.418 4.03-8 9-8s9 3.582 9 8-4.03 8-9 8-9-3.582-9-8zm0 0c0 4.418 4.03 8 9 8s9-3.582 9-8M3 12h18" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253V17.747" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.747A8.485 8.485 0 0023.92 17.747" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.747A8.485 8.485 0 01.08 17.747" /> <path stroke-linecap="round" stroke-linejoin="round" d="M3 12c0-4.418 4.03-8 9-8s9 3.582 9 8" /> <path stroke-linecap="round" stroke-linejoin="round" d="M3 12c0 4.418 4.03 8 9 8s9-3.582 9-8" /> <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Articles & Guides</h3>
+                        <p class="text-gray-600 text-sm text-center">In-depth articles, practical guides, and expert tips on various agricultural topics.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Video Tutorials</h3>
+                        <p class="text-gray-600 text-sm text-center">Engaging video tutorials covering farming techniques, technology, and best practices.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">Infographics</h3>
+                        <p class="text-gray-600 text-sm text-center">Visually appealing infographics simplifying complex agricultural data and concepts.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 text-center">E-books & Reports</h3>
+                        <p class="text-gray-600 text-sm text-center">Comprehensive e-books and research reports on key agricultural issues and innovations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="content-section bg-slate-50 py-12 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">About AgriLearn</h2>
+                    <p class="mt-4 text-lg text-gray-600">Learn more about our mission, vision, and the story behind AgriLearn.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-xl">
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold text-green-600 mb-3">Our Story</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Welcome to AgriLearn, your premier destination for agricultural education and interactive learning. Born from a passion for agriculture and a desire to make learning accessible and engaging, AgriLearn aims to empower individuals with the knowledge they need to thrive in the agricultural sector. We believe that understanding agriculture is crucial for a sustainable future, and our platform is designed to cater to students, professionals, and enthusiasts alike.
+                        </p>
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold text-green-600 mb-3">Our Mission</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            To provide a comprehensive and interactive learning experience that enhances agricultural knowledge, promotes sustainable practices, and fosters a community of informed individuals passionate about the future of farming and food production.
+                        </p>
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-semibold text-green-600 mb-3">Our Vision</h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            To be the leading online platform for agricultural education globally, recognized for our quality content, innovative learning tools, and commitment to advancing agricultural literacy for a better world.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-green-600 mb-4">Why AgriLearn?</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong class="font-semibold">Comprehensive Content:</strong> Curated materials covering a wide range of agricultural topics.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong class="font-semibold">Interactive Quizzes:</strong> Test your knowledge and learn in an engaging way.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong class="font-semibold">Expert-Curated Material:</strong> Content developed and reviewed by agricultural experts.</span>
+                            </li>
+                             <li class="flex items-start">
+                                <svg class="h-6 w-6 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><strong class="font-semibold">User-Friendly Interface:</strong> Easy to navigate and use on any device.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section bg-slate-50 py-12 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">Get in Touch</h2>
+                    <p class="mt-4 text-lg text-gray-600">We'd love to hear from you! Questions, feedback, or collaboration ideas? Reach out.</p>
+                </div>
+                <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-xl">
+                    <form action="#" method="POST" id="contactForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" name="name" id="name" autocomplete="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" name="email" id="email" autocomplete="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="you@example.com" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <input type="text" name="subject" id="subject" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="Regarding..." required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="Your message..." required></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 text-lg">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                    <div id="form-submission-message" class="mt-4 text-center"></div>
+
+                    <div class="mt-12 border-t border-gray-200 pt-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Or Contact Us Directly</h3>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-center mb-8">
+                            <div>
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mx-auto mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                </div>
+                                <h4 class="font-semibold text-gray-700">Address</h4>
+                                <p class="text-gray-600 text-sm">Fatullah, Narayanganj, Dhaka</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mx-auto mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                </div>
+                                <h4 class="font-semibold text-gray-700">Email</h4>
+                                <p class="text-gray-600 text-sm">rabbihossenrabbi24@gmail.com</p>
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mx-auto mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.308 1.155a9.973 9.973 0 004.33 4.33l1.155-2.308a1 1 0 011.21-.502l4.493 1.498A1 1 0 0119 12.72V16a2 2 0 01-2 2h-1a9 9 0 01-9-9v-1a2 2 0 012-2z" /></svg>
+                                </div>
+                                <h4 class="font-semibold text-gray-700">Phone</h4>
+                                <p class="text-gray-600 text-sm">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-center space-x-6">
+                            <a href="https://www.linkedin.com/in/md-rabbi-hossen-rabbi-b1bbb0326" target="_blank" class="text-gray-500 hover:text-green-500 contact-social-icon" aria-label="LinkedIn">
+                                <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </a>
+                            <a href="https://github.com/md-rabbihossen" target="_blank" class="text-gray-500 hover:text-green-500 contact-social-icon" aria-label="GitHub">
+                                <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.201 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.484 17.523 2 12 2z" clip-rule="evenodd"/></svg>
+                            </a>
+                            <a href="https://www.facebook.com/mohammad.rahat.177570" target="_blank" class="text-gray-500 hover:text-green-500 contact-social-icon" aria-label="Facebook">
+                                <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">AgriLearn</h3>
+                    <p class="text-sm">Empowering agricultural knowledge for a sustainable future.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-2">Quick Links</h4>
+                    <ul class="space-y-1">
+                        <li><a href="#" data-target="home" class="nav-link-footer hover:text-green-400 text-sm">Home</a></li>
+                        <li><a href="#" data-target="courses" class="nav-link-footer hover:text-green-400 text-sm">Courses</a></li>
+                        <li><a href="#" data-target="resources" class="nav-link-footer hover:text-green-400 text-sm">Resources</a></li>
+                        <li><a href="#" data-target="about" class="nav-link-footer hover:text-green-400 text-sm">About Us</a></li>
+                        <li><a href="#" data-target="contact" class="nav-link-footer hover:text-green-400 text-sm">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-2">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="mailto:rabbihossenrabbi24@gmail.com" target="_blank" class="text-gray-400 hover:text-green-400" aria-label="Email">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/md-rabbi-hossen-rabbi-b1bbb0326" target="_blank" class="text-gray-400 hover:text-green-400" aria-label="LinkedIn">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com/mohammad.rahat.177570" target="_blank" class="text-gray-400 hover:text-green-400" aria-label="Facebook">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+                        </a>
+                        <a href="https://github.com/md-rabbihossen" target="_blank" class="text-gray-400 hover:text-green-400" aria-label="GitHub">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.201 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.484 17.523 2 12 2z" clip-rule="evenodd"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+                <p class="text-sm">&copy; <span id="currentYear"></span> AgriLearn Replica. All rights reserved. Inspired by AgriQuiz-24.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link, .nav-link-mobile, .nav-link-footer, .nav-link-action, #logoLink');
+            const contentSections = document.querySelectorAll('.content-section');
+            const desktopNavLinks = document.querySelectorAll('header nav .nav-link'); 
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const contactForm = document.getElementById('contactForm');
+            const formSubmissionMessage = document.getElementById('form-submission-message');
+
+            // Course data - REMEMBER TO REPLACE PLACEHOLDER URLS
+            const coursesData = {
+                "AGST": {
+                    name: "Agricultural Science & Technology",
+                    chapters: [
+                        { name: "AGST Chapter 1", url: "YOUR_URL_FOR_AGST_CHAPTER_1_HERE" },
+                        { name: "AGST Chapter 2", url: "YOUR_URL_FOR_AGST_CHAPTER_2_HERE" },
+                        { name: "AGST Chapter 3", url: "YOUR_URL_FOR_AGST_CHAPTER_3_HERE" }
+                    ]
+                },
+                "BIOT": {
+                    name: "Biotechnology in Agriculture",
+                    chapters: [
+                        { name: "BIOT Chapter 1", url: "https://www.example.com/biot/ch1" }, // Example actual URL
+                        { name: "BIOT Chapter 2", url: "https://www.example.com/biot/ch2" },
+                        { name: "BIOT Chapter 3", url: "https://www.example.com/biot/ch3" }
+                    ]
+                },
+                "ENTO": {
+                    name: "Entomology",
+                    chapters: [
+                        { name: "ENTO Chapter 1", url: "#" }, // Placeholder if link not ready
+                        { name: "ENTO Chapter 2", url: "#" },
+                        { name: "ENTO Chapter 3", url: "#" }
+                    ]
+                },
+                "GEPB": {
+                    name: "Genetics & Plant Breeding",
+                    chapters: [
+                        { name: "GEPB Chapter 1", url: "YOUR_URL_FOR_GEPB_CHAPTER_1_HERE" },
+                        { name: "GEPB Chapter 2", url: "YOUR_URL_FOR_GEPB_CHAPTER_2_HERE" },
+                        { name: "GEPB Chapter 3", url: "YOUR_URL_FOR_GEPB_CHAPTER_3_HERE" }
+                    ]
+                },
+                "HORT": {
+                    name: "Horticulture",
+                    chapters: [
+                        { name: "HORT Chapter 1", url: "YOUR_URL_FOR_HORT_CHAPTER_1_HERE" },
+                        { name: "HORT Chapter 2", url: "YOUR_URL_FOR_HORT_CHAPTER_2_HERE" },
+                        { name: "HORT Chapter 3", url: "YOUR_URL_FOR_HORT_CHAPTER_3_HERE" }
+                    ]
+                },
+                "AFES": {
+                    name: "Agroforestry & Environmental Science",
+                    chapters: [
+                        { name: "AFES Chapter 1", url: "YOUR_URL_FOR_AFES_CHAPTER_1_HERE" },
+                        { name: "AFES Chapter 2", url: "YOUR_URL_FOR_AFES_CHAPTER_2_HERE" },
+                        { name: "AFES Chapter 3", url: "YOUR_URL_FOR_AFES_CHAPTER_3_HERE" }
+                    ]
+                }
+            };
+
+
+            const courseGrid = document.getElementById('course-grid');
+            const chapterView = document.getElementById('chapter-view');
+            const courseMainView = document.getElementById('course-main-view');
+            const selectedCourseNameEl = document.getElementById('selected-course-name');
+            const chaptersListEl = document.getElementById('chapters-list');
+            const backToCoursesButton = document.getElementById('back-to-courses');
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            function showSection(targetId) {
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+                if (targetId === 'courses') {
+                    courseMainView.style.display = 'block';
+                    chapterView.classList.add('hidden');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function updateActiveLink(targetId) {
+                desktopNavLinks.forEach(link => {
+                    link.classList.toggle('nav-link-active', link.dataset.target === targetId);
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.dataset.target;
+                    if (targetId) {
+                        showSection(targetId);
+                        updateActiveLink(targetId);
+                        if (mobileMenu.classList.contains('open')) {
+                            mobileMenu.classList.remove('open');
+                            setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                        }
+                    }
+                });
+            });
+
+            if (mobileMenuButton && mobileMenu && mobileMenuCloseButton) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.remove('hidden');
+                    setTimeout(() => mobileMenu.classList.add('open'), 10);
+                });
+                mobileMenuCloseButton.addEventListener('click', function () {
+                    mobileMenu.classList.remove('open');
+                    setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                });
+                mobileMenu.addEventListener('click', function(event) {
+                    if (event.target === mobileMenu) {
+                        mobileMenu.classList.remove('open');
+                        setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                    }
+                });
+            }
+
+            if (courseGrid) {
+                for (const courseCode in coursesData) {
+                    const course = coursesData[courseCode];
+                    const card = document.createElement('div');
+                    card.className = 'course-card bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center';
+                    card.dataset.courseCode = courseCode;
+                    card.innerHTML = `
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v11.494m0 0a8.485 8.485 0 0011.92 0M12 17.747a8.485 8.485 0 01-11.92 0M12 17.747l-.004-.004h.008l-.004.004zm0 0l.004-.004h-.008l.004.004zM3 12c0-4.418 4.03-8 9-8s9 3.582 9 8-4.03 8-9 8-9-3.582-9-8zm0 0c0 4.418 4.03 8 9 8s9-3.582 9-8M3 12h18" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${courseCode}</h3>
+                        <p class="text-gray-600 text-sm">${course.name}</p>
+                    `;
+                    card.addEventListener('click', function() {
+                        displayChapters(this.dataset.courseCode);
+                    });
+                    courseGrid.appendChild(card);
+                }
+            }
+
+            function displayChapters(courseCode) {
+                const course = coursesData[courseCode];
+                if (!course) return;
+
+                selectedCourseNameEl.textContent = `${courseCode}: ${course.name}`;
+                chaptersListEl.innerHTML = ''; 
+
+                course.chapters.forEach(chapter => {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'bg-white p-4 rounded-md shadow hover:bg-gray-50 transition-colors duration-200';
+                    listItem.innerHTML = `
+                        <a href="${chapter.url}" target="_blank" rel="noopener noreferrer" class="block text-green-600 hover:text-green-700 font-medium">
+                            ${chapter.name}
+                            <span class="float-right text-gray-400">&rarr;</span>
+                        </a>
+                    `;
+                    chaptersListEl.appendChild(listItem);
+                });
+
+                courseMainView.style.display = 'none';
+                chapterView.classList.remove('hidden');
+                window.scrollTo({ top: chapterView.offsetTop - 80, behavior: 'smooth' });
+            }
+
+            if (backToCoursesButton) {
+                backToCoursesButton.addEventListener('click', function() {
+                    chapterView.classList.add('hidden');
+                    courseMainView.style.display = 'block';
+                    window.scrollTo({ top: courseMainView.offsetTop - 80, behavior: 'smooth' });
+                });
+            }
+
+            showSection('home');
+            updateActiveLink('home');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+
+                    if (!name || !email || !subject || !message) {
+                        formSubmissionMessage.textContent = 'Please fill out all fields.';
+                        formSubmissionMessage.className = 'mt-4 text-center text-red-600 p-3 bg-red-100 rounded-md';
+                         setTimeout(() => {
+                            formSubmissionMessage.textContent = '';
+                            formSubmissionMessage.className = 'mt-4 text-center';
+                        }, 3000);
+                        return;
+                    }
+                    
+                    formSubmissionMessage.textContent = 'Thank you for your message! (This is a demo, no email was sent.)';
+                    formSubmissionMessage.className = 'mt-4 text-center text-green-600 p-3 bg-green-100 rounded-md';
+                    contactForm.reset();
+                    setTimeout(() => {
+                        formSubmissionMessage.textContent = '';
+                        formSubmissionMessage.className = 'mt-4 text-center';
+                    }, 5000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
