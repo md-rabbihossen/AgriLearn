@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linkage and Crossing Over | Genetics Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc; /* Light gray background for overall page */
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        vertical-align: middle;
+      }
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 0.375rem;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        color: #4b5563; /* Default link color */
+      }
+      .sidebar-link:hover,
+      .sidebar-link.active {
+        background-color: #e0f2fe; /* Light blue hover/active */
+        color: #0c4a6e; /* Darker blue text */
+      }
+      .sidebar-link .material-symbols-outlined {
+        margin-right: 0.75rem;
+        color: #6b7280; /* Icon color */
+      }
+      .sidebar-link:hover .material-symbols-outlined,
+      .sidebar-link.active .material-symbols-outlined {
+        color: #0c4a6e; /* Icon color on hover/active */
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #1e293b; /* Dark blue-gray for headings */
+      }
+      h1 {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        font-weight: 600;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+      }
+      h4 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      p,
+      li {
+        color: #374151; /* Slightly lighter text color for body */
+        line-height: 1.75;
+        margin-bottom: 1rem;
+      }
+      ul {
+        list-style-type: disc;
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      strong {
+        color: #0ea5e9;
+      } /* Accent color for strong text */
+      .content-card {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        margin-bottom: 1.5rem;
+      }
+      .diagram-image {
+        /* Replaces .diagram-placeholder for actual images */
+        width: 100%;
+        height: auto;
+        border-radius: 0.375rem;
+        margin: 1.5rem auto;
+        display: block;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+        border: 1px solid #e5e7eb;
+      }
+      .quiz-option {
+        display: block;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .quiz-option:hover {
+        background-color: #f3f4f6;
+      }
+      .quiz-option.selected {
+        background-color: #bfdbfe;
+        border-color: #3b82f6;
+      }
+      .quiz-option.correct {
+        background-color: #d1fae5;
+        border-color: #10b981;
+      }
+      .quiz-option.incorrect {
+        background-color: #fee2e2;
+        border-color: #ef4444;
+      }
+      .quiz-feedback {
+        margin-top: 0.5rem;
+        font-weight: 500;
+      }
+      .correct-text {
+        color: #059669;
+      }
+      .incorrect-text {
+        color: #dc2626;
+      }
+
+      /* Mobile sidebar toggle */
+      #mobileMenuButton {
+        display: none; /* Hidden by default, shown on mobile */
+      }
+      @media (max-width: 768px) {
+        #sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.3s ease-in-out;
+          z-index: 40; /* Ensure sidebar is above content */
+        }
+        #sidebar.open {
+          transform: translateX(0);
+        }
+        #mainContent {
+          margin-left: 0;
+        }
+        #mobileMenuButton {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50">
+    <button
+      id="mobileMenuButton"
+      class="fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-md md:hidden"
+    >
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+
+    <aside
+      id="sidebar"
+      class="fixed top-0 left-0 w-72 h-full bg-white shadow-lg p-6 space-y-2 overflow-y-auto transition-transform duration-300 ease-in-out md:translate-x-0"
+    >
+      <div class="text-2xl font-bold text-sky-700 mb-6 flex items-center">
+        <span class="material-symbols-outlined text-3xl mr-2 text-sky-600"
+          >science</span
+        >
+        Genetics Hub
+      </div>
+      <nav id="TableOfContents">
+        <a href="#introduction-linkage" class="sidebar-link active"
+          ><span class="material-symbols-outlined">link</span>Introduction to
+          Linkage</a
+        >
+        <a href="#chromosomal-theory" class="sidebar-link"
+          ><span class="material-symbols-outlined">biotech</span>Chromosomal
+          Theory</a
+        >
+        <a href="#types-linkage" class="sidebar-link"
+          ><span class="material-symbols-outlined">category</span>Types of
+          Linkage</a
+        >
+        <a href="#characteristics-linkage" class="sidebar-link"
+          ><span class="material-symbols-outlined">fact_check</span
+          >Characteristics of Linkage</a
+        >
+        <a href="#linkage-groups" class="sidebar-link"
+          ><span class="material-symbols-outlined">groups</span>Linkage
+          Groups</a
+        >
+        <a href="#detection-linkage" class="sidebar-link"
+          ><span class="material-symbols-outlined">search</span>Detection of
+          Linkage</a
+        >
+        <a href="#examples-linkage" class="sidebar-link"
+          ><span class="material-symbols-outlined">visibility</span>Examples of
+          Linkage</a
+        >
+        <a href="#significance-linkage" class="sidebar-link"
+          ><span class="material-symbols-outlined">insights</span>Significance
+          of Linkage</a
+        >
+        <a href="#crossing-over-intro" class="sidebar-link"
+          ><span class="material-symbols-outlined">swap_horiz</span>Crossing
+          Over</a
+        >
+        <a href="#example-crossing-over-drosophila" class="sidebar-link"
+          ><span class="material-symbols-outlined">bug_report</span>Example in
+          Drosophila</a
+        >
+        <a href="#theories-crossing-over" class="sidebar-link"
+          ><span class="material-symbols-outlined">psychology</span>Theories of
+          Crossing Over</a
+        >
+        <a href="#kinds-crossing-over" class="sidebar-link"
+          ><span class="material-symbols-outlined">shuffle</span>Kinds of
+          Crossing Over</a
+        >
+        <a href="#mechanism-crossing-over" class="sidebar-link"
+          ><span class="material-symbols-outlined">construction</span>Mechanism
+          of Crossing Over</a
+        >
+        <a href="#molecular-mechanism" class="sidebar-link"
+          ><span class="material-symbols-outlined">hub</span>Molecular
+          Mechanism</a
+        >
+        <a href="#factors-affecting-crossing-over" class="sidebar-link"
+          ><span class="material-symbols-outlined">tune</span>Factors
+          Affecting</a
+        >
+        <a href="#functions-crossing-over" class="sidebar-link"
+          ><span class="material-symbols-outlined">functions</span>Functions of
+          Crossing Over</a
+        >
+        <a href="#quiz" class="sidebar-link"
+          ><span class="material-symbols-outlined">quiz</span>Quiz</a
+        >
+      </nav>
+    </aside>
+
+    <main id="mainContent" class="md:ml-72 p-4 sm:p-6 md:p-10">
+      <div class="max-w-4xl mx-auto">
+        <div class="content-card">
+          <h1>Linkage and Crossing Over</h1>
+          <p class="text-lg text-slate-600">
+            An exploration of the fundamental genetic concepts of linkage and
+            crossing over, their mechanisms, significance, and interplay in
+            heredity.
+          </p>
+          <img
+            src="https://placehold.co/800x300/0ea5e9/ffffff?text=Linkage+and+Crossing+Over+Concepts"
+            alt="Conceptual illustration for Linkage and Crossing Over"
+            class="diagram-image my-6"
+          />
+        </div>
+
+        <section id="introduction-linkage" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">link</span>Introduction
+            to Linkage
+          </h2>
+          <p>
+            The
+            <strong
+              >tendency of genes to remain together in their original
+              combination</strong
+            >
+            during inheritance is called <strong>linkage</strong>. This means
+            that alleles at different loci on the same chromosome are often
+            inherited as a single unit.
+          </p>
+          <p>
+            The phenomenon of linkage was first reported by
+            <strong>William Bateson and Reginald Punnett in 1906</strong> while
+            studying sweet peas. They observed that certain traits did not
+            assort independently as predicted by Mendel's laws.
+          </p>
+          <p>
+            Later, <strong>Thomas Hunt Morgan</strong>, through his work with
+            <em>Drosophila melanogaster</em> (fruit flies), extensively studied
+            linkage and put forth the <strong>theory of linkage</strong>. He
+            concluded that "coupling" (alleles of the same type, e.g., dominant
+            with dominant, on the same chromosome) and "repulsion" (alleles of
+            different types, e.g., dominant with recessive, on the same
+            chromosome) were two phases of the single phenomenon of linkage.
+          </p>
+          <img
+            src="https://placehold.co/500x250/e5e7eb/4b5563?text=Linked+Genes+A+and+B+on+Chromosome"
+            alt="Conceptual diagram showing linked genes A and B close together on a chromosome strand"
+            class="diagram-image max-w-md"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What is genetic linkage? Name the scientists who first reported
+              this phenomenon.
+            </li>
+            <li>
+              Describe the concepts of coupling and repulsion in linkage with
+              examples.
+            </li>
+            <li>
+              How did Morgan's work with Drosophila contribute to our
+              understanding of linkage?
+            </li>
+          </ul>
+        </div>
+
+        <section id="chromosomal-theory" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">biotech</span
+            >Chromosomal Theory of Inheritance
+          </h2>
+          <p>
+            The <strong>Chromosomal Theory of Inheritance</strong>, proposed
+            independently by
+            <strong>Walter Sutton and Theodor Boveri</strong> in the early 20th
+            century, provides the physical basis for Mendel's laws and the
+            concept of linkage. Key tenets include:
+          </p>
+          <ul>
+            <li>Genes are located on chromosomes.</li>
+            <li>
+              Chromosomes undergo segregation during meiosis, and assort
+              independently (for chromosomes carrying different sets of genes).
+            </li>
+            <li>
+              Genes located on the same chromosome (linked genes) tend to be
+              inherited together because the chromosome acts as a single unit of
+              transmission during meiosis.
+            </li>
+          </ul>
+          <p>
+            It is now well established that many genes are located on each
+            chromosome in a linear fashion. All genes located on the same
+            chromosome would typically move to the same pole during cell
+            division. As a consequence, such genes will fail to show independent
+            segregation and would tend to be inherited together, demonstrating
+            linkage.
+          </p>
+          <img
+            src="https://placehold.co/500x300/e5e7eb/4b5563?text=Chromosomes+Carrying+Genes"
+            alt="Diagram illustrating genes located on chromosomes"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              State the main postulates of the Chromosomal Theory of
+              Inheritance.
+            </li>
+            <li>
+              How does the chromosomal theory explain the physical basis of
+              linkage?
+            </li>
+            <li>
+              Why do genes on the same chromosome not always assort
+              independently?
+            </li>
+          </ul>
+        </div>
+
+        <section id="types-linkage" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">category</span>Types of
+            Linkage
+          </h2>
+          <p>Linkage is generally classified based on three criteria:</p>
+          <h3 class="mt-4">A) Based on Crossing Over</h3>
+          <ul>
+            <li>
+              <strong>Complete Linkage:</strong> Occurs when linked genes are so
+              close together on a chromosome that crossing over (exchange of
+              genetic material) between them is virtually absent. This results
+              in only parental combinations of alleles in the offspring.
+              Complete linkage is rare but has been observed, for example, in
+              males of <em>Drosophila</em> and females of silkworms, where there
+              is a complete absence of recombinant types due to the absence of
+              crossing over for certain gene pairs.
+            </li>
+            <li>
+              <strong>Incomplete/Partial Linkage:</strong> This is more common.
+              It occurs when linked genes are separated by some distance on the
+              chromosome, allowing for crossing over to occur between them,
+              albeit at a frequency less than 50%. This results in both parental
+              and recombinant (new combinations) types of offspring. Incomplete
+              linkage has been observed in maize, pea,
+              <em>Drosophila</em> females, and several other organisms.
+            </li>
+          </ul>
+          <img
+            src="https://placehold.co/500x280/e5e7eb/4b5563?text=Complete+vs+Incomplete+Linkage"
+            alt="Diagram comparing complete linkage (no recombination) and incomplete linkage (some recombination)"
+            class="diagram-image max-w-lg"
+          />
+
+          <h3 class="mt-4">B) Based on Genes Involved (Phases of Linkage)</h3>
+          <p>
+            This refers to the arrangement of alleles on the homologous
+            chromosomes:
+          </p>
+          <ul>
+            <li>
+              <strong>Coupling Phase (cis arrangement):</strong> When dominant
+              alleles of two or more linked genes are present on one chromosome,
+              and their corresponding recessive alleles are on the homologous
+              chromosome (e.g., AB/ab). <br /><code
+                >TR / tr ---- Coupling phase</code
+              >
+            </li>
+            <li>
+              <strong>Repulsion Phase (trans arrangement):</strong> When a
+              dominant allele of one gene and a recessive allele of another
+              linked gene are present on one chromosome, and the reverse is true
+              for the homologous chromosome (e.g., Ab/aB). <br /><code
+                >Tr / tR ---- Repulsion phase</code
+              >
+            </li>
+          </ul>
+          <img
+            src="https://placehold.co/500x200/e5e7eb/4b5563?text=Coupling+(cis)+vs+Repulsion+(trans)"
+            alt="Diagram illustrating coupling (AB/ab) and repulsion (Ab/aB) phases of linkage"
+            class="diagram-image max-w-md"
+          />
+
+          <h3 class="mt-4">C) Based on Chromosomes Involved</h3>
+          <ul>
+            <li>
+              <strong>Autosomal Linkage:</strong> Refers to the linkage of genes
+              located on autosomes (non-sex chromosomes).
+            </li>
+            <li>
+              <strong>Allosomal Linkage (Sex Linkage):</strong> Refers to the
+              linkage of genes located on sex chromosomes (e.g., X or Y
+              chromosome, typically X-linked).
+            </li>
+          </ul>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Differentiate between complete and incomplete linkage with
+              suitable examples.
+            </li>
+            <li>What is the difference between autosomal and sex linkage?</li>
+            <li>
+              Explain the terms 'coupling phase' and 'repulsion phase' in
+              linkage.
+            </li>
+          </ul>
+        </div>
+
+        <section id="characteristics-linkage" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">fact_check</span
+            >Characteristics of Linkage
+          </h2>
+          <ul>
+            <li>
+              Linkage involves two or more genes located on the same chromosome
+              in a linear fashion.
+            </li>
+            <li>
+              Linkage reduces variability by keeping parental gene combinations
+              together.
+            </li>
+            <li>
+              Linkage may involve either dominant or recessive alleles (coupling
+              phase) or some dominant and some recessive alleles (repulsion
+              phase).
+            </li>
+            <li>
+              Linkage usually involves genes that are located close to each
+              other.
+            </li>
+            <li>
+              The <strong>strength of linkage</strong> is inversely proportional
+              to the distance between the linked genes. Closer genes show
+              stronger linkage (less recombination), while genes farther apart
+              show weaker linkage (more recombination).
+            </li>
+            <li>
+              Linkage can be determined from test cross progeny data by
+              observing deviations from expected Mendelian ratios.
+            </li>
+            <li>
+              Linked genes tend to remain in their original combination during
+              the course of inheritance.
+            </li>
+          </ul>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>List any four characteristics of genetic linkage.</li>
+            <li>
+              How does the distance between genes affect the strength of
+              linkage?
+            </li>
+            <li>How can linkage be detected using test cross data?</li>
+          </ul>
+        </div>
+
+        <section id="linkage-groups" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">groups</span>Linkage
+            Groups
+          </h2>
+          <p>
+            A <strong>linkage group</strong> refers to all the genes located on
+            a single chromosome. These genes are inherited together as a unit.
+            The number of linkage groups in an organism is equal to its
+            <strong>haploid number of chromosomes</strong>.
+          </p>
+          <p>Examples:</p>
+          <ul>
+            <li>Corn (Maize, <em>Zea mays</em>, 2n=20): 10 linkage groups</li>
+            <li>
+              Garden Pea (<em>Pisum sativum</em>, 2n=14): 7 linkage groups
+            </li>
+            <li>Barley (<em>Hordeum vulgare</em>, 2n=14): 7 linkage groups</li>
+            <li>
+              Fruit Fly (<em>Drosophila melanogaster</em>, 2n=8): 4 linkage
+              groups
+            </li>
+            <li>Humans (<em>Homo sapiens</em>, 2n=46): 23 linkage groups</li>
+          </ul>
+          <img
+            src="https://placehold.co/500x250/e5e7eb/4b5563?text=Concept+of+Linkage+Groups"
+            alt="Illustration showing multiple genes on a single chromosome representing a linkage group"
+            class="diagram-image max-w-md"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What is a linkage group? How is the number of linkage groups in an
+              organism determined?
+            </li>
+            <li>
+              Give two examples of organisms and their number of linkage groups.
+            </li>
+            <li>
+              Why is the number of linkage groups equal to the haploid
+              chromosome number?
+            </li>
+          </ul>
+        </div>
+
+        <section id="detection-linkage" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">search</span>Detection
+            of Linkage
+          </h2>
+          <p>
+            The most common method for detecting linkage is the
+            <strong>test cross</strong>. In this method, an F<sub>1</sub>
+            individual heterozygous at two (or more) loci (e.g., AB/ab) is
+            crossed with a parent homozygous recessive for all genes being
+            studied (e.g., ab/ab).
+          </p>
+          <ul>
+            <li>
+              <strong>If genes are unlinked (independent assortment):</strong>
+              The test cross progeny will show a 1:1:1:1 ratio of the four
+              possible phenotypic classes (two parental, two recombinant).
+            </li>
+            <li>
+              <strong>If genes are linked:</strong> The frequency of parental
+              types will be significantly higher than 50%, and the frequency of
+              recombinant types will be significantly lower than 50%. The
+              deviation from the 1:1:1:1 ratio indicates linkage. The percentage
+              of recombinant offspring (recombination frequency) is used to
+              measure the distance between linked genes.
+            </li>
+          </ul>
+          <img
+            src="https://placehold.co/500x300/e5e7eb/4b5563?text=Test+Cross:+Unlinked+vs+Linked+Genes"
+            alt="Test cross diagram showing expected ratios for unlinked vs. linked genes"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Describe how a test cross can be used to detect linkage between
+              two genes.
+            </li>
+            <li>
+              What is recombination frequency and how is it related to gene
+              distance?
+            </li>
+            <li>
+              What phenotypic ratio is expected in a test cross if two genes are
+              completely linked?
+            </li>
+          </ul>
+        </div>
+
+        <section id="examples-linkage" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">visibility</span
+            >Examples of Linkage
+          </h2>
+          <h3>Linkage in Maize (Corn)</h3>
+          <p>
+            Hutchinson conducted experiments with maize, crossing a variety with
+            coloured and full seeds (CCSS) with a variety having colourless and
+            shrunken seeds (ccss). The gene C (colour) is dominant over c
+            (colourless), and S (full seed) is dominant over s (shrunken seed).
+          </p>
+          <p>
+            The F<sub>1</sub> generation (CcSs) all had coloured, full seeds.
+            When F<sub>1</sub> females were test-crossed with colourless,
+            shrunken (ccss) males, the following results were observed
+            (approximate percentages from PDF):
+          </p>
+          <ul>
+            <li>Coloured, full (CS - parental): ~48.2%</li>
+            <li>Colourless, shrunken (cs - parental): ~48.2%</li>
+            <li>Coloured, shrunken (Cs - recombinant): ~1.8%</li>
+            <li>Colourless, full (cS - recombinant): ~1.8%</li>
+          </ul>
+          <p>
+            Parental combinations (CS and cs) accounted for about 96.4%, while
+            new combinations (Cs and cS) were about 3.6%. This significant
+            deviation from the expected 1:1:1:1 ratio (if unlinked) clearly
+            indicates that the genes for seed colour and seed shape are linked
+            in maize. This is an example of <strong>incomplete linkage</strong>.
+          </p>
+          <img
+            src="https://placehold.co/500x400/e5e7eb/4b5563?text=Fig+5.8:+Linkage+in+Maize+(Hutchinson)"
+            alt="Diagram based on Fig 5.8 from PDF: Chromosomal interpretation of linkage and crossing over in maize"
+            class="diagram-image max-w-lg"
+          />
+
+          <h3>Linkage in <em>Drosophila melanogaster</em> (Fruit Fly)</h3>
+          <p>
+            T.H. Morgan's experiments with <em>Drosophila</em> were pivotal in
+            understanding linkage.
+          </p>
+          <h4>Experiment 1 (White eyes, Miniature wings):</h4>
+          <p>
+            Morgan crossed female flies with white eyes (w) and miniature wings
+            (m) (both recessive) with wild-type males (red eyes w<sup>+</sup>,
+            normal wings m<sup>+</sup>). The F<sub>1</sub> females were
+            wild-type (heterozygous w<sup>+</sup>m<sup>+</sup>/wm). When these
+            F<sub>1</sub> females were test-crossed, the parental types (white
+            eyes, miniature wings and wild-type eyes, wild-type wings) were far
+            more numerous than the recombinant types (white eyes, wild-type
+            wings and wild-type eyes, miniature wings). The recombination
+            frequency was calculated to be about 36.8% (from PDF image data),
+            indicating linkage.
+          </p>
+          <img
+            src="https://placehold.co/500x350/e5e7eb/4b5563?text=Morgan's+Drosophila+Exp+1+(White+Eyes,+Miniature+Wings)"
+            alt="Diagram based on PDF (page 5): Morgan's experiment with white eyes and miniature wings in Drosophila"
+            class="diagram-image max-w-lg"
+          />
+
+          <h4>
+            Experiment 2 (Grey body, Long wings - Complete Linkage Example in
+            Males):
+          </h4>
+          <p>
+            Morgan crossed wild-type <em>Drosophila</em> with grey body and long
+            wings (BBVV) with a mutant type having black body and vestigial
+            wings (bbvv). The F<sub>1</sub> hybrids (BbVv) were grey-bodied with
+            long wings.
+          </p>
+          <p>
+            When an F<sub>1</sub> male (BbVv) was back-crossed with a double
+            recessive female (bbvv), only parental combinations (grey body, long
+            wings and black body, vestigial wings) appeared in the F<sub>2</sub>
+            generation. No new combinations were observed. This indicated
+            <strong>complete linkage</strong> between the genes for body colour
+            and wing type in <em>Drosophila</em> males for these specific genes,
+            meaning no crossing over occurred between them in males.
+          </p>
+          <img
+            src="https://placehold.co/500x350/e5e7eb/4b5563?text=Morgan's+Drosophila+Exp+2+(Complete+Linkage)"
+            alt="Diagram based on PDF (page 6): Morgan's experiment showing complete linkage in Drosophila males"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Summarize the results of Hutchinson's maize experiment and its
+              significance for linkage.
+            </li>
+            <li>
+              What did Morgan's experiments with Drosophila reveal about
+              complete and incomplete linkage?
+            </li>
+            <li>
+              Explain the concept of parental and recombinant types with an
+              example.
+            </li>
+          </ul>
+        </div>
+
+        <section id="significance-linkage" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">insights</span
+            >Significance of Linkage in Plant Breeding
+          </h2>
+          <ul>
+            <li>
+              Linkage limits variability among individuals by keeping parental
+              gene combinations together.
+            </li>
+            <li>
+              Linkage between two or more loci controlling different desirable
+              characters is advantageous for a plant breeder. It helps in the
+              simultaneous improvement of both characters.
+            </li>
+            <li>
+              Linkage is undesirable when desirable and undesirable genes are
+              linked together, making it difficult to separate them. This is
+              known as "linkage drag."
+            </li>
+            <li>
+              Linkage plays an important role in determining the nature and
+              scope of hybridization and selection programs.
+            </li>
+            <li>
+              Linkage reduces the chance of recombination of genes and thus
+              helps to hold parental characteristics together. It helps
+              organisms maintain their parental, racial, and other characters.
+              For this reason, plant and animal breeders may find it difficult
+              to combine various characters if they are trying to break
+              unfavorable linkages.
+            </li>
+          </ul>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>How does linkage affect plant breeding programs?</li>
+            <li>
+              What is linkage drag and why is it important in crop improvement?
+            </li>
+            <li>
+              Why can linkage be both advantageous and disadvantageous for
+              breeders?
+            </li>
+          </ul>
+        </div>
+
+        <section id="crossing-over-intro" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">swap_horiz</span
+            >Crossing Over
+          </h2>
+          <p>
+            <strong>Crossing over</strong> is the
+            <strong
+              >exchange of genetic material between non-sister chromatids of
+              homologous chromosomes</strong
+            >
+            during meiosis (specifically, in Prophase I). This process results
+            in new allelic combinations in the daughter cells, leading to
+            genetic recombination.
+          </p>
+          <p>Key points about crossing over:</p>
+          <ul>
+            <li>
+              Each diploid cell contains two copies of every chromosome (one
+              maternal, one paternal), forming
+              <strong>homologous chromosomes</strong>.
+            </li>
+            <li>
+              During sexual reproduction, diploid organisms produce haploid
+              gametes through <strong>meiosis</strong>.
+            </li>
+            <li>
+              In <strong>Prophase I of meiosis</strong>, homologous chromosomes
+              pair up (synapsis) and exchange segments of genetic material.
+            </li>
+            <li>
+              The resultant chromosomes are <strong>recombinants</strong>,
+              containing a mixture of genes derived from both maternal and
+              paternal chromosomes.
+            </li>
+          </ul>
+          <img
+            src="https://placehold.co/500x400/e5e7eb/4b5563?text=Overview+of+Meiosis+(PDF+Page+8)"
+            alt="Diagram based on PDF (page 8): Overview of Meiosis showing DNA replication and recombination"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Define crossing over. At what stage of meiosis does it occur?
+            </li>
+            <li>How does crossing over contribute to genetic variation?</li>
+            <li>
+              What is the difference between homologous chromosomes and sister
+              chromatids?
+            </li>
+          </ul>
+        </div>
+
+        <section id="example-crossing-over-drosophila" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">bug_report</span
+            >Example of Crossing Over in Drosophila
+          </h2>
+          <p>
+            Consider factors for eye color and wing shape in
+            <em>Drosophila</em>: pink eyes (r) and curled wings (c) are
+            recessive, while red eyes (R) and straight wings (C) are dominant.
+          </p>
+          <p>
+            If a pure-breeding fly with red eyes and straight wings (RRCC) is
+            mated with a fly having pink eyes and curled wings (rrcc):
+          </p>
+          <ul>
+            <li>
+              The F<sub>1</sub> hybrids are all red-eyed and straight-winged
+              (RrCc).
+            </li>
+          </ul>
+          <p>
+            When an F<sub>1</sub> female (RrCc) is back-crossed with a male
+            having pink eyes and curled wings (rrcc - test cross), the F<sub
+              >2</sub
+            >
+            generation might show (example percentages from PDF):
+          </p>
+          <ul>
+            <li>Red eyes, straight wings (RC - parental): 49%</li>
+            <li>Pink eyes, curled wings (rc - parental): 49%</li>
+            <li>Red eyes, curled wings (Rc - recombinant/cross-over): 1%</li>
+            <li>Pink eyes, straight wings (rC - recombinant/cross-over): 1%</li>
+          </ul>
+          <p>
+            The parental types constitute 98%, while the recombinant
+            (cross-over) types constitute 2%. This indicates that the genes for
+            eye color and wing shape are linked, and crossing over occurs
+            between them at a frequency of 2%.
+          </p>
+          <p>
+            If the genes were on different chromosomes (unlinked), all four
+            classes would appear in approximately equal numbers (25% each). If
+            they were completely linked with no crossing over, only the two
+            parental types would appear.
+          </p>
+          <img
+            src="https://placehold.co/500x350/e5e7eb/4b5563?text=Crossing+Over+in+Drosophila+(PDF+Page+9)"
+            alt="Diagram based on PDF (page 9, top): Representing crossing over in Drosophila (Red/Straight x Pink/Curled)"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Describe an experiment in Drosophila that demonstrates crossing
+              over.
+            </li>
+            <li>
+              How can the frequency of crossing over be calculated from test
+              cross data?
+            </li>
+            <li>
+              What is the significance of parental and recombinant types in
+              genetic analysis?
+            </li>
+          </ul>
+        </div>
+
+        <section id="theories-crossing-over" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">psychology</span
+            >Theories of Chromosomal Crossing Over
+          </h2>
+          <p>
+            Several theories have been proposed to explain the mechanism of
+            crossing over:
+          </p>
+          <h4>1. The 'Contact First' Theory (Serebrovsky)</h4>
+          <p>
+            This theory states that two non-sister chromatids first contact and
+            then cross each other. Breakage occurs at the point of contact, and
+            the broken segments reunite to form new combinations.
+          </p>
+          <img
+            src="https://placehold.co/400x200/e5e7eb/4b5563?text=Fig+61:+Contact+First+Theory"
+            alt="Diagram based on Fig 61 from PDF: Contact First Theory"
+            class="diagram-image max-w-md"
+          />
+
+          <h4>2. The 'Breakage First' Theory (Muller)</h4>
+          <p>
+            According to this theory, two inner non-sister chromatids first
+            break into segments without crossing over. Then, the broken segments
+            reunite with each other, forming new arrangements and resulting in
+            new combinations. This theory is widely accepted.
+          </p>
+          <img
+            src="https://placehold.co/400x200/e5e7eb/4b5563?text=Fig+62:+Breakage+First+Theory"
+            alt="Diagram based on Fig 62 from PDF: Breakage First Theory"
+            class="diagram-image max-w-md"
+          />
+
+          <h4>3. Strain Theory (Precosity Theory - Darlington)</h4>
+          <p>
+            Darlington proposed that chromosomal breakage occurs due to strain
+            or tension during pairing. When homologous chromosomes pair and
+            twist around each other (relational coiling), tension develops on
+            the chromatids, causing them to break at points of contact.
+            Recombination occurs when broken ends rejoin, not necessarily with
+            their original segments. Chiasmata (visible cross-over points) are
+            thought to hold the broken chromatids together.
+          </p>
+
+          <h4>4. Belling's Hypothesis</h4>
+          <p>
+            Belling (1933) suggested that crossing over results from an exchange
+            between newly duplicated chromatids during their formation. New
+            chromomeres (segments of a chromosome) are formed alongside their
+            sister chromosomes, and interconnecting fibers form later. If
+            relational coiling exists, these fibers might form between
+            non-sister chromomeres, producing a cross-over.
+          </p>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Briefly describe the 'Contact First' and 'Breakage First' theories
+              of crossing over.
+            </li>
+            <li>What is the Strain Theory of crossing over?</li>
+            <li>Why is the 'Breakage First' theory more widely accepted?</li>
+          </ul>
+        </div>
+
+        <section id="kinds-crossing-over" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">shuffle</span>Kinds of
+            Crossing Over
+          </h2>
+          <p>
+            Crossing over can be classified based on the number of chiasmata
+            (points of exchange) present:
+          </p>
+          <ul>
+            <li>
+              <strong>Single Crossing Over:</strong> Occurs when there is only
+              one chiasma or crossing over event at one point in a chromosome
+              pair. This produces single cross-over gametes.
+            </li>
+            <li>
+              <strong>Double Crossing Over:</strong> Occurs when crossing over
+              happens at two points in the same chromosome pair. This produces
+              double cross-over gametes and is less frequent than single
+              crossing over.
+            </li>
+            <li>
+              <strong>Multiple Crossing Over:</strong> Crossing over can also
+              occur at three, four, or more points in the same chromosome pair,
+              referred to as triple, quadruple, or multiple crossing over,
+              respectively. These are progressively rarer.
+            </li>
+          </ul>
+          <img
+            src="https://placehold.co/500x300/e5e7eb/4b5563?text=Fig+66:+Single+and+Double+Crossing+Over"
+            alt="Diagram based on Fig 66 from PDF: Single (Single Chiasma) and Double crossing over (2 chiasmata are formed)"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Differentiate between single, double, and multiple crossing over.
+            </li>
+            <li>
+              Why is double crossing over less frequent than single crossing
+              over?
+            </li>
+            <li>How can multiple crossing over be detected?</li>
+          </ul>
+        </div>
+
+        <section id="mechanism-crossing-over" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">construction</span
+            >Mechanism of Crossing Over (Historical Theories)
+          </h2>
+          <h4>1. Classical Theory (Morgan and Sharp - Two-Plane Theory)</h4>
+          <p>
+            This theory, now largely of historical significance, proposed that
+            chiasma formation occurs when a chromatid of one chromosome
+            associates with a non-sister chromatid of its homolog. It suggested
+            chiasma formation was the cause, not the result, of crossing over,
+            and that not every chiasma led to recombination. This theory is not
+            supported by current evidence.
+          </p>
+          <img
+            src="https://placehold.co/400x200/e5e7eb/4b5563?text=Fig+63:+Classical+Theory+of+Crossing+Over"
+            alt="Diagram based on Fig 63 from PDF: Classical Theory of Crossing Over"
+            class="diagram-image max-w-md"
+          />
+
+          <h4>
+            2. Chiasma Type Theory (Janssens, Belling, Darlington - Breakage &
+            Reunion Theory / One-Plane Theory)
+          </h4>
+          <p>
+            This widely accepted theory posits that breakage occurs in
+            non-sister chromatids of homologous chromosomes, followed by the
+            reunion of chromatid segments, resulting in crossing over. Chiasmata
+            are formed at the points where crossing over has taken place when
+            homologous chromosomes begin to separate during the diplotene stage
+            of Prophase I.
+          </p>
+          <p>Key points:</p>
+          <ul>
+            <li>
+              Chiasma is the result (cytological manifestation) of a crossing
+              over event.
+            </li>
+            <li>
+              Each chiasma generally corresponds to one genetic crossing over
+              event (1:1 ratio).
+            </li>
+          </ul>
+          <img
+            src="https://placehold.co/500x250/e5e7eb/4b5563?text=Fig+64:+Breakage+and+Reunion+Theory"
+            alt="Diagram based on Fig 64 from PDF: Breakage and reunion theory"
+            class="diagram-image max-w-lg"
+          />
+          <p>
+            While generally supported, some observations (like chiasmata in male
+            Drosophila where genetic crossing over is rare for some chromosomes)
+            have led to further refinements and understanding that not all
+            chiasmata might lead to reciprocal recombination in all cases or
+            species.
+          </p>
+
+          <h4>3. Copy-Choice Theory (Lederberg)</h4>
+          <p>
+            Proposed by J. Lederberg (1955), this theory suggested that
+            duplication and recombination occur simultaneously. Newly
+            synthesized genes could switch templates during replication, leading
+            to recombinant strands. This theory faces objections, such as the
+            fact that crossing over involves existing chromatids, not just newly
+            synthesized ones, and DNA replication largely precedes synapsis and
+            crossing over.
+          </p>
+          <img
+            src="https://placehold.co/500x250/e5e7eb/4b5563?text=Fig+65:+Copy+Choice+Theory"
+            alt="Diagram based on Fig 65 from PDF: Copy Choice Theory"
+            class="diagram-image max-w-lg"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>What is the Chiasma Type Theory of crossing over?</li>
+            <li>
+              How does the Copy-Choice Theory differ from the Breakage and
+              Reunion Theory?
+            </li>
+            <li>What is the significance of chiasmata in meiosis?</li>
+          </ul>
+        </div>
+
+        <section id="molecular-mechanism" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">hub</span>Molecular
+            Mechanism of Crossing Over (Modern View)
+          </h2>
+          <p>
+            The modern understanding of crossing over involves precise molecular
+            events:
+          </p>
+          <ol class="list-decimal ml-4">
+            <li>
+              <strong>Double-Strand Break (DSB):</strong> The process often
+              begins with a programmed double-strand break in the DNA of one
+              chromatid, typically initiated by specific enzymes like Spo11.
+            </li>
+            <li>
+              <strong>Resection:</strong> Exonucleases (enzymes that remove
+              nucleotides) process the broken ends, removing short stretches of
+              nucleotides from the 5' ends. This creates 3' single-stranded
+              tails.
+            </li>
+            <li>
+              <strong>Strand Invasion:</strong> One of the 3' single-stranded
+              tails, coated with proteins like Rad51 (a recombinase), "invades"
+              the homologous DNA duplex of a non-sister chromatid, searching for
+              a complementary sequence.
+            </li>
+            <li>
+              <strong>D-loop Formation:</strong> Upon finding homology, the
+              invading strand displaces one strand of the homologous duplex,
+              forming a displacement loop (D-loop).
+            </li>
+            <li>
+              <strong>DNA Synthesis:</strong> The invading 3' end acts as a
+              primer for DNA synthesis, using the intact strand of the
+              homologous chromatid as a template. This extends the invading
+              strand.
+            </li>
+            <li>
+              <strong
+                >Capture of the Second End & Holliday Junction
+                Formation:</strong
+              >
+              The displaced D-loop can pair with the other 3' single-stranded
+              tail from the original DSB. Further DNA synthesis and ligation
+              (joining of DNA fragments by DNA ligase) can lead to the formation
+              of a structure with two crossover points called a
+              <strong>double Holliday junction</strong>. A Holliday junction is
+              a branched nucleic acid structure containing four DNA strands.
+            </li>
+            <li>
+              <strong>Resolution of Holliday Junctions:</strong> The Holliday
+              junctions must be resolved (cut and rejoined) to separate the
+              homologous chromosomes. This resolution can occur in two ways:
+              <ul>
+                <li>
+                  <strong>Crossover:</strong> If the two junctions are resolved
+                  by cutting different pairs of strands (one inner and one outer
+                  at each junction, or specific orientations), it results in an
+                  exchange of flanking chromosomal arms, leading to a genetic
+                  crossover.
+                </li>
+                <li>
+                  <strong>Non-crossover:</strong> If both junctions are resolved
+                  by cutting the same pairs of strands (e.g., both inner
+                  strands), it results in gene conversion (a short segment of
+                  DNA from one chromatid is copied to the other) without the
+                  exchange of flanking arms. This is often associated with the
+                  Synthesis-Dependent Strand Annealing (SDSA) pathway.
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <p>
+            Proteins like MSH4 and MSH5 are involved in stabilizing Holliday
+            junctions and promoting crossover outcomes.
+          </p>
+          <img
+            src="https://placehold.co/600x450/e5e7eb/4b5563?text=Molecular+Mechanism+of+Crossing+Over+(PDF+Page+15)"
+            alt="Diagram based on PDF (page 15): Molecular mechanism of crossing over (DSB, resection, strand invasion, Holliday junction, SDSA vs DHJ leading to NCO or CO)"
+            class="diagram-image max-w-xl"
+          />
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Outline the main steps in the molecular mechanism of crossing
+              over.
+            </li>
+            <li>
+              What is a Holliday junction and what role does it play in
+              recombination?
+            </li>
+            <li>
+              How does the resolution of Holliday junctions lead to crossover or
+              non-crossover products?
+            </li>
+          </ul>
+        </div>
+
+        <section id="factors-affecting-crossing-over" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">tune</span>Factors
+            Affecting Crossing Over
+          </h2>
+          <p>
+            The frequency of crossing over can be influenced by various genetic,
+            physiological, and environmental factors:
+          </p>
+          <ul>
+            <li>
+              <strong>Sex:</strong> Crossing over frequency often differs
+              between sexes. For example, it's generally absent or greatly
+              reduced in male <em>Drosophila</em> and female silkworms. The
+              heterogametic sex (e.g., XY males in humans) often shows lower
+              recombination rates than the homogametic sex (e.g., XX females).
+            </li>
+            <li>
+              <strong>Mutation:</strong> Certain gene mutations can affect
+              crossing over rates. For instance, some mutations in
+              <em>Drosophila</em> reduce crossing over across all chromosomes.
+            </li>
+            <li>
+              <strong>Age:</strong> The age of the individual can influence
+              crossing over. In <em>Drosophila</em> females, for example,
+              crossing over tends to decrease with age.
+            </li>
+            <li>
+              <strong>Inversion:</strong> Chromosomal inversions (where a
+              segment of a chromosome is flipped) suppress crossing over within
+              the inverted region in heterozygotes. However, crossing over might
+              increase in adjacent, normally paired regions.
+            </li>
+            <li>
+              <strong>X-radiation and other Radiations:</strong> Exposure to
+              X-rays (Muller) or radium (Hanson) can increase the frequency of
+              crossing over.
+            </li>
+            <li>
+              <strong>Temperature:</strong> Extreme temperatures (both low and
+              high) can increase crossing over frequency in organisms like
+              female <em>Drosophila</em> (Plough).
+            </li>
+            <li>
+              <strong>Centromere Vicinity (Chromosomal Region):</strong>
+              Crossing over is generally less frequent near centromeres
+              (centromeric heterochromatin) and at the tips of chromosomes
+              (telomeres). It's more frequent in euchromatic regions.
+            </li>
+            <li>
+              <strong>Somatic Crossing Over:</strong> While rare, crossing over
+              can occur in somatic (body) cells, known as mitotic crossing over.
+              This was first studied by Stern in <em>Drosophila</em>. It can
+              lead to patches of tissue with a recombinant genotype but has no
+              genetic importance for inheritance to offspring. Certain mutations
+              (e.g., "minute" bristles in <em>Drosophila</em>) can increase its
+              frequency.
+            </li>
+          </ul>
+          <p>
+            Factors that affect crossing over will inversely affect the strength
+            of linkage (e.g., increased crossing over leads to weaker linkage).
+          </p>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Define linkage. Who first discovered the phenomenon of linkage?
+            </li>
+            <li>
+              Explain the difference between coupling and repulsion phases in
+              linkage with examples.
+            </li>
+            <li>Why did Mendel not observe linkage in his experiments?</li>
+          </ul>
+        </div>
+
+        <section id="functions-crossing-over" class="content-card">
+          <h2>
+            <span class="material-symbols-outlined mr-2">functions</span
+            >Functions of Crossing Over
+          </h2>
+          <p>Crossing over plays crucial roles in genetics and evolution:</p>
+          <ul>
+            <li>
+              <strong>Increases Genetic Variability:</strong> It is a primary
+              source of genetic variation in sexually reproducing populations by
+              creating new combinations of alleles on chromosomes.
+            </li>
+            <li>
+              <strong>Facilitates Evolution:</strong> Genetic variation is the
+              raw material for natural selection. Crossing over allows favorable
+              mutations that arise on different chromosomes to be combined, and
+              unfavorable combinations to be broken apart.
+            </li>
+            <li>
+              <strong>Prevents Muller's Ratchet:</strong> In asexual
+              populations, deleterious mutations can accumulate irreversibly
+              (Muller's Ratchet). Sexual reproduction with crossing over allows
+              for the creation of chromosomes with fewer deleterious mutations.
+            </li>
+            <li>
+              <strong>Ensures Proper Chromosome Segregation:</strong> In many
+              organisms, at least one crossover per chromosome arm is necessary
+              for the proper pairing and subsequent segregation of homologous
+              chromosomes during Meiosis I. Chiasmata physically hold homologs
+              together until anaphase I.
+            </li>
+            <li>
+              <strong>Allows Gene Mapping:</strong> The frequency of crossing
+              over between linked genes is proportional to the distance between
+              them. This principle is used to construct genetic maps, showing
+              the relative locations of genes on chromosomes.
+            </li>
+            <li>
+              <strong>Reduces Linkage Disequilibrium:</strong> It helps to break
+              down associations between alleles at different loci, moving
+              populations closer to linkage equilibrium.
+            </li>
+            <li>
+              <strong>Adaptability:</strong> The genetic diversity generated by
+              crossing over can increase a population's ability to adapt to
+              changing environments and resist diseases. If an epidemic occurs,
+              genetic variability reduces the chance of the entire population
+              being wiped out.
+            </li>
+          </ul>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Define linkage. Who first discovered the phenomenon of linkage?
+            </li>
+            <li>
+              Explain the difference between coupling and repulsion phases in
+              linkage with examples.
+            </li>
+            <li>Why did Mendel not observe linkage in his experiments?</li>
+          </ul>
+        </div>
+
+        <section id="quiz" class="content-card">
+          <h2><span class="material-symbols-outlined mr-2">quiz</span>Quiz</h2>
+          <div id="quizContainer"></div>
+        </section>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded">
+          <h4 class="font-semibold text-blue-700 mb-2">
+            Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Define linkage. Who first discovered the phenomenon of linkage?
+            </li>
+            <li>
+              Explain the difference between coupling and repulsion phases in
+              linkage with examples.
+            </li>
+            <li>Why did Mendel not observe linkage in his experiments?</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Sidebar toggle for mobile
+      const sidebar = document.getElementById("sidebar");
+      const mobileMenuButton = document.getElementById("mobileMenuButton");
+      const mainContent = document.getElementById("mainContent");
+
+      mobileMenuButton.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+      });
+
+      // Close sidebar when clicking on main content on mobile
+      mainContent.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+          sidebar.classList.remove("open");
+        }
+      });
+
+      // Smooth scroll and active link highlighting
+      const navLinks = document.querySelectorAll(".sidebar-link");
+      const sections = document.querySelectorAll("main section[id]");
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href").substring(1);
+          const targetSection = document.getElementById(targetId);
+
+          if (targetSection) {
+            // Scroll to section
+            const headerOffset = 80; // Adjust if you have a fixed header
+            const elementPosition = targetSection.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+
+            // Update active link
+            navLinks.forEach((nav) => nav.classList.remove("active"));
+            this.classList.add("active");
+
+            // Close sidebar on mobile after click
+            if (window.innerWidth < 768 && sidebar.classList.contains("open")) {
+              sidebar.classList.remove("open");
+            }
+          }
+        });
+      });
+
+      // Highlight active link on scroll
+      function onScroll() {
+        let currentSectionId = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (pageYOffset >= sectionTop - sectionHeight / 3) {
+            // Adjust sensitivity
+            currentSectionId = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").substring(1) === currentSectionId) {
+            link.classList.add("active");
+          }
+        });
+      }
+      window.addEventListener("scroll", onScroll);
+      // Initial call to set active link on page load
+      onScroll();
+
+      // Quiz Data and Functionality
+      const quizData = [
+        {
+          question: "1. When does crossing over occur?",
+          options: [
+            "A. Mitosis",
+            "B. Meiosis II",
+            "C. Prophase I",
+            "D. Metaphase I",
+          ],
+          answer: "C. Prophase I",
+          explanation:
+            "Crossing over, the exchange of genetic material between homologous chromosomes, occurs during Prophase I of meiosis.",
+        },
+        {
+          question:
+            "2. Which of these statements about crossing over is NOT true?",
+          options: [
+            "A. Is necessary for the formation of diploid gametes",
+            "B. Double strand breaks occur through the action of ribonucleases",
+            "C. Leaves organism vulnerable to Muller's Ratchet",
+            "D. All of the above",
+          ],
+          answer: "D. All of the above",
+          explanation:
+            "D is correct. Crossing over occurs during meiosis, which is necessary for the formation of haploid gametes (not diploid). Double strand breaks are processed by exonucleases (not ribonucleases). Genetic recombination and crossing over protect the species from Muller's Ratchet, rather than making it vulnerable.",
+        },
+        {
+          question:
+            "3. Which of these numbers represents the chromosome number in somatic cells and gametes?",
+          options: [
+            "A. Somatic cells are haploid, gametes are diploid",
+            "B. Somatic cells are diploid, gametes are haploid",
+            "C. All cells are derived from a diploid zygote and therefore are also diploid",
+            "D. All cells are haploid",
+          ],
+          answer: "B. Somatic cells are diploid, gametes are haploid",
+          explanation:
+            "Somatic (body) cells are typically diploid (2n), containing two sets of chromosomes. Gametes (sex cells) are haploid (n), containing one set of chromosomes, as a result of meiosis.",
+        },
+      ];
+
+      const quizContainer = document.getElementById("quizContainer");
+
+      quizData.forEach((quizItem, index) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add(
+          "mb-6",
+          "p-4",
+          "border",
+          "border-slate-200",
+          "rounded-md"
+        );
+
+        const questionText = document.createElement("p");
+        questionText.classList.add("font-semibold", "mb-3", "text-slate-700");
+        questionText.textContent = quizItem.question;
+        questionDiv.appendChild(questionText);
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.id = `q${index}options`;
+        quizItem.options.forEach((optionText) => {
+          const optionButton = document.createElement("button");
+          optionButton.classList.add("quiz-option", "w-full", "text-left");
+          optionButton.textContent = optionText;
+          optionButton.addEventListener("click", () =>
+            selectAnswer(
+              index,
+              optionText,
+              quizItem.answer,
+              optionButton,
+              quizItem.explanation
+            )
+          );
+          optionsDiv.appendChild(optionButton);
+        });
+        questionDiv.appendChild(optionsDiv);
+
+        const feedbackDiv = document.createElement("div");
+        feedbackDiv.id = `q${index}feedback`;
+        feedbackDiv.classList.add("quiz-feedback", "mt-2");
+        questionDiv.appendChild(feedbackDiv);
+
+        quizContainer.appendChild(questionDiv);
+      });
+
+      function selectAnswer(
+        questionIndex,
+        selectedOption,
+        correctAnswer,
+        selectedButton,
+        explanation
+      ) {
+        const optionsContainer = document.getElementById(`q${index}options`); // Corrected: use questionIndex
+        const feedbackContainer = document.getElementById(`q${index}feedback`); // Corrected: use questionIndex
+
+        // Disable all buttons for this question after one is clicked
+        Array.from(optionsContainer.children).forEach((button) => {
+          button.disabled = true;
+          button.classList.remove("selected"); // Clear previous selections if any
+        });
+
+        selectedButton.classList.add("selected");
+
+        if (selectedOption === correctAnswer) {
+          selectedButton.classList.add("correct");
+          feedbackContainer.innerHTML = `<span class="correct-text">Correct!</span> ${
+            explanation || ""
+          }`;
+        } else {
+          selectedButton.classList.add("incorrect");
+          feedbackContainer.innerHTML = `<span class="incorrect-text">Incorrect.</span> The correct answer is ${correctAnswer}. ${
+            explanation || ""
+          }`;
+          // Highlight the correct answer
+          Array.from(optionsContainer.children).forEach((button) => {
+            if (button.textContent === correctAnswer) {
+              button.classList.add("correct");
+            }
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

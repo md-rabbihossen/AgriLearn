@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Mendelian Concepts of Heredity</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-link { /* Styling for actual navigation links <a> */
+            transition: background-color 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            space-x: 3; /* Handled by Tailwind classes */
+            padding: 0.5rem; /* p-2 */
+            border-radius: 0.375rem; /* rounded-md */
+        }
+        .sidebar-link.active, .sidebar-link:hover {
+            background-color: #e0f2fe; /* light sky blue (sky-100) */
+            color: #0c4a6e; /* sky blue 900 (sky-800) */
+        }
+        .sidebar-link.active {
+             border-left: 3px solid #0ea5e9; /* sky blue 500 (sky-500) */
+             padding-left: calc(0.5rem - 3px); /* Adjust padding to keep text aligned */
+        }
+        .sidebar-link.active .material-icons-sharp, 
+        .sidebar-link:hover .material-icons-sharp {
+            color: #0c4a6e; /* sky-800 */
+        }
+
+        /* Styling for the toggle button */
+        .expandable-toggle {
+            transition: background-color 0.2s ease, color 0.2s ease;
+            width: 100%;
+            text-align: left;
+        }
+        .expandable-toggle:hover {
+            background-color: #f0f9ff; /* sky-50 */
+        }
+        .expandable-toggle.parent-active {
+            font-weight: 600; /* semibold */
+            color: #0369a1; /* sky-700 */
+        }
+         .expandable-toggle.parent-active .material-icons-sharp { /* Icon color for active parent toggle */
+            color: #0369a1; /* sky-700 */
+        }
+
+
+        .submenu {
+            padding-left: 0.25rem; /* pl-1 */
+            margin-left: 1rem; /* ml-4 for overall indent */
+            border-left: 1px solid #e2e8f0; /* slate-300 */
+        }
+        .submenu .sidebar-link .material-icons-sharp { /* Sub-item icons */
+            font-size: 1.125rem; /* text-lg or adjust as needed for smaller icon */
+            opacity: 0.75;
+        }
+
+        .content-section {
+            padding-top: 60px; 
+            margin-top: -60px; 
+        }
+        .prose h2 {
+            font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb; padding-bottom: 0.5rem;
+        }
+        .prose h3 {
+            font-size: 1.3rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem;
+        }
+        .prose p, .prose li { line-height: 1.7; margin-bottom: 1rem; }
+        .prose ul:not(.exam-questions-list) { list-style-type: disc; padding-left: 1.5rem; } /* Avoid styling exam question list */
+        .prose strong { font-weight: 600; }
+        .prose blockquote {
+            border-left: 4px solid #0ea5e9; padding-left: 1rem; margin-left: 0;
+            font-style: italic; color: #4b5563;
+        }
+        .custom-card {
+            background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.5rem;
+            padding: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .custom-card h4 {
+            font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; color: #1f2937;
+        }
+        .timeline-item {
+            position: relative; padding-left: 2.5rem; padding-bottom: 1.5rem;
+            border-left: 2px solid #cbd5e1;
+        }
+        .timeline-item:last-child { border-left: 2px solid transparent; }
+        .timeline-dot {
+            position: absolute; left: -0.5625rem; top: 0.25rem; height: 1rem; width: 1rem;
+            background-color: #0ea5e9; border-radius: 50%; border: 2px solid white;
+        }
+        .timeline-year { font-weight: 600; color: #0ea5e9; margin-bottom: 0.25rem; }
+        
+        /* Original question-box for "Test Your Understanding" section */
+        .question-box {
+            background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 1rem;
+            border-radius: 0.375rem; margin-top: 1.5rem;
+        }
+        .question-box h4 { color: #1e40af; margin-bottom: 0.5rem; }
+
+        /* Styling for the new "Important Questions for Your Exam" blocks */
+        .exam-questions-block {
+            margin-top: 1.5rem; /* mt-6 */
+            padding: 1rem; /* p-4 */
+            background-color: #f0f9ff; /* sky-50 */
+            border: 1px solid #bae6fd; /* sky-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .exam-questions-block h4 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #0369a1; /* sky-700 */
+            margin-bottom: 0.75rem; /* mb-3 */
+            display: flex;
+            align-items: center;
+        }
+        .exam-questions-block ul.exam-questions-list {
+            list-style-type: disc;
+            list-style-position: inside;
+            padding-left: 0.5rem; /* Adjusted for better alignment with list-style-inside */
+            space-y: 0.25rem; /* space-y-1 */
+            font-size: 0.925rem; /* text-sm */ /* Slightly larger than text-xs */
+            color: #334155; /* slate-700 */
+        }
+        
+        .mobile-menu-button { display: none; }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed; top: 0; left: 0; height: 100%; z-index: 40;
+                transform: translateX(-100%); box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+            .mobile-menu-button {
+                display: block; position: fixed; top: 1rem; left: 1rem; z-index: 50;
+                background-color: white; padding: 0.5rem; border-radius: 0.375rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .content-section { padding-top: 80px; margin-top: -80px; }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <button id="mobileMenuButton" class="mobile-menu-button md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+        <span class="material-icons-sharp">menu</span>
+    </button>
+
+    <div class="flex">
+        <aside id="sidebar" class="sidebar w-64 h-screen bg-slate-50 text-slate-700 p-4 space-y-1 border-r border-slate-200 fixed md:relative md:translate-x-0 overflow-y-auto">
+            <h1 class="text-2xl font-bold text-sky-700 mb-6 flex items-center px-2">
+                <span class="material-icons-sharp mr-2 text-3xl">science</span>
+                Genetics
+            </h1>
+            <nav id="tableOfContents" class="space-y-1">
+                <div class="sidebar-group">
+                    <button type="button" class="expandable-toggle flex items-center justify-between w-full p-2 rounded-md text-slate-700">
+                        <span class="flex items-center space-x-3">
+                            <span class="material-icons-sharp">biotech</span>
+                            <span>Introduction</span>
+                        </span>
+                        <span class="material-icons-sharp expand-icon transform transition-transform duration-200">chevron_right</span>
+                    </button>
+                    <div class="submenu ml-4 hidden"> 
+                        <a href="#introduction" class="sidebar-link">
+                            <span class="material-icons-sharp">article</span>
+                            <span>Overview</span>
+                        </a>
+                        <a href="#heredity-variation" class="sidebar-link">
+                            <span class="material-icons-sharp">family_restroom</span>
+                            <span>Heredity & Variation</span>
+                        </a>
+                        <a href="#gene-genotype-phenotype" class="sidebar-link">
+                            <span class="material-icons-sharp">hub</span>
+                            <span>Gene, Genotype, Phenotype</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#branches" class="sidebar-link">
+                    <span class="material-icons-sharp">account_tree</span>
+                    <span>Branches of Genetics</span>
+                </a>
+                <a href="#landmarks" class="sidebar-link">
+                    <span class="material-icons-sharp">flag</span>
+                    <span>Historical Landmarks</span>
+                </a>
+
+                <div class="sidebar-group">
+                    <button type="button" class="expandable-toggle flex items-center justify-between w-full p-2 rounded-md text-slate-700">
+                        <span class="flex items-center space-x-3">
+                            <span class="material-icons-sharp">history_edu</span>
+                            <span>Pre-Mendelian Concepts</span>
+                        </span>
+                        <span class="material-icons-sharp expand-icon transform transition-transform duration-200">chevron_right</span>
+                    </button>
+                    <div class="submenu ml-4 hidden">
+                        <a href="#pre-mendelian" class="sidebar-link">
+                            <span class="material-icons-sharp">article</span>
+                            <span>Overview</span>
+                        </a>
+                        <a href="#moist-vapour-theory" class="sidebar-link">
+                             <span class="material-icons-sharp">water_drop</span><span>Moist Vapour Theory</span>
+                        </a>
+                        <a href="#fluid-theory" class="sidebar-link">
+                             <span class="material-icons-sharp">opacity</span><span>Fluid Theory</span>
+                        </a>
+                        <a href="#reproductive-blood-theory" class="sidebar-link">
+                             <span class="material-icons-sharp">bloodtype</span><span>Reproductive Blood</span>
+                        </a>
+                        <a href="#preformation-theory" class="sidebar-link">
+                            <span class="material-icons-sharp">person_search</span><span>Preformation Theory</span>
+                        </a>
+                        <a href="#epigenesis-theory" class="sidebar-link">
+                            <span class="material-icons-sharp">egg</span><span>Epigenesis Theory</span>
+                        </a>
+                        <a href="#acquired-characters-theory" class="sidebar-link">
+                            <span class="material-icons-sharp">fitness_center</span><span>Acquired Characters</span>
+                        </a>
+                        <a href="#pangenesis-theory" class="sidebar-link">
+                            <span class="material-icons-sharp">scatter_plot</span><span>Pangenesis Theory</span>
+                        </a>
+                        <a href="#germplasm-theory" class="sidebar-link">
+                            <span class="material-icons-sharp">cell_tower</span><span>Germplasm Theory</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="#applications" class="sidebar-link">
+                    <span class="material-icons-sharp">settings_applications</span>
+                    <span>Applications of Genetics</span>
+                </a>
+                 <a href="#test-your-understanding" class="sidebar-link">
+                    <span class="material-icons-sharp">quiz</span>
+                    <span>Test Your Understanding</span>
+                </a>
+                <a href="#references" class="sidebar-link">
+                    <span class="material-icons-sharp">menu_book</span>
+                    <span>References</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content flex-1 p-6 md:p-10 prose max-w-none prose-slate lg:prose-lg overflow-y-auto h-screen">
+            <section id="introduction" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">biotech</span>Introduction to Genetics</h2>
+                <p>The term <strong>'Genetics'</strong> was coined by William Bateson in 1905, a proponent of Mendel's work. It is derived from the Greek word <em>gennō</em>, meaning "to give birth".</p>
+                <p>Genetics is the branch of biology that deals with <strong>heredity</strong> and <strong>variation</strong>. It explores the principles that explain the similarities between parents and their offspring, as well as the differences among individuals of a single species. Genetics is concerned with the transmission, expression, and evolution of <strong>genes</strong>, the fundamental molecules that control the function, development, and ultimate appearance of individuals.</p>
+                <blockquote>
+                    For example, why does a human being give birth to a human being and not to any other organism? This fundamental question is at the heart of genetics.
+                </blockquote>
+                <img src="https://images.unsplash.com/photo-1581091226809-107595599648?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG5hJTIwc3RyYW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="DNA Strand Illustration" class="mx-auto rounded-lg shadow-md my-4" onerror="this.onerror=null;this.src='https://placehold.co/600x300/e2e8f0/64748b?text=DNA+Illustration';">
+                
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                    <ul class="exam-questions-list">
+                        <li>What is genetics and who coined the term? When was it coined?</li>
+                        <li>Explain the fundamental concepts genetics deals with, particularly focusing on heredity, variation, and the role of genes.</li>
+                        <li>Why is the study of genetics important for understanding biological life?</li>
+                    </ul>
+                </div>
+            
+                <div id="heredity-variation" class="content-section pt-10"> 
+                    <h3><span class="material-icons-sharp text-2xl align-middle mr-2">family_restroom</span>Heredity and Variation</h3>
+                    <p>Children resemble their parents due to heredity, yet they also differ from their parents to some extent due to variation. These two concepts are central to genetics.</p>
+                    <div class="grid md:grid-cols-2 gap-6 my-4">
+                        <div class="custom-card">
+                            <h4>Heredity</h4>
+                            <p>Heredity is the sum of all biological processes by which particular characteristics are transmitted from parents to their offspring. It is the potential of an individual to transmit its characters to the next generation, aiming to maintain uniformity.</p>
+                        </div>
+                        <div class="custom-card">
+                            <h4>Variation</h4>
+                            <p>Variation refers to the dissimilarities or differences that exist in the genetic makeup of individuals within a population. Variation brings in plasticity and is crucial for evolution. It can be influenced by both genetic factors and environmental interactions.</p>
+                        </div>
+                    </div>
+                    <p><strong>Environmental Variation:</strong> This type of variation is the alteration of an organism's phenotype (observable characteristics) in response to environmental factors. It is due to components like temperature, moisture, light, etc., and these changes are generally not inherited.</p>
+                    <img src="https://images.pexels.com/photos/7129659/pexels-photo-7129659.jpeg?auto=compress&cs=tinysrgb&w=600&h=350&dpr=1" alt="Family showing heredity and variation" class="mx-auto rounded-lg shadow-md my-4" onerror="this.onerror=null;this.src='https://placehold.co/600x350/e2e8f0/64748b?text=Family+Resemblance';">
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Define heredity and variation. How are these concepts interconnected in the study of life?</li>
+                            <li>What is environmental variation, and is it heritable? Provide an illustrative example.</li>
+                            <li>Why is variation considered important for populations?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="gene-genotype-phenotype" class="content-section pt-10">
+                    <h3><span class="material-icons-sharp text-2xl align-middle mr-2">hub</span>Gene, Genotype, and Phenotype</h3>
+                    <div class="custom-card">
+                        <h4>Gene</h4>
+                        <p>A <strong>gene</strong> is the basic physical and functional unit of heredity. Genes are segments of DNA that are transferred from a parent to offspring and are responsible for determining some characteristic of the offspring. They contain information for a specific trait and are transcribed and translated by the cell to make proteins, which in turn create a visible phenotype.</p>
+                        <p><em>Example: One gene might code for eye color. The cell uses this gene to make proteins that create green pigment in the eyes.</em></p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 my-4">
+                        <div class="custom-card">
+                            <h4>Genotype</h4>
+                            <p>The <strong>genotype</strong> refers to the genetic composition of an individual, consisting of its heritable genes. Genotypes are present within the chromosomes and are not directly observable.</p>
+                        </div>
+                        <div class="custom-card">
+                            <h4>Phenotype</h4>
+                            <p>The <strong>phenotype</strong> refers to all the observable traits of an organism, which result from the interaction of its genotype with the environment. Phenotypes are the physical expressions of genes, such as height, eye color, or behavior.</p>
+                        </div>
+                    </div>
+                    <figure class="my-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/PhenotypeRelationship.svg/600px-PhenotypeRelationship.svg.png" alt="Diagram showing genotype leading to phenotype" class="mx-auto rounded-lg shadow-md bg-white p-2" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e2e8f0/64748b?text=Genotype+to+Phenotype';">
+                        <figcaption class="text-center text-sm text-gray-600 mt-2">Illustration: An organism's DNA (genotype) influences its physical characteristics (phenotype).</figcaption>
+                    </figure>
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Define gene, genotype, and phenotype. Clearly explain the relationship between these three terms.</li>
+                            <li>Using an example, illustrate how a specific gene can influence an organism's phenotype.</li>
+                            <li>Can two individuals with the same genotype have different phenotypes? Explain why or why not.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="branches" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">account_tree</span>Branches of Genetics</h2>
+                <p>Genetics is a vast field with numerous specialized branches. Some of the key branches include:</p>
+                <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 list-none p-0">
+                    <li class="custom-card"><strong>Microbial Genetics:</strong> Studies genetics of microorganisms like bacteria and archaea, often for genetic engineering.</li>
+                    <li class="custom-card"><strong>Mycogenetics:</strong> Focuses on the general genetics of fungi.</li>
+                    <li class="custom-card"><strong>Animal Genetics:</strong> Studies genes in animals, impacting performance and traits passed to offspring.</li>
+                    <li class="custom-card"><strong>Human Genetics:</strong> The scientific study of inherited human variation and genetic disorders.</li>
+                    <li class="custom-card"><strong>Cytogenetics:</strong> Studies chromosome structure, properties, behavior during cell division (mitosis and meiosis), and their influence on phenotype.</li>
+                    <li class="custom-card"><strong>Quantitative Genetics:</strong> Deals with the genetics of complex traits (polygenic traits) that are affected by multiple genes and environmental factors (e.g., height, milk yield).</li>
+                    <li class="custom-card"><strong>Population Genetics:</strong> Studies the genetic composition of biological populations and changes due to factors like natural selection.</li>
+                    <li class="custom-card"><strong>Biochemical Genetics:</strong> Focuses on the biochemical principles underlying genome structure, expression, and evolution.</li>
+                    <li class="custom-card"><strong>Molecular Genetics:</strong> Studies the molecular structure of DNA, its cellular activities (like replication), and its role in determining an organism's makeup.</li>
+                    <li class="custom-card"><strong>Clinical Genetics:</strong> Provides diagnostic services and genetic counseling for individuals/families with or at risk of genetic conditions.</li>
+                    <li class="custom-card"><strong>Developmental Genetics:</strong> Studies how genotype is transformed into phenotype during an organism's development.</li>
+                    <li class="custom-card"><strong>Radiation Genetics:</strong> Investigates the genetic effects of radiation and their impact on populations.</li>
+                    <li class="custom-card"><strong>Plant Genetics:</strong> Focuses on heredity in plants, crucial for crop improvement.</li>
+                    <li class="custom-card"><strong>Ecological Genetics:</strong> Studies genetics in natural populations, focusing on traits involved in species interactions and adaptation to the environment.</li>
+                </ul>
+                 <img src="https://images.pexels.com/photos/2280547/pexels-photo-2280547.jpeg?auto=compress&cs=tinysrgb&w=600&h=300&dpr=1" alt="Collage representing branches of genetics" class="mx-auto rounded-lg shadow-md my-6" onerror="this.onerror=null;this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Diverse+Fields+of+Genetics';">
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                    <ul class="exam-questions-list">
+                        <li>List and briefly describe the scope of any five major branches of genetics.</li>
+                        <li>Differentiate between Molecular Genetics and Biochemical Genetics.</li>
+                        <li>What is the primary focus of Cytogenetics, and why is it important?</li>
+                        <li>Explain the difference between Quantitative Genetics and Mendelian (Classical) Genetics.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="landmarks" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">flag</span>Landmarks in the History of Genetics</h2>
+                <p>The field of genetics has evolved through numerous groundbreaking discoveries. Here are some key milestones:</p>
+                <div class="my-6">
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1595</p><p><strong>Janssen:</strong> Invention of the single-lens optical microscope.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1859</p><p><strong>Charles Darwin:</strong> Published 'On the Origin of Species by means of Natural Selection'.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1865</p><p><strong>Gregor Mendel:</strong> Introduced the fundamental laws of inheritance. (Often called the "Father of Genetics")</p><p><strong>Robert Hooke:</strong> Described "cells" for the first time.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1888</p><p><strong>Waldeyer:</strong> Described "chromosomes".</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1902</p><p><strong>Boveri (and Sutton independently):</strong> Proposed the chromosome theory of inheritance, linking chromosomes to Mendelian factors.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1910</p><p><strong>Thomas Hunt Morgan:</strong> Showed that genes are located on chromosomes, using fruit flies (<em>Drosophila melanogaster</em>).</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1953</p><p><strong>James Watson and Francis Crick:</strong> Described the double helix structure of DNA, based on work by Rosalind Franklin and Maurice Wilkins.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1956</p><p><strong>Levan and Tjio:</strong> Reported the correct human chromosome number as 46.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1977</p><p><strong>Frederick Sanger (and independently Maxam & Gilbert):</strong> Developed methods for DNA sequencing.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1985</p><p><strong>Kary Mullis:</strong> Invented the Polymerase Chain Reaction (PCR).</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">1990</p><p><strong>Human Genome Project:</strong> Initiated with the goal of sequencing the entire human genome.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">2001-2003</p><p>First draft (2001) and complete sequence (2003) of the human genome published.</p></div>
+                    <div class="timeline-item"><div class="timeline-dot"></div><p class="timeline-year">2012-2020</p><p><strong>CRISPR-Cas9:</strong> Development of genome editing technology by Emmanuelle Charpentier and Jennifer Doudna (Nobel Prize in Chemistry 2020).</p></div>
+                </div>
+                 <img src="https://images.unsplash.com/photo-1532153955177-f59af40d6472?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGlzdG9yeSUyMGJvb2t8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Timeline of Genetics" class="mx-auto rounded-lg shadow-md my-6" onerror="this.onerror=null;this.src='https://placehold.co/600x300/e2e8f0/64748b?text=Historical+Discoveries';">
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                    <ul class="exam-questions-list">
+                        <li>Identify three major milestones in the history of genetics and explain their significance to the field.</li>
+                        <li>Who is considered the "Father of Genetics" and what were his key contributions?</li>
+                        <li>Describe the importance of the discovery of DNA structure by Watson and Crick.</li>
+                        <li>What is the Human Genome Project, and what impact has it had on modern biology and medicine?</li>
+                        <li>Explain the significance of CRISPR-Cas9 technology in genetics.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="pre-mendelian" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">history_edu</span>Pre-Mendelian Concepts of Heredity</h2>
+                <p>Before Gregor Mendel's groundbreaking work in the mid-19th century, many theories were proposed to explain how traits are passed from parents to offspring. Most of these early ideas assumed that parental characters mixed or "blended" in the offspring. These are collectively known as <strong>theories of blending inheritance</strong>.</p>
+                <p>Early observations, such as Grew reporting reproductive organs in plants (1682) and Fairchild producing a hybrid plant (1717), hinted at the mechanisms of heredity but lacked a scientific framework.</p>
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                    <ul class="exam-questions-list">
+                        <li>What is meant by "theories of blending inheritance" in the context of pre-Mendelian genetics?</li>
+                        <li>Why is it important to study pre-Mendelian concepts of heredity, even though many were later proven incorrect?</li>
+                        <li>Briefly mention two early observations (pre-1800s) that hinted at the mechanisms of heredity in plants.</li>
+                    </ul>
+                </div>
+
+                <div id="moist-vapour-theory" class="custom-card content-section pt-10">
+                    <h4>1. Moist Vapour Theory (Pythagoras, c. 500 BC)</h4>
+                    <p>Pythagoras proposed that moist vapours derived from various body parts of the male (brain, nerves, etc.) were transmitted to the female during conception. These vapours were thought to coalesce in the female to form the new individual. According to this theory, the male contributed all the characters of the embryo, while the female merely provided the environment for development.</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Pythagoras_statue_in_Pythagoreion_Samos_Greece.jpg/800px-Pythagoras_statue_in_Pythagoreion_Samos_Greece.jpg?20120811142949" alt="Statue of Pythagoras" class="mx-auto rounded-lg shadow-sm my-3 h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/e2e8f0/64748b?text=Pythagoras';">
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Describe Pythagoras's Moist Vapour Theory of heredity.</li>
+                            <li>According to this theory, what was the role of the male and female parent in contributing to the offspring's characteristics?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="fluid-theory" class="custom-card content-section pt-10">
+                    <h4>2. Fluid Theory (Empedocles, c. 504-433 BC)</h4>
+                    <p>Empedocles suggested that each body part of both parents produced a specific fluid. These fluids from different body parts would mix together during reproduction to form the embryo. Any defect in the "descent and mixing up of the fluids" could result in the offspring missing characters from one or both parents.</p>
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Explain Empedocles' Fluid Theory of heredity.</li>
+                            <li>How did this theory account for the contribution of both parents to the offspring?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="reproductive-blood-theory" class="custom-card content-section pt-10">
+                    <h4>3. Reproductive Blood Theory (Aristotle, c. 384-322 BC)</h4>
+                    <p>Aristotle believed that an embryo was formed from the mixing of "reproductive blood" from both parents. He considered the male's reproductive blood to be more "purified" (semen) and the female's to be less so (menstrual blood). As a result, he posited that the male contributed more to the characteristics of the offspring, particularly the "form," while the female contributed the "matter."</p>
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>What was Aristotle's Reproductive Blood Theory?</li>
+                            <li>How did Aristotle differentiate the contributions of male ("form") and female ("matter") parents in this theory?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="preformation-theory" class="custom-card content-section pt-10">
+                    <h4>4. Preformation Theory (17th-18th Century)</h4>
+                    <p>Proposed by biologists like Swammerdam and Bonnet. This theory stated that a miniature, fully formed human, called a <strong>homunculus</strong>, was already present in either the egg (ovists) or the sperm (spermists). Development was simply the growth of this preformed individual. It was rejected as it couldn't explain blended traits or new variations.</p>
+                    <figure class="my-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Hartsoeker_homunculus.png/300px-Hartsoeker_homunculus.png" alt="Hartsoeker's drawing of a homunculus in a sperm cell" class="mx-auto rounded-lg shadow-sm bg-white p-1" onerror="this.onerror=null;this.src='https://placehold.co/300x400/e2e8f0/64748b?text=Hartsoeker%27s+Homunculus';">
+                        <figcaption class="text-center text-sm text-gray-600 mt-1">Nicolaas Hartsoeker's 1695 drawing of a homunculus.</figcaption>
+                    </figure>
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Describe the Preformation Theory. What is a "homunculus"?</li>
+                            <li>What were the two main schools of thought within Preformationism (ovists vs. spermists)?</li>
+                            <li>Why was the Preformation Theory eventually rejected by the scientific community?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="epigenesis-theory" class="custom-card content-section pt-10">
+                    <h4>5. Theory of Epigenesis (C.F. Wolff, 1738-1794)</h4>
+                    <p>Caspar Friedrich Wolff opposed preformation, arguing that gametes contained undifferentiated substance that gradually organized and differentiated to form the embryo <em>de novo</em> (from scratch), guided by "vital forces."</p>
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Explain C.F. Wolff's Theory of Epigenesis.</li>
+                            <li>How did the Theory of Epigenesis differ fundamentally from the Preformation Theory?</li>
+                            <li>What does "de novo" formation mean in the context of epigenesis?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="acquired-characters-theory" class="custom-card content-section pt-10">
+                    <h4>6. Theory of Acquired Characters (Jean-Baptiste Lamarck, 1744-1829)</h4>
+                    <p>Lamarck proposed that characteristics acquired by an individual during its lifetime (e.g., strong muscles from exercise) could be passed to offspring. This was later largely disproven.</p>
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Lamarck_giraffes.svg/400px-Lamarck_giraffes.svg.png" alt="Lamarck's Giraffe example of acquired characteristics" class="mx-auto rounded-lg shadow-sm my-3 bg-white p-1" onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/64748b?text=Lamarck%27s+Giraffe';">
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>What is Lamarck's Theory of Acquired Characters (Lamarckism)?</li>
+                            <li>Provide a classic example used to illustrate Lamarck's theory (e.g., giraffe's neck).</li>
+                            <li>Why was Lamarck's theory ultimately rejected? Who provided significant experimental evidence against it?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="pangenesis-theory" class="custom-card content-section pt-10">
+                    <h4>7. Theory of Pangenesis (Hippocrates, c. 400 BC; Charles Darwin, 1809-1882)</h4>
+                    <p>This theory suggested that all parts of the body produce minute particles called <strong>gemmules</strong> or <strong>pangenes</strong>, which travel to sex organs and assemble into gametes, transmitting traits from all body parts.</p>
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Describe the Theory of Pangenesis. Who were its main proponents?</li>
+                            <li>What are "gemmules" or "pangenes" according to this theory, and what was their proposed role in heredity?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="germplasm-theory" class="custom-card content-section pt-10">
+                    <h4>8. Germplasm Theory (August Weismann, 1834-1914)</h4>
+                    <p>Weismann distinguished between <strong>Somatoplasm</strong> (body cells, changes not inherited) and <strong>Germplasm</strong> (reproductive cells, responsible for heredity). This theory emphasized that only changes in germplasm are inherited, a crucial step for understanding genetics.</p>
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Weismann_barrier.svg/500px-Weismann_barrier.svg.png" alt="Diagram illustrating Weismann's Germplasm Theory (Weismann Barrier)" class="mx-auto rounded-lg shadow-sm my-3 bg-white p-1" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e2e8f0/64748b?text=Germplasm+Theory';">
+                    <div class="exam-questions-block">
+                        <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                        <ul class="exam-questions-list">
+                            <li>Explain August Weismann's Germplasm Theory.</li>
+                            <li>Differentiate between somatoplasm and germplasm as defined by Weismann.</li>
+                            <li>What is the significance of the "Weismann barrier" in the context of inheritance of acquired characters?</li>
+                            <li>How did Weismann's experiments (e.g., with mice tails) support his theory?</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="applications" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">settings_applications</span>Applications of Genetics</h2>
+                <p>The knowledge gained from genetics has profound applications across various fields, significantly impacting human life and society.</p>
+                <div class="grid md:grid-cols-2 gap-6 my-4">
+                    <div class="custom-card"><h4>a) Plant and Animal Improvement</h4><p>Genetics has revolutionized agriculture and animal husbandry. Selective breeding techniques, guided by genetic principles, have led to the development of high-yielding varieties (HYV) of crops (a cornerstone of the Green Revolution) and improved livestock with enhanced milk, meat, and egg production.</p><img src="https://images.pexels.com/photos/2252584/pexels-photo-2252584.jpeg?auto=compress&cs=tinysrgb&w=400&h=250&dpr=1" alt="Agricultural improvements" class="mx-auto rounded-lg shadow-sm mt-2" onerror="this.onerror=null;this.src='https://placehold.co/400x250/e2e8f0/64748b?text=Improved+Crops';"></div>
+                    <div class="custom-card"><h4>b) Medicine</h4><p>Genetics plays a vital role in understanding, diagnosing, and treating human diseases. Many conditions, such as hemophilia, cystic fibrosis, sickle cell anemia, certain types of diabetes, and some forms of cancer, have a genetic basis. Molecular medicine utilizes genetic information for developing targeted therapies and personalized treatments.</p><img src="https://images.pexels.com/photos/3993226/pexels-photo-3993226.jpeg?auto=compress&cs=tinysrgb&w=400&h=250&dpr=1" alt="Medical genetics" class="mx-auto rounded-lg shadow-sm mt-2" onerror="this.onerror=null;this.src='https://placehold.co/400x250/e2e8f0/64748b?text=Medical+Genetics';"></div>
+                    <div class="custom-card"><h4>c) Genetic Counseling</h4><p>Knowledge of inheritance patterns allows genetic counselors to assess the risk of individuals or families inheriting or passing on genetic disorders. This information helps families make informed decisions about family planning and health management.</p></div>
+                    <div class="custom-card"><h4>d) Legal Applications</h4><p>Genetic techniques, particularly DNA fingerprinting (also known as DNA profiling), have become indispensable tools in forensic science for criminal identification. They are also used to resolve cases of disputed parentage and in identifying victims of disasters.</p></div>
+                    <div class="custom-card"><h4>e) Genetic Engineering</h4><p>This field involves the direct manipulation of an organism's genes using biotechnology. Genetic engineering has led to the production of life-saving medicines like insulin, development of edible vaccines, creation of transgenic crops with desirable traits (e.g., pest resistance, enhanced nutritional value) for food security, and gene therapy approaches for treating genetic diseases.</p></div>
+                </div>
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                    <ul class="exam-questions-list">
+                        <li>Discuss three major applications of genetics in modern society, providing specific examples for each.</li>
+                        <li>How has genetics contributed to advancements in medicine? Give examples of diseases with known genetic bases.</li>
+                        <li>Explain the role of genetics in plant and animal improvement, referencing the Green Revolution.</li>
+                        <li>What is genetic counseling, and how does it utilize genetic knowledge?</li>
+                        <li>Describe the principle and applications of DNA fingerprinting in legal contexts.</li>
+                        <li>What is genetic engineering, and what are some of its key achievements?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="test-your-understanding" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">quiz</span>Test Your Understanding</h2>
+                <p class="text-sm text-slate-600 mb-4">This section contains questions to help you assess your comprehension of the topics covered. Try to answer them before looking up the information.</p>
+                <div class="question-box"><h4>Question 1:</h4><p>What is the fundamental difference between "Heredity" and "Variation"?</p></div>
+                <div class="question-box"><h4>Question 2:</h4><p>Briefly explain the "Preformation Theory" and why it was eventually rejected.</p></div>
+                <div class="question-box"><h4>Question 3:</h4><p>According to August Weismann's "Germplasm Theory," which type of cells is responsible for transmitting traits to the next generation, and why is this distinction important?</p></div>
+                <div class="question-box"><h4>Question 4: Multiple Choice</h4><p>Which of the following scientists is credited with coining the term "Genetics"?</p><ul class="list-none p-0"><li>A) Gregor Mendel</li><li>B) Charles Darwin</li><li>C) William Bateson</li><li>D) Thomas Hunt Morgan</li></ul></div>
+                <div class="question-box"><h4>Question 5:</h4><p>List three major applications of genetics in modern society and briefly describe one of them.</p></div>
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam (Review)</h4>
+                    <ul class="exam-questions-list">
+                        <li>Define and differentiate between gene, genotype, and phenotype.</li>
+                        <li>Compare and contrast two pre-Mendelian theories of heredity (e.g., Pangenesis vs. Germplasm Theory).</li>
+                        <li>Explain the significance of the discovery of DNA structure in the timeline of genetics.</li>
+                        <li>How can environmental factors influence an organism's phenotype despite its genotype?</li>
+                        <li>Discuss the ethical considerations that might arise from advancements in genetic engineering. (Though not explicitly detailed, a good critical thinking question based on applications)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="references" class="content-section">
+                <h2><span class="material-icons-sharp text-3xl align-middle mr-2">menu_book</span>Reference Books</h2>
+                <p>The information presented is based on common knowledge in the field of genetics and the provided documents. For further reading, the source documents mentioned the following texts:</p>
+                <ul>
+                    <li>Genetics - P.S. Verma and V.K. Agarwal</li>
+                    <li>Principles of Genetics - E.J. Gardner, M.J. Simmons, D.P. Snustad</li>
+                    <li>Genetics - P.K. Gupta</li>
+                </ul>
+                <div class="exam-questions-block">
+                    <h4><span class="material-icons-sharp mr-2">help_outline</span>Important Questions for Your Exam</h4>
+                    <ul class="exam-questions-list">
+                        <li>Why is it important to consult and cite reference books in scientific studies and documentation?</li>
+                        <li>How can referring to established textbooks enhance your understanding of complex topics like genetics?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer class="mt-12 border-t pt-6 text-center text-sm text-gray-500">
+                <p>&copy; <span id="currentYear"></span> Genetics Documentation. All rights reserved.</p>
+                <p>Content based on educational materials on Pre-Mendelian Genetics.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const sidebar = document.getElementById('sidebar');
+        const allSidebarLinks = sidebar.querySelectorAll('a.sidebar-link'); // All actual navigation links
+        const expandableToggles = sidebar.querySelectorAll('.expandable-toggle');
+        const contentSections = document.querySelectorAll('.main-content .content-section'); // Sections in main content for scroll spy
+
+        // Mobile sidebar toggle
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Close mobile sidebar when a link is clicked or clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnMenuButton = mobileMenuButton.contains(event.target);
+            if (sidebar.classList.contains('open')) {
+                if (event.target.closest('a.sidebar-link') || (!isClickInsideSidebar && !isClickOnMenuButton) ) {
+                     sidebar.classList.remove('open');
+                }
+            }
+        });
+        
+        // Expandable sections toggle
+        expandableToggles.forEach(button => {
+            button.addEventListener('click', () => {
+                const submenu = button.nextElementSibling;
+                const icon = button.querySelector('.expand-icon');
+                
+                submenu.classList.toggle('hidden');
+                if (submenu.classList.contains('hidden')) {
+                    icon.textContent = 'chevron_right';
+                } else {
+                    icon.textContent = 'expand_more';
+                }
+            });
+        });
+
+        // Scroll Spy and Active Link Handling
+        function updateActiveLink() {
+            let currentSectionId = "";
+            // Adjusted offset to be slightly higher on the screen for activation
+            const scrollOffset = window.innerHeight * 0.25; 
+
+            contentSections.forEach(section => {
+                const sectionRect = section.getBoundingClientRect();
+                // Check if the top of the section is above the offset
+                // and if the bottom of the section is below the offset (or if it's the last section and partially visible)
+                if (sectionRect.top < scrollOffset && sectionRect.bottom > scrollOffset) {
+                     currentSectionId = "#" + section.getAttribute('id');
+                } else if (sectionRect.top < scrollOffset && sectionRect.top > -sectionRect.height + 50) { 
+                    // Catches sections that are mostly scrolled past but still relevant
+                    if (!currentSectionId) { // Prioritize fully visible sections
+                         currentSectionId = "#" + section.getAttribute('id');
+                    }
+                }
+            });
+            
+            // If no section is actively in the "sweet spot", default to the one whose top is closest to/above the offset
+            if (!currentSectionId) {
+                for (let i = contentSections.length - 1; i >= 0; i--) {
+                    if (contentSections[i].getBoundingClientRect().top < scrollOffset) {
+                        currentSectionId = "#" + contentSections[i].getAttribute('id');
+                        break;
+                    }
+                }
+            }
+            // Fallback to the first section if nothing else is found (e.g., at the very top)
+            if (!currentSectionId && contentSections.length > 0 && window.pageYOffset < scrollOffset) {
+                currentSectionId = "#" + contentSections[0].getAttribute('id');
+            }
+
+
+            // Reset active states
+            allSidebarLinks.forEach(link => link.classList.remove('active'));
+            expandableToggles.forEach(toggle => toggle.classList.remove('parent-active'));
+
+            const activeLink = sidebar.querySelector(`a.sidebar-link[href="${currentSectionId}"]`);
+
+            if (activeLink) {
+                activeLink.classList.add('active');
+                const submenu = activeLink.closest('.submenu');
+
+                if (submenu) {
+                    const toggleButton = submenu.previousElementSibling;
+                    if (toggleButton && toggleButton.classList.contains('expandable-toggle')) {
+                        toggleButton.classList.add('parent-active');
+                        if (submenu.classList.contains('hidden')) {
+                            submenu.classList.remove('hidden');
+                            const icon = toggleButton.querySelector('.expand-icon');
+                            if (icon) icon.textContent = 'expand_more';
+                        }
+                    }
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('resize', updateActiveLink); 
+
+        function initializeActiveState() {
+            let hash = window.location.hash;
+            if (hash) {
+                const targetLink = sidebar.querySelector(`a.sidebar-link[href="${hash}"]`);
+                if (targetLink) {
+                    const targetSection = document.querySelector(hash);
+                    if (targetSection) {
+                        setTimeout(() => {
+                             targetSection.scrollIntoView({ behavior: 'auto', block: 'start' }); // Changed to auto for faster initial load
+                             updateActiveLink(); // Update active link after scroll
+                        }, 0); // Reduced timeout
+                    }
+                    // Expand parent submenu if a child link is targeted by hash
+                    const submenu = targetLink.closest('.submenu');
+                    if (submenu && submenu.classList.contains('hidden')) {
+                        const toggleButton = submenu.previousElementSibling;
+                        submenu.classList.remove('hidden');
+                        const icon = toggleButton.querySelector('.expand-icon');
+                        if (icon) icon.textContent = 'expand_more';
+                        if (toggleButton) toggleButton.classList.add('parent-active');
+                    }
+                } else {
+                     updateActiveLink(); // If hash doesn't match a link, still run normal scroll spy
+                }
+            } else {
+                updateActiveLink();
+            }
+        }
+        
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        window.addEventListener('DOMContentLoaded', initializeActiveState);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Concept of Gene - AgriLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #16a34a; /* Green-600 */
+        --primary-dark: #15803d; /* Green-700 */
+        --primary-light: #22c55e; /* Green-500 */
+        --secondary: #0f766e; /* Teal-700 */
+        --accent: #0891b2; /* Cyan-700 */
+        --background: #f8fafc; /* Slate-50 */
+        --text: #1e293b; /* Slate-800 */
+        --text-light: #64748b; /* Slate-500 */
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+      }
+
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      /* Active link styling */
+      .sidebar-link.active {
+        background-color: #dcfce7; /* Green-100 */
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .sidebar-link.active .material-symbols-outlined {
+        color: var(--primary);
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Content section styling */
+      .content-section h2 {
+        font-size: 1.875rem;
+        font-weight: 600;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: var(--primary-dark);
+      }
+
+      .content-section h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: var(--secondary);
+      }
+
+      .content-section p,
+      .content-section ul,
+      .content-section ol {
+        margin-bottom: 1.25rem;
+        line-height: 1.8;
+        color: var(--text);
+      }
+
+      .content-section ul {
+        list-style-type: disc;
+        padding-left: 1.75rem;
+      }
+
+      .content-section ol {
+        list-style-type: decimal;
+        padding-left: 1.75rem;
+      }
+
+      .content-section strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .content-section code {
+        background-color: #f1f5f9;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.25rem;
+        font-family: monospace;
+        color: var(--primary-dark);
+      }
+
+      .content-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.75rem;
+        margin: 1.5rem auto;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+      }
+
+      .content-section .note {
+        background-color: #dcfce7;
+        border-left: 4px solid var(--primary);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+      }
+
+      .content-section .quiz-prompt {
+        background-color: #f0fdf4;
+        border-left: 4px solid var(--primary);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+      }
+
+      .content-section .quiz-prompt strong {
+        color: var(--primary-dark);
+      }
+
+      /* Sidebar styling */
+      #sidebar {
+        background-color: white;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+      }
+
+      .sidebar-header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1.5rem;
+      }
+
+      .sidebar-header .logo-icon {
+        color: white;
+      }
+
+      .sidebar-header .site-title {
+        color: white;
+        font-weight: 600;
+      }
+
+      .sidebar-link {
+        transition: all 0.2s ease;
+      }
+
+      .sidebar-link:hover {
+        background-color: #dcfce7;
+        color: var(--primary);
+      }
+
+      /* Main content area */
+      #main-content {
+        background-color: var(--background);
+      }
+
+      /* Mobile menu button */
+      #menu-button {
+        color: var(--primary);
+      }
+
+      /* Footer */
+      footer {
+        border-top-color: #e2e8f0;
+        color: var(--text-light);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="fixed inset-y-0 left-0 z-30 w-72 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto"
+      >
+        <div class="sidebar-header flex items-center">
+          <span class="material-symbols-outlined logo-icon text-3xl mr-3"
+            >dna</span
+          >
+          <h1 class="site-title text-xl">Concept of Gene</h1>
+        </div>
+        <nav class="p-4 space-y-1">
+          <a
+            href="#introduction"
+            class="sidebar-link group flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+          >
+            <span
+              class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+              >science</span
+            >
+            Introduction
+          </a>
+          <a
+            href="#modern-concept"
+            class="sidebar-link group flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+          >
+            <span
+              class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+              >biotech</span
+            >
+            Modern Concept
+          </a>
+          <div>
+            <button
+              type="button"
+              class="sidebar-link group flex items-center w-full px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+              onclick="toggleSubmenu('types-of-genes-submenu')"
+            >
+              <span
+                class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+                >category</span
+              >
+              Types of Genes
+              <span
+                class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+                id="types-of-genes-arrow"
+                >chevron_right</span
+              >
+            </button>
+            <div
+              id="types-of-genes-submenu"
+              class="hidden mt-1 ml-4 space-y-1 border-l-2 border-green-200 pl-3"
+            >
+              <a
+                href="#gene-type-housekeeping"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >House Keeping</a
+              >
+              <a
+                href="#gene-type-non-constitutive"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Non-constitutive</a
+              >
+              <a
+                href="#gene-type-multigenes"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Multigenes & Repeated</a
+              >
+              <a
+                href="#gene-type-single-pseudo-processed"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Single, Pseudo, Processed</a
+              >
+              <a
+                href="#gene-type-split"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Split Genes</a
+              >
+              <a
+                href="#gene-type-transposons-overlapping"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Transposons & Overlapping</a
+              >
+              <a
+                href="#gene-type-structural-regulatory"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Structural & Regulatory</a
+              >
+              <a
+                href="#gene-type-tissue-junk"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Tissue Specific & Junk</a
+              >
+            </div>
+          </div>
+          <a
+            href="#gene-functions"
+            class="sidebar-link group flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+          >
+            <span
+              class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+              >functions</span
+            >
+            Gene Functions
+          </a>
+          <a
+            href="#gene-structure-overview"
+            class="sidebar-link group flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+          >
+            <span
+              class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+              >schema</span
+            >
+            Gene Structure Overview
+          </a>
+          <div>
+            <button
+              type="button"
+              class="sidebar-link group flex items-center w-full px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+              onclick="toggleSubmenu('gene-organization-submenu')"
+            >
+              <span
+                class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+                >hub</span
+              >
+              Gene Organization
+              <span
+                class="material-symbols-outlined ml-auto transform transition-transform duration-200"
+                id="gene-organization-arrow"
+                >chevron_right</span
+              >
+            </button>
+            <div
+              id="gene-organization-submenu"
+              class="hidden mt-1 ml-4 space-y-1 border-l-2 border-green-200 pl-3"
+            >
+              <a
+                href="#prokaryotic-gene-structure"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Prokaryotic Genes</a
+              >
+              <a
+                href="#eukaryotic-gene-structure"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Eukaryotic Genes</a
+              >
+              <a
+                href="#significance-of-introns"
+                class="sidebar-link group flex items-center px-4 py-2 text-xs text-slate-600 hover:bg-green-100 hover:text-green-500 rounded-md"
+                >Significance of Introns</a
+              >
+            </div>
+          </div>
+          <a
+            href="#quiz"
+            class="sidebar-link group flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-green-50 hover:text-green-600 rounded-lg transition-colors"
+          >
+            <span
+              class="material-symbols-outlined mr-3 text-slate-500 group-hover:text-green-500"
+              >quiz</span
+            >
+            Knowledge Check
+          </a>
+        </nav>
+      </aside>
+
+      <main
+        id="main-content"
+        class="flex-1 md:ml-72 p-6 sm:p-8 lg:p-10 overflow-y-auto"
+      >
+        <div class="md:hidden flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <span
+              class="material-symbols-outlined logo-icon text-green-600 mr-2 text-2xl"
+              >dna</span
+            >
+            <h1 class="text-xl font-semibold text-green-700">
+              Concept of Gene
+            </h1>
+          </div>
+          <button
+            id="menu-button"
+            class="p-2 rounded-lg text-green-600 hover:bg-green-50 transition-colors"
+          >
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+
+        <section
+          id="introduction"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Introduction to the Concept of Gene</h2>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/DNA_Anatomy.svg/800px-DNA_Anatomy.svg.png"
+            alt="Stylized DNA Helix showing gene segment"
+            class="mb-6 max-w-md mx-auto"
+            onerror="this.onerror=null; this.src='https://placehold.co/800x400/0ea5e9/ffffff?text=Understanding+Genes';"
+          />
+          <p>
+            The journey into understanding heredity has been long and
+            fascinating. At its core lies the <strong>gene</strong>, the
+            fundamental unit of inheritance. This section explores the
+            historical context and foundational definitions of a gene.
+          </p>
+
+          <h3>Historical Perspectives & Definitions</h3>
+          <p>
+            The term <strong>gene</strong> was formally introduced by Danish
+            botanist <strong>Wilhelm Johanssen in 1909</strong>. He defined a
+            gene as an elementary unit of inheritance that could be assigned to
+            a particular trait.
+          </p>
+          <p>
+            However, the concept predates Johanssen.
+            <strong>Gregor Mendel</strong>, in his groundbreaking work with pea
+            plants (published in 1866, though recognized later), used the term
+            <strong>"factor"</strong> to describe these distinct, particulate
+            units of inheritance responsible for the expression of traits.
+          </p>
+          <p>
+            Later, <strong>Thomas Hunt Morgan's</strong> work with fruit flies
+            in the early 20th century provided further insights. His research
+            suggested that genes were the shortest segments of a chromosome that
+            could be separated through <strong>crossing over</strong>, undergo
+            <strong>mutation</strong>, and influence the expression of one or
+            more traits.
+          </p>
+
+          <h3>What is a Gene? - Modern Understanding</h3>
+          <p>Presently, a gene is more precisely defined as:</p>
+          <blockquote>
+            A unit of inheritance composed of a segment of DNA (or RNA in some
+            viruses) located at a specific position (<strong>locus</strong>) on
+            a chromosome. This segment carries coded information associated with
+            a specific function (e.g., the synthesis of a protein or a
+            functional RNA molecule) and can undergo crossing over as well as
+            mutation.
+          </blockquote>
+
+          <p>A gene can be characterized by several key properties:</p>
+          <ul>
+            <li>
+              <strong>Unit of Replication:</strong> It is a segment of genetic
+              material that is able to replicate, ensuring its passage to
+              subsequent generations.
+            </li>
+            <li>
+              <strong>Unit of Recombination:</strong> It is capable of
+              undergoing crossing over, leading to new combinations of genetic
+              material.
+            </li>
+            <li>
+              <strong>Unit of Mutation:</strong> It can undergo changes
+              (mutations) in its DNA sequence, potentially leading to altered
+              traits.
+            </li>
+            <li>
+              <strong>Unit of Heredity & Function:</strong> It is fundamentally
+              connected with somatic structure or function, ultimately leading
+              to a phenotypic expression (an observable characteristic).
+            </li>
+          </ul>
+          <div class="note">
+            <p>
+              <strong>Think about it:</strong> How did the understanding of a
+              "gene" evolve from Mendel's "factors" to our current molecular
+              definition?
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-blue-700 mb-2">
+              <i class="material-symbols-outlined mr-2 align-middle">help</i
+              >Important Questions for Exam
+            </h4>
+            <ul class="list-disc ml-6 text-blue-900">
+              <li>
+                Who first introduced the term 'gene' and how did the definition
+                of gene evolve over time?
+              </li>
+              <li>
+                What were Mendel's 'factors' and how do they relate to the
+                modern concept of a gene?
+              </li>
+              <li>
+                List and briefly describe the four key properties of a gene.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="modern-concept"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Modern Concept of Gene: Cistron, Recon, Muton</h2>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Cistron_recon_muton.svg/600px-Cistron_recon_muton.svg.png"
+            alt="Diagram illustrating Cistron, Recon, and Muton"
+            class="mb-6 max-w-lg mx-auto"
+            onerror="this.onerror=null; this.src='https://placehold.co/800x350/1d4ed8/ffffff?text=Molecular+View+of+Gene';"
+          />
+          <p>
+            The discovery of DNA as the genetic material revolutionized the
+            understanding of genes. The classical concept of a gene as an
+            indivisible unit was refined. It became clear that a gene could be
+            further divided into smaller units related to its function, its
+            ability to recombine, and its susceptibility to mutation.
+          </p>
+          <p>
+            In 1955, <strong>Seymour Benzer</strong>, through his work with
+            bacteriophages (viruses that infect bacteria), coined three crucial
+            terms to explain the relationship between DNA structure and genetic
+            phenomena at a finer scale:
+          </p>
+
+          <h3>a) Cistron: The Unit of Function</h3>
+          <ul>
+            <li>
+              The cistron represents a segment of the DNA molecule that
+              specifies a single functional unit, typically a polypeptide chain
+              (protein) or a functional RNA molecule (like tRNA or rRNA).
+            </li>
+            <li>It consists of a linear sequence of nucleotides.</li>
+            <li>
+              A cistron effectively defines the boundaries of a gene in terms of
+              its functional output. It usually begins with an
+              <strong>initiation codon</strong> (start signal) and ends with a
+              <strong>termination codon</strong> (stop signal).
+            </li>
+            <li>
+              Each cistron is responsible for coding one messenger RNA (mRNA)
+              molecule, which in turn directs the synthesis of one polypeptide
+              chain.
+            </li>
+            <li>
+              A cistron can be thought of as encompassing hundreds of mutons and
+              recons.
+            </li>
+          </ul>
+
+          <h3>b) Recon: The Unit of Recombination</h3>
+          <ul>
+            <li>
+              The recon is the smallest segment of DNA that is capable of
+              undergoing genetic recombination (e.g., through crossing over).
+            </li>
+            <li>
+              Recombination studies, particularly in microbes, indicated that a
+              recon could be as small as one or two pairs of nucleotides,
+              possibly even a single nucleotide pair. This means that
+              recombination can occur *within* a gene, not just between genes.
+            </li>
+          </ul>
+
+          <h3>c) Muton: The Unit of Mutation</h3>
+          <ul>
+            <li>
+              The muton is the shortest chromosomal unit or segment of DNA whose
+              alteration can result in a mutation and a consequent change in
+              phenotype.
+            </li>
+            <li>
+              Like the recon, a muton can be very small, potentially consisting
+              of a single nucleotide pair. A change in even one nucleotide can
+              lead to a mutation.
+            </li>
+          </ul>
+          <div class="note">
+            <p>
+              <strong>Key takeaway:</strong> Benzer's work demonstrated that the
+              gene is not an indivisible "bead on a string" but a divisible
+              segment of DNA with distinct regions for function, recombination,
+              and mutation.
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-blue-700 mb-2">
+              <i class="material-symbols-outlined mr-2 align-middle">help</i
+              >Important Questions for Exam
+            </h4>
+            <ul class="list-disc ml-6 text-blue-900">
+              <li>
+                What are cistron, recon, and muton? Who proposed these terms?
+              </li>
+              <li>
+                How did Seymour Benzer's work change the classical view of the
+                gene?
+              </li>
+              <li>
+                Explain the significance of the divisibility of a gene in
+                molecular genetics.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="types-of-genes"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Types of Genes</h2>
+          <p>
+            Genes can be classified in various ways based on their activity,
+            function, structure, and regulation. Understanding these
+            classifications helps in appreciating the diverse roles genes play
+            within an organism.
+          </p>
+
+          <h3 id="gene-type-housekeeping">
+            1. House Keeping Genes (Constitutive Genes)
+          </h3>
+          <p>
+            These genes are <strong>constantly expressing themselves</strong> in
+            a cell because their products are essential for normal cellular
+            activities and survival. They are always "on."
+          </p>
+          <ul>
+            <li>
+              <strong>Examples:</strong> Genes coding for enzymes involved in
+              glycolysis (basic energy production), ATPase (energy currency),
+              ribosomal proteins, or cytoskeletal proteins.
+            </li>
+          </ul>
+
+          <h3 id="gene-type-non-constitutive">
+            2. Non-constitutive Genes (Luxury Genes or Regulated Genes)
+          </h3>
+          <p>
+            These genes are <strong>not always expressing themselves</strong>.
+            Their expression is regulated, meaning they can be switched "on" or
+            "off" according to the specific needs of the cell or organism at a
+            particular time or in response to environmental cues.
+          </p>
+          <ul>
+            <li>
+              <strong>Examples:</strong> Gene for nitrate reductase in plants
+              (only active when nitrate is available), lactose metabolism (lac
+              operon) genes in <em>Escherichia coli</em> (only active when
+              lactose is present).
+            </li>
+          </ul>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Lac_Operon.svg/600px-Lac_Operon.svg.png"
+            alt="Diagram of the Lac Operon illustrating inducible gene regulation"
+            class="my-4 max-w-md mx-auto"
+            onerror="this.onerror=null; this.src='https://placehold.co/600x250/38bdf8/ffffff?text=Gene+Regulation+Example';"
+          />
+          <p>Non-constitutive genes are further divided into:</p>
+          <h4>a) Inducible Genes</h4>
+          <p>
+            These genes are normally "off" but are
+            <strong>switched "on" (induced)</strong> in response to the presence
+            of a specific chemical substance called an <strong>inducer</strong>.
+            The inducer is often a substrate for the pathway controlled by the
+            gene product.
+          </p>
+          <ul>
+            <li>
+              <strong>Example:</strong> The lac operon genes in
+              <em>E. coli</em> are induced by lactose (or its isomer
+              allolactose). Nitrate acts as an inducer for the nitrate reductase
+              gene.
+            </li>
+          </ul>
+          <h4>b) Repressible Genes</h4>
+          <p>
+            These genes are normally "on" but are
+            <strong>switched "off" (repressed)</strong> when a specific
+            chemical, often an end product of a metabolic pathway, accumulates.
+            This inhibition by an end product is known as
+            <strong>feedback repression</strong>.
+          </p>
+          <ul>
+            <li>
+              <strong>Example:</strong> Genes involved in the synthesis of an
+              amino acid (e.g., tryptophan operon in <em>E. coli</em>) are
+              repressed when sufficient tryptophan is available.
+            </li>
+          </ul>
+
+          <h3 id="gene-type-multigenes">
+            3. Multigenes (Multiple Gene Family)
+          </h3>
+          <p>
+            This refers to a group of similar or nearly similar genes that often
+            arise from gene duplication events. They typically code for products
+            with related functions and may be expressed at different times or in
+            different tissues to meet specific requirements.
+          </p>
+          <ul>
+            <li>
+              <strong>Example:</strong> The globin gene family, which includes
+              genes for different forms of hemoglobin (e.g., embryonic, fetal,
+              adult hemoglobin) that are expressed at different developmental
+              stages.
+            </li>
+          </ul>
+
+          <h3 id="gene-type-repeated">4. Repeated Genes</h3>
+          <p>
+            These genes occur in multiple copies (sometimes hundreds or
+            thousands) within the genome because their products are required in
+            large quantities by the cell.
+          </p>
+          <ul>
+            <li>
+              <strong>Examples:</strong> Genes for ribosomal RNA (rRNA),
+              transfer RNA (tRNA), histone proteins (which package DNA), and
+              actin (a cytoskeletal protein).
+            </li>
+          </ul>
+
+          <h3 id="gene-type-single-pseudo-processed">5. Single Copy Genes</h3>
+          <p>
+            These genes are present in only one copy (or occasionally 2-3
+            copies) per haploid genome. The majority of protein-coding genes in
+            eukaryotes fall into this category.
+          </p>
+          <ul>
+            <li>They form about 60-70% of the functional genes.</li>
+            <li>
+              New genes can arise from single copy genes through processes like
+              duplication, mutation, and exon reshuffling.
+            </li>
+          </ul>
+
+          <h3>6. Pseudogenes (ψ)</h3>
+          <p>
+            Pseudogenes are DNA sequences that show high homology (similarity)
+            to functional genes but are
+            <strong>unable to produce functional products</strong>. They are
+            essentially "disabled" or "fossil" genes.
+          </p>
+          <ul>
+            <li>
+              Reasons for non-functionality include the accumulation of
+              mutations such as intervening nonsense (stop) codons, insertions,
+              deletions, or inactivation of promoter regions.
+            </li>
+            <li>
+              <strong>Example:</strong> Several of the small nuclear RNA (snRNA)
+              genes have pseudogene counterparts. Many olfactory receptor genes
+              in humans are pseudogenes compared to other mammals with a keener
+              sense of smell.
+            </li>
+          </ul>
+
+          <h3>7. Processed Genes (Retrogenes)</h3>
+          <p>
+            These are eukaryotic genes that
+            <strong>lack introns</strong> (non-coding sequences). They are
+            thought to have been formed by reverse transcription of a mature
+            mRNA molecule (which has already had its introns spliced out) back
+            into DNA, followed by reinsertion of this DNA copy into the genome.
+          </p>
+          <ul>
+            <li>
+              This process often involves enzymes like reverse transcriptase,
+              which can be provided by retroviruses or endogenous
+              retrotransposons.
+            </li>
+            <li>
+              Processed genes are generally non-functional because they often
+              lack the necessary promoter sequences for transcription, or they
+              are inserted into regions of the genome where they are not
+              expressed.
+            </li>
+          </ul>
+
+          <h3 id="gene-type-split">
+            8. Split Genes (Genes with Introns and Exons)
+          </h3>
+          <p>
+            Discovered in 1977 by several groups, with credit often given to
+            <strong>Philip Sharp</strong> and
+            <strong>Richard Roberts</strong> (who shared the Nobel Prize for
+            this discovery).
+          </p>
+          <p>
+            Split genes are characterized by having their coding sequences
+            (<strong>exons</strong>) interrupted by non-coding sequences
+            (<strong>introns</strong>, also known as intervening sequences or
+            IVS, or spacer DNA).
+          </p>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Alternative_Splicing_Illustration.svg/700px-Alternative_Splicing_Illustration.svg.png"
+            alt="Diagram illustrating alternative splicing of exons and introns"
+            class="my-4 max-w-lg mx-auto"
+            onerror="this.onerror=null; this.src='https://placehold.co/700x350/22d3ee/ffffff?text=Alternative+Splicing';"
+          />
+          <ul>
+            <li>
+              <strong>Exons:</strong> The essential or coding parts of the gene
+              that are expressed and ultimately translated into protein (or form
+              a functional RNA).
+            </li>
+            <li>
+              <strong>Introns:</strong> The non-essential or non-coding parts
+              that are transcribed into the initial RNA (pre-mRNA) but are then
+              removed through a process called
+              <strong>RNA splicing</strong> before the mature RNA leaves the
+              nucleus.
+            </li>
+            <li>Split genes are a hallmark of eukaryotic genomes.</li>
+            <li>
+              However, some eukaryotic genes are entirely exonic (non-split),
+              such as histone genes and interferon genes.
+            </li>
+            <li>
+              Split genes have also been found in some prokaryotes and viruses
+              (e.g., thymidylate synthase gene and ribonucleotide reductase gene
+              in bacteriophage T4).
+            </li>
+            <li>
+              <strong>Alternative Splicing:</strong> A single gene can produce
+              multiple different proteins by differentially splicing its exons.
+              For example, a gene that produces the hormone calcitonin in the
+              thyroid gland can form a different neuropeptide in the
+              hypothalamus by removing an exon during splicing. Adenoviruses can
+              produce 15-20 different proteins from a single transcriptional
+              unit through differential splicing.
+            </li>
+          </ul>
+
+          <h3 id="gene-type-transposons-overlapping">
+            9. Transposons (Jumping Genes)
+          </h3>
+          <p>
+            First conceptualized by <strong>Barbara McClintock</strong> in 1951
+            from her work with maize (corn), for which she later received the
+            Nobel Prize. The term "transposon" was coined by Hedges and Jacob in
+            1974.
+          </p>
+          <p>
+            Transposons are segments of DNA that have the ability to
+            <strong
+              >move (transpose) from one location in the genome to
+              another</strong
+            >. This "jumping" can occur within the same chromosome or to a
+            different chromosome.
+          </p>
+          <ul>
+            <li>
+              McClintock observed that a segment of DNA moved into a gene coding
+              for pigmented kernels in maize, resulting in light-colored
+              kernels, demonstrating the mutagenic effect of transposition.
+            </li>
+            <li>
+              Transposons can cause mutations, alter gene expression, or lead to
+              chromosomal rearrangements.
+            </li>
+          </ul>
+
+          <h3>10. Overlapping Genes</h3>
+          <p>
+            Overlapping genes are defined as a pair (or more) of adjacent genes
+            whose coding regions are partially or fully overlapping. This means
+            that a single stretch of DNA codes for portions of two or more
+            separate proteins.
+          </p>
+          <ul>
+            <li>
+              This is a way for genomes, especially compact viral genomes, to
+              encode more information within a limited amount of DNA.
+            </li>
+            <li>
+              The different proteins are typically read in different reading
+              frames from the same DNA sequence.
+            </li>
+          </ul>
+
+          <h3 id="gene-type-structural-regulatory">11. Structural Genes</h3>
+          <p>
+            These genes contain the encoded information for the synthesis of
+            chemical substances required for the cellular machinery and overall
+            structure and function of the organism. Their products are directly
+            involved in cellular activities.
+          </p>
+          <p>The chemical substances may be:</p>
+          <ul>
+            <li>
+              <strong>Polypeptides for structural proteins:</strong> e.g.,
+              components of the protoplasm, cell membranes, elastin (ligaments),
+              collagen (tendons, cartilage), actin (muscles), tubulin
+              (microtubules).
+            </li>
+            <li>
+              <strong>Polypeptides for enzymes:</strong> Catalyzing biochemical
+              reactions.
+            </li>
+            <li>
+              <strong>Transport proteins:</strong> e.g., hemoglobin (oxygen
+              transport), lipid-transporting proteins, carrier proteins in cell
+              membranes.
+            </li>
+            <li>
+              <strong>Proteinaceous hormones:</strong> e.g., insulin, growth
+              hormone, parathyroid hormone.
+            </li>
+            <li>
+              <strong
+                >Antibodies, antigens, certain toxins, blood coagulation
+                factors.</strong
+              >
+            </li>
+            <li>
+              <strong>Non-translated RNAs (functional RNAs):</strong> e.g.,
+              transfer RNAs (tRNAs), ribosomal RNAs (rRNAs).
+            </li>
+          </ul>
+          <p>
+            Broadly speaking, structural genes either produce mRNAs that are
+            translated into polypeptides/proteins/enzymes, or they produce
+            non-coding RNAs that have direct functions.
+          </p>
+
+          <h3>12. Regulatory Genes (Regulatory Sequences)</h3>
+          <p>
+            Regulatory genes (or more accurately, regulatory sequences/elements)
+            do not typically transcribe RNAs that directly contribute to the
+            structure or functioning of cells in the same way structural genes
+            do. Instead, they
+            <strong
+              >control the expression (activity) of other genes, particularly
+              structural genes</strong
+            >.
+          </p>
+          <p>Important regulatory sequences include:</p>
+          <ul>
+            <li>
+              <strong>Promoters:</strong> DNA sequences where RNA polymerase
+              binds to initiate transcription.
+            </li>
+            <li>
+              <strong>Terminators:</strong> DNA sequences that signal the end of
+              transcription.
+            </li>
+            <li>
+              <strong>Operators:</strong> DNA sequences where repressor proteins
+              bind to block transcription (common in prokaryotic operons).
+            </li>
+            <li>
+              <strong>Enhancers and Silencers:</strong> DNA sequences that can
+              increase or decrease the transcription of genes, often located at
+              a distance from the gene they regulate.
+            </li>
+          </ul>
+          <p>
+            Some regulatory genes do produce proteins (e.g., repressor proteins,
+            activator proteins, transcription factors). A gene that produces a
+            repressor protein is of an intermediate nature: it's a structural
+            gene for the repressor protein, but that protein then acts as a
+            regulatory molecule.
+          </p>
+
+          <h3 id="gene-type-tissue-junk">13. Tissue Specific Genes</h3>
+          <p>
+            These are genes that are
+            <strong
+              >expressed only in certain specific tissues or cell types</strong
+            >
+            and not in others. Their selective expression is crucial for cell
+            differentiation and the specialized functions of different tissues
+            and organs.
+          </p>
+          <ul>
+            <li>
+              <strong>Example:</strong> The gene for insulin is expressed
+              primarily in the beta cells of the pancreas. The genes for
+              muscle-specific proteins like myosin are expressed in muscle
+              cells.
+            </li>
+          </ul>
+
+          <h3>14. Junk DNA (Non-coding DNA)</h3>
+          <p>
+            This term, now considered somewhat outdated or misleading by many
+            scientists, refers to DNA sequences within a genome that are not
+            known to code for proteins or to have well-defined regulatory
+            functions directly controlling gene expression.
+          </p>
+          <ul>
+            <li>
+              Historically, large portions of eukaryotic genomes (up to 95% or
+              more in humans) that didn't code for proteins were termed "junk
+              DNA."
+            </li>
+            <li>
+              However, research is increasingly revealing that many of these
+              non-coding regions have important roles, including:
+              <ul>
+                <li>
+                  Encoding functional non-coding RNAs (e.g., microRNAs, long
+                  non-coding RNAs) that regulate gene expression.
+                </li>
+                <li>
+                  Containing regulatory elements like enhancers, silencers,
+                  insulators.
+                </li>
+                <li>Playing roles in chromosome structure and organization.</li>
+                <li>
+                  Being involved in the evolution of new genes and possibly in
+                  DNA repair mechanisms.
+                </li>
+              </ul>
+            </li>
+            <li>
+              While some DNA might truly be non-functional remnants of past
+              evolutionary events (like ancient viral DNA integrations), the
+              term "junk DNA" is less used now, with a preference for
+              "non-coding DNA" to acknowledge its potential and often proven
+              functionalities.
+            </li>
+          </ul>
+          <div class="quiz-prompt">
+            <p>
+              <strong>Challenge yourself:</strong> Can you think of an analogy
+              to explain the difference between a structural gene and a
+              regulatory gene?
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-blue-700 mb-2">
+              <i class="material-symbols-outlined mr-2 align-middle">help</i
+              >Important Questions for Exam
+            </h4>
+            <ul class="list-disc ml-6 text-blue-900">
+              <li>
+                Differentiate between housekeeping and non-constitutive genes
+                with examples.
+              </li>
+              <li>
+                What are multigene families? Give an example and explain their
+                significance.
+              </li>
+              <li>What are pseudogenes and how do they arise?</li>
+              <li>
+                Explain the concept of split genes and their importance in
+                eukaryotes.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="gene-functions"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Gene Functions</h2>
+          <img
+            src="https://placehold.co/800x300/16a34a/ffffff?text=The+Many+Roles+of+Genes"
+            alt="Conceptual illustration of diverse gene functions"
+            class="mb-6"
+            onerror="this.onerror=null; this.src='https://placehold.co/800x300/16a34a/ffffff?text=The+Roles+of+Genes';"
+          />
+          <p>
+            Genes are the master architects and engineers of life, orchestrating
+            a vast array of biological processes. Their functions are
+            multifaceted and essential for the existence, continuity, and
+            evolution of organisms.
+          </p>
+          <ul>
+            <li>
+              <strong>Units of Inheritance:</strong> Genes are the fundamental
+              components of genetic material, carrying hereditary information
+              from one generation to the next.
+            </li>
+            <li>
+              <strong>Control of Phenotype:</strong> They determine the
+              observable characteristics (morphology, physiology, behavior) of
+              individuals.
+            </li>
+            <li>
+              <strong>Replication for Cell Division:</strong> The precise
+              replication of genes is crucial for cell division (mitosis and
+              meiosis), ensuring that daughter cells receive a complete set of
+              genetic instructions.
+            </li>
+            <li>
+              <strong>Control of Metabolism and Structure:</strong> Genes direct
+              the synthesis of proteins (including enzymes) that control the
+              structure and metabolic activities of the body.
+            </li>
+            <li>
+              <strong>Generation of Variation:</strong> Reshuffling of genes
+              during sexual reproduction (through processes like independent
+              assortment and crossing over) produces genetic variation, which is
+              the raw material for evolution.
+            </li>
+            <li>
+              <strong>Linkage and Recombination:</strong> Genes located on the
+              same chromosome tend to be inherited together (linkage), but
+              crossing over can create new combinations of alleles on a
+              chromosome.
+            </li>
+            <li>
+              <strong>Mutation and Evolution:</strong> Genes can undergo
+              mutations (changes in their DNA sequence), which can lead to
+              altered traits. Mutations are a primary source of new genetic
+              variation and are fundamental to evolution.
+            </li>
+            <li>
+              <strong>Formation of New Genes and Traits:</strong> Processes like
+              exon shuffling (recombination of exons from different genes) and
+              intron dynamics can contribute to the evolution of new genes and,
+              consequently, new traits.
+            </li>
+            <li>
+              <strong>Modulation of Gene Expression:</strong> The expression of
+              genes can be influenced by their position in the genome (position
+              effect) and by the activity of transposable elements
+              (transposons).
+            </li>
+            <li>
+              <strong>Cellular Differentiation:</strong> The development of
+              different types of cells, tissues, and organs in a multicellular
+              organism is controlled by the differential expression of genes –
+              certain genes are activated while others are silenced in specific
+              cell lineages.
+            </li>
+            <li>
+              <strong>Control of Development:</strong> The entire process of
+              development, from a fertilized egg to a mature organism, including
+              the various stages in the life history, is orchestrated by the
+              regulated expression of genes.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-blue-700 mb-2">
+              <i class="material-symbols-outlined mr-2 align-middle">help</i
+              >Important Questions for Exam
+            </h4>
+            <ul class="list-disc ml-6 text-blue-900">
+              <li>
+                List and explain three major functions of genes in living
+                organisms.
+              </li>
+              <li>
+                How do genes contribute to genetic variation and evolution?
+              </li>
+              <li>What is the role of genes in cellular differentiation?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="gene-structure-overview"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Gene Structure Overview</h2>
+          <p>
+            Understanding the structure of a gene is key to understanding how it
+            functions. While there are differences between prokaryotic and
+            eukaryotic genes (discussed later), a general overview involves how
+            genetic information flows from DNA to protein.
+          </p>
+
+          <h3>From DNA to Protein: The Central Dogma</h3>
+          <p>
+            The central dogma of molecular biology describes the two-step
+            process, transcription and translation, by which the information in
+            genes flows into proteins: <strong>DNA → RNA → Protein</strong>.
+          </p>
+
+          <figure class="my-6">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Gene_structure_eukaryotic_annotated.svg/800px-Gene_structure_eukaryotic_annotated.svg.png"
+              alt="Diagram of Eukaryotic Gene Structure and Expression"
+              class="mx-auto shadow-lg rounded-lg max-w-2xl"
+              onerror="this.onerror=null; this.src='https://placehold.co/800x450/7c3aed/ffffff?text=Eukaryotic+Gene+Expression+Diagram';"
+            />
+            <figcaption class="text-center text-sm text-gray-600 mt-2">
+              Simplified overview of eukaryotic gene expression, from DNA to
+              protein. (Source: Wikimedia Commons, adapted)
+            </figcaption>
+          </figure>
+          <p>
+            The diagram above illustrates the key steps in a eukaryotic cell:
+          </p>
+          <ol>
+            <li>
+              <strong>DNA within a Chromosome:</strong> Genes are segments of
+              DNA located on chromosomes within the nucleus.
+            </li>
+            <li>
+              <strong>Transcription:</strong> The DNA sequence of a gene is
+              copied (transcribed) into a molecule of RNA, specifically
+              messenger RNA (mRNA). In eukaryotes, this initial transcript is
+              called pre-mRNA and includes both exons (coding regions) and
+              introns (non-coding regions).
+            </li>
+            <li>
+              <strong>RNA Processing (in Eukaryotes):</strong>
+              <ul>
+                <li>
+                  <strong>Capping:</strong> A modified guanine nucleotide (5'
+                  cap) is added to the 5' end of the pre-mRNA. This helps in
+                  mRNA export from the nucleus, protects it from degradation,
+                  and is involved in ribosome binding for translation.
+                </li>
+                <li>
+                  <strong>Splicing:</strong> Introns are removed from the
+                  pre-mRNA, and the exons are joined together to form a
+                  continuous coding sequence.
+                </li>
+                <li>
+                  <strong>Polyadenylation:</strong> A tail of adenine
+                  nucleotides (poly-A tail) is added to the 3' end. This also
+                  aids in export, stability, and translation initiation.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Mature mRNA:</strong> After processing, the mature mRNA
+              molecule moves from the nucleus to the cytoplasm through nuclear
+              pores.
+            </li>
+            <li>
+              <strong>Translation:</strong> In the cytoplasm, ribosomes bind to
+              the mRNA and "read" its sequence of codons (three-nucleotide
+              units). Each codon specifies a particular amino acid. Transfer RNA
+              (tRNA) molecules bring the corresponding amino acids to the
+              ribosome, and they are joined together to form a polypeptide
+              chain, which then folds into a functional protein.
+            </li>
+          </ol>
+
+          <h3>Exons and Introns: The Split Nature of Eukaryotic Genes</h3>
+          <figure class="my-6">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Exon-intron_gene_structure.svg/600px-Exon-intron_gene_structure.svg.png"
+              alt="Diagram showing exons and introns in DNA and RNA processing"
+              class="mx-auto shadow-lg rounded-lg max-w-xl"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x300/0891b2/ffffff?text=Exon-Intron+Splicing+Diagram';"
+            />
+            <figcaption class="text-center text-sm text-gray-600 mt-2">
+              Illustration of a split gene with exons and introns, and the
+              process of splicing. (Source: Wikimedia Commons, adapted)
+            </figcaption>
+          </figure>
+          <p>
+            The diagram above further details the concept of split genes in
+            eukaryotes:
+          </p>
+          <ul>
+            <li>
+              <strong>DNA Level:</strong> The gene on the DNA contains both
+              exons (coding regions, shown in color) and introns (non-coding
+              regions, shown as lighter segments).
+            </li>
+            <li>
+              <strong>Transcription:</strong> The entire gene, including both
+              exons and introns, is transcribed into a primary RNA transcript
+              (pre-mRNA). A 5' cap and 3' poly-A tail are added.
+            </li>
+            <li>
+              <strong>Splicing:</strong> The introns are precisely cut out, and
+              the exons are spliced (joined) together to form the mature mRNA
+              transcript. This mature mRNA contains only the coding sequences
+              that will be translated into protein.
+            </li>
+          </ul>
+          <p>
+            The image also shows an electron micrograph (b) and its
+            interpretation (c) where an mRNA molecule is hybridized (paired up)
+            with its corresponding DNA gene. The introns in the DNA loop out
+            because they have no corresponding sequence in the mature mRNA.
+          </p>
+          <div
+            class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-blue-700 mb-2">
+              <i class="material-symbols-outlined mr-2 align-middle">help</i
+              >Important Questions for Exam
+            </h4>
+            <ul class="list-disc ml-6 text-blue-900">
+              <li>Describe the central dogma of molecular biology.</li>
+              <li>
+                What are exons and introns? How are they processed during gene
+                expression?
+              </li>
+              <li>
+                Explain the steps from DNA to protein in a eukaryotic cell.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="gene-organization"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Gene Organization: Prokaryotes vs. Eukaryotes</h2>
+          <p>
+            While the fundamental concept of a gene as a unit of heredity is
+            universal, its structure and organization differ significantly
+            between prokaryotic organisms (like bacteria and archaea) and
+            eukaryotic organisms (like plants, animals, fungi, and protists).
+          </p>
+
+          <h3 id="prokaryotic-gene-structure">Prokaryotic Gene Structure</h3>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Prokaryote_gene_structure.svg/700px-Prokaryote_gene_structure.svg.png"
+            alt="Simplified Prokaryotic Gene Structure with Promoter, Coding Region, and Terminator"
+            class="my-4 max-w-lg mx-auto"
+            onerror="this.onerror=null; this.src='https://placehold.co/700x250/fb923c/ffffff?text=Prokaryotic+Gene+Structure';"
+          />
+          <p>
+            Prokaryotic genes are generally simpler and more compact than
+            eukaryotic genes. They are typically composed of three main regions:
+          </p>
+          <ol>
+            <li>
+              <strong>Promoter Region:</strong>
+              <ul>
+                <li>
+                  Located <strong>upstream</strong> (to the 5' side) of the RNA
+                  coding sequence.
+                </li>
+                <li>
+                  This is the DNA sequence where
+                  <strong>RNA polymerase</strong> (the enzyme responsible for
+                  transcription) binds to initiate RNA synthesis.
+                </li>
+                <li>
+                  The promoter provides the location and direction for
+                  transcription initiation.
+                </li>
+                <li>
+                  Key consensus sequences (highly conserved sequences) in
+                  bacterial promoters include:
+                  <ul>
+                    <li>
+                      <strong>-10 sequence (Pribnow Box):</strong> Typically
+                      TATAAT, located about 10 base pairs upstream of the
+                      transcription start site.
+                    </li>
+                    <li>
+                      <strong>-35 sequence:</strong> Typically TTGACA, located
+                      about 35 base pairs upstream.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  These sequences are recognized by transcription factors
+                  (specifically the sigma factor subunit of RNA polymerase in
+                  bacteria).
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>RNA Coding Sequence (Transcribed Region):</strong>
+              <ul>
+                <li>
+                  This is the actual DNA sequence that is copied (transcribed)
+                  into an RNA molecule (mRNA, tRNA, or rRNA).
+                </li>
+                <li>
+                  It starts with an <strong>initiator codon</strong> (e.g., ATG
+                  in DNA, which becomes AUG in mRNA, often coding for
+                  methionine) and ends with a
+                  <strong>termination codon</strong> (e.g., TAA, TAG, TGA in
+                  DNA).
+                </li>
+                <li>
+                  A crucial characteristic of prokaryotic protein-coding genes
+                  is that they are generally
+                  <strong>continuous and uninterrupted</strong>; they
+                  <strong>do not contain introns</strong>.
+                </li>
+                <li>
+                  The DNA sequence is <strong>collinear</strong> with its mRNA
+                  product, meaning there's a direct correspondence between the
+                  nucleotide sequence in the DNA and the amino acid sequence in
+                  the protein (after accounting for the genetic code).
+                </li>
+                <li>
+                  Nucleotides upstream of the transcription start site (+1) are
+                  denoted with negative numbers (e.g., -10, -35), while those
+                  downstream are positive.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Terminator Region:</strong>
+              <ul>
+                <li>
+                  Located <strong>downstream</strong> (to the 3' side) of the
+                  RNA coding sequence.
+                </li>
+                <li>
+                  This DNA sequence signals RNA polymerase to stop
+                  transcription.
+                </li>
+                <li>
+                  Transcription termination in prokaryotes can occur through two
+                  main mechanisms:
+                  <ul>
+                    <li>
+                      <strong>Rho-dependent termination:</strong> Requires a
+                      protein factor called Rho.
+                    </li>
+                    <li>
+                      <strong
+                        >Rho-independent termination (Intrinsic
+                        termination):</strong
+                      >
+                      Relies on specific sequences in the DNA/RNA that form a
+                      hairpin structure followed by a string of uracils in the
+                      RNA, causing RNA polymerase to dissociate.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ol>
+          <p>
+            The region 5' of the promoter is called the
+            <strong>upstream sequence</strong>, and the region 3' of the
+            terminator is the <strong>downstream sequence</strong>.
+          </p>
+
+          <h3 id="eukaryotic-gene-structure">Eukaryotic Gene Structure</h3>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Eukaryotic_gene_structure_with_enhancer.svg/700px-Eukaryotic_gene_structure_with_enhancer.svg.png"
+            alt="Simplified Eukaryotic Gene Structure showing exons, introns, promoter, enhancer"
+            class="my-4 max-w-xl mx-auto"
+            onerror="this.onerror=null; this.src='https://placehold.co/700x350/818cf8/ffffff?text=Eukaryotic+Gene+Structure';"
+          />
+          <p>
+            Eukaryotic genes are generally more complex in structure and
+            regulation compared to prokaryotic genes. They are composed of
+            several distinct regions:
+          </p>
+          <ul>
+            <li>
+              <strong>Exons:</strong> The coding sequences that are transcribed
+              and ultimately translated into amino acids in a polypeptide chain
+              (or form functional RNAs). A gene starts and ends with exons. Some
+              exons may include untranslated regions (UTRs) at the beginning or
+              end of the mRNA. Exons vary in number, sequence, and length.
+            </li>
+            <li>
+              <strong>Introns:</strong> Non-coding sequences that are
+              interspersed between exons. They are transcribed into the primary
+              RNA transcript (pre-mRNA) but are then removed during RNA
+              processing (splicing) before the mature mRNA is translated. All
+              introns typically share conserved sequences at their boundaries:
+              <strong>GT</strong> at the 5' end (splice donor site) and
+              <strong>AG</strong> at the 3' end (splice acceptor site). Introns
+              were first discovered in 1977 independently by Phillip Sharp and
+              Richard Roberts.
+            </li>
+            <li>
+              <strong>Promoter Sequences:</strong> Regulatory regions of DNA
+              located upstream (5') of the transcription start site, controlling
+              gene expression. Eukaryotic promoters are more diverse and complex
+              than prokaryotic ones.
+              <ul>
+                <li>
+                  <strong>Core Promoter:</strong> Contains the transcription
+                  start site (often around -34 bp relative to the start) and
+                  binding sites for general transcription factors and RNA
+                  polymerase (typically RNA Polymerase II for protein-coding
+                  genes). Common elements include the TATA box (similar to
+                  Pribnow box, but often around -25 to -30 bp).
+                </li>
+                <li>
+                  <strong>Proximal Promoter:</strong> Contains primary
+                  regulatory elements located further upstream (e.g., -100 to
+                  -200 bp). These bind specific transcription factors that
+                  modulate the level and timing of transcription.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Terminator Sequences:</strong> Signal the end of
+              transcription. Eukaryotic termination is often linked to
+              polyadenylation signals.
+            </li>
+            <li>
+              <strong>Upstream Sequences (5' Flanking Region):</strong>
+              <ul>
+                <li>Includes the promoter and other regulatory elements.</li>
+                <li>
+                  The transcribed portion just before the start codon forms the
+                  <strong>5' Untranslated Region (5'UTR)</strong> in the mRNA.
+                  The 5'UTR has roles in mRNA transport, stability, and
+                  initiation of translation.
+                </li>
+                <li>
+                  Contains signals for the addition of the
+                  <strong>5' cap</strong> (a modified 7-methylguanosine) to the
+                  mRNA. The cap facilitates translation initiation and
+                  stabilizes the mRNA.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Downstream Sequences (3' Flanking Region):</strong>
+              <ul>
+                <li>
+                  Includes sequences involved in transcription termination and
+                  polyadenylation.
+                </li>
+                <li>
+                  The transcribed portion after the stop codon forms the
+                  <strong>3' Untranslated Region (3'UTR)</strong> in the mRNA.
+                  The 3'UTR influences mRNA stability, localization, and
+                  translation efficiency. It contains the signal (e.g., AAUAAA)
+                  for the addition of the <strong>poly-A tail</strong> (a string
+                  of adenine nucleotides) to the 3' end of the mRNA. The poly-A
+                  tail also contributes to mRNA stability and translation.
+                </li>
+                <li>
+                  The translation termination codon (e.g., TAA, TAG, TGA in DNA)
+                  is part of the last exon.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Enhancers and Silencers:</strong> Regulatory DNA sequences
+              that can be located far upstream, downstream, or even within
+              introns of a gene.
+              <ul>
+                <li>
+                  <strong>Enhancers:</strong> Bind activator proteins to
+                  increase the rate of transcription.
+                </li>
+                <li>
+                  <strong>Silencers:</strong> Bind repressor proteins to
+                  decrease or shut down transcription.
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3 id="significance-of-introns">Significance of Introns</h3>
+          <p>
+            While introns do not code for proteins, they are not merely "junk."
+            They have several important cellular activities and evolutionary
+            implications:
+          </p>
+          <ul>
+            <li>
+              <strong>Regulatory Roles:</strong> Many introns encode small RNAs
+              (e.g., microRNAs, snoRNAs) that are major regulators of gene
+              expression. They can also contain regulatory sequences (like
+              enhancers or silencers) that control transcription and mRNA
+              processing.
+            </li>
+            <li>
+              <strong>Alternative Splicing:</strong> Introns allow for
+              <strong>alternative splicing</strong>, a process where different
+              combinations of exons from the same gene can be joined together.
+              This enables a single gene to produce multiple different mRNA
+              molecules and, consequently, multiple different proteins
+              (isoforms) with potentially different functions. This greatly
+              expands the coding capacity of the genome.
+            </li>
+            <li>
+              <strong>Evolutionary Role (Exon Shuffling):</strong> Introns can
+              facilitate recombination between exons of different genes, a
+              process called <strong>exon shuffling</strong>. This can lead to
+              the creation of new genes with novel combinations of functional
+              domains (encoded by exons), playing an important role in
+              evolution.
+            </li>
+            <li>
+              <strong>Regulation of mRNA Export and Stability:</strong> The
+              process of splicing itself can influence how efficiently mRNA is
+              exported from the nucleus and its stability in the cytoplasm.
+            </li>
+          </ul>
+          <div class="note">
+            <p>
+              <strong>Compare & Contrast:</strong> What are the top 3
+              differences between prokaryotic and eukaryotic gene structure?
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-blue-700 mb-2">
+              <i class="material-symbols-outlined mr-2 align-middle">help</i
+              >Important Questions for Exam
+            </h4>
+            <ul class="list-disc ml-6 text-blue-900">
+              <li>
+                Compare the structure of prokaryotic and eukaryotic genes.
+              </li>
+              <li>
+                What is the significance of promoters and terminators in gene
+                expression?
+              </li>
+              <li>How do enhancers and silencers regulate gene activity?</li>
+              <li>What is the evolutionary significance of introns?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="quiz"
+          class="content-section bg-white rounded-xl p-6 shadow-sm"
+        >
+          <h2>Knowledge Check</h2>
+          <p>
+            Test your understanding of the concepts covered. These questions are
+            designed to help you recall and apply what you've learned.
+          </p>
+
+          <div class="quiz-prompt">
+            <strong>1. Who coined the term "gene" in 1909?</strong>
+            <p class="text-sm text-gray-500 mt-1">
+              (Scroll down for a hint or think about the historical figures
+              mentioned.)
+            </p>
+          </div>
+
+          <div class="quiz-prompt mt-4">
+            <strong
+              >2. What are the three functional units of a gene proposed by
+              Seymour Benzer?</strong
+            >
+            <p class="text-sm text-gray-500 mt-1">
+              (Think about function, recombination, and mutation.)
+            </p>
+          </div>
+
+          <div class="quiz-prompt mt-4">
+            <strong
+              >3. Explain the difference between an exon and an intron.</strong
+            >
+            <p class="text-sm text-gray-500 mt-1">
+              (Consider their roles in protein synthesis and their fate during
+              RNA processing.)
+            </p>
+          </div>
+
+          <div class="quiz-prompt mt-4">
+            <strong
+              >4. What is the primary difference in gene structure regarding
+              introns between most prokaryotic and eukaryotic genes?</strong
+            >
+            <p class="text-sm text-gray-500 mt-1">
+              (Think about continuity of coding sequences.)
+            </p>
+          </div>
+
+          <div class="quiz-prompt mt-4">
+            <strong
+              >5. Give one example of a "House Keeping Gene" and one example of
+              a "Non-constitutive Gene."</strong
+            >
+            <p class="text-sm text-gray-500 mt-1">
+              (Consider genes essential for basic cell function versus those
+              regulated by specific needs.)
+            </p>
+          </div>
+
+          <div class="note mt-6">
+            <p>
+              <strong>Further Exploration:</strong> Consider researching a
+              specific genetic disorder and how a mutation in a particular gene
+              leads to the condition. This can provide a real-world context to
+              the concepts discussed.
+            </p>
+          </div>
+        </section>
+
+        <footer
+          class="mt-12 pt-8 border-t border-slate-200 text-center text-sm text-slate-500"
+        >
+          <p>
+            &copy; <span id="currentYear"></span> AgriLearn. All rights
+            reserved.
+          </p>
+          <p class="mt-2">
+            Content based on "Concept of Gene" and expanded for clarity.
+          </p>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      const menuButton = document.getElementById("menu-button");
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.getElementById("main-content");
+
+      menuButton.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+      });
+
+      // Close sidebar when a link is clicked on mobile
+      const sidebarLinks = sidebar.querySelectorAll("a");
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 768) {
+            // md breakpoint
+            sidebar.classList.add("-translate-x-full");
+          }
+        });
+      });
+
+      // Close sidebar if user clicks outside of it on mobile
+      document.addEventListener("click", function (event) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnMenuButton = menuButton.contains(event.target);
+
+        if (
+          !isClickInsideSidebar &&
+          !isClickOnMenuButton &&
+          window.innerWidth < 768
+        ) {
+          if (!sidebar.classList.contains("-translate-x-full")) {
+            sidebar.classList.add("-translate-x-full");
+          }
+        }
+      });
+
+      // Update current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+      // Active sidebar link highlighting based on scroll
+      const sections = document.querySelectorAll(".content-section");
+      const navLinks = document.querySelectorAll("#sidebar nav a.sidebar-link"); // Select only main links for now
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          // Adjust offset if you have a fixed header
+          if (pageYOffset >= sectionTop - sectionHeight / 3) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+            // Expand parent submenu if active link is inside a submenu
+            const parentSubmenu = link.closest('div[id$="-submenu"]');
+            if (parentSubmenu && parentSubmenu.classList.contains("hidden")) {
+              const buttonId = parentSubmenu.id.replace("-submenu", "-arrow");
+              const arrow = document.getElementById(buttonId);
+              if (arrow) {
+                // parentSubmenu.classList.remove('hidden');
+                // arrow.classList.add('rotate-90'); // Assuming chevron_down is used when open
+              }
+            }
+          }
+        });
+      });
+
+      // Submenu toggle
+      function toggleSubmenu(submenuId) {
+        const submenu = document.getElementById(submenuId);
+        const arrow = document.getElementById(
+          submenuId.replace("-submenu", "-arrow")
+        );
+        if (submenu) {
+          submenu.classList.toggle("hidden");
+          if (arrow) {
+            arrow.classList.toggle("rotate-90"); // Rotates chevron_right to become chevron_down like
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

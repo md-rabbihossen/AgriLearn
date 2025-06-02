@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spices & Condiments Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        scroll-behavior: smooth;
+      }
+      .content-section h2,
+      .content-section h3,
+      .content-section h4 {
+        font-family: "Playfair Display", serif;
+        scroll-margin-top: 80px; /* Adjust for fixed header height */
+      }
+      .sidebar-link {
+        transition: all 0.3s ease;
+      }
+      .sidebar-link:hover,
+      .sidebar-link.active {
+        background-color: #f59e0b; /* Amber-500 */
+        color: white;
+        transform: translateX(5px);
+      }
+      .sidebar-submenu-link:hover,
+      .sidebar-submenu-link.active {
+        color: #f59e0b; /* Amber-500 */
+      }
+      .quiz-answer {
+        display: none;
+        transition: all 0.3s ease-in-out;
+      }
+      .quiz-question.open .quiz-answer {
+        display: block;
+      }
+      /* Custom scrollbar for webkit browsers */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d97706; /* Amber-600 */
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #b45309; /* Amber-700 */
+      }
+      .table-responsive {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #e5e7eb; /* Gray-200 */
+        padding: 0.75rem;
+        text-align: left;
+      }
+      th {
+        background-color: #f3f4f6; /* Gray-100 */
+      }
+      .card {
+        background-color: white;
+        border-radius: 0.75rem; /* 12px */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 1.5rem; /* 24px */
+        margin-bottom: 1.5rem; /* 24px */
+      }
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem; /* 6px */
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+      .btn-primary {
+        background-color: #f59e0b; /* Amber-500 */
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #d97706; /* Amber-600 */
+      }
+      .btn-secondary {
+        background-color: #e5e7eb; /* Gray-200 */
+        color: #374151; /* Gray-700 */
+      }
+      .btn-secondary:hover {
+        background-color: #d1d5db; /* Gray-300 */
+      }
+      #scrollToTopBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        z-index: 100;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <header
+      class="bg-amber-600 text-white p-4 fixed top-0 left-0 right-0 z-50 shadow-md flex justify-between items-center"
+    >
+      <h1 class="text-2xl font-bold font-['Playfair_Display']">
+        Spices & Condiments Guide
+      </h1>
+      <button id="mobileMenuBtn" class="lg:hidden text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+
+    <div class="flex pt-16">
+      <aside
+        id="sidebar"
+        class="bg-slate-100 w-72 min-h-screen p-4 space-y-4 border-r border-slate-300 fixed lg:relative transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 overflow-y-auto"
+        style="max-height: calc(100vh - 4rem)"
+      >
+        <div class="mb-4">
+          <input
+            type="search"
+            placeholder="Search documentation..."
+            class="w-full p-2 border border-slate-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"
+          />
+        </div>
+        <nav>
+          <ul class="space-y-1">
+            <li>
+              <a
+                href="#introduction"
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700"
+                ><i class="fas fa-book-open w-5 mr-2"></i>Introduction</a
+              >
+            </li>
+            <li>
+              <span
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700 cursor-pointer"
+                onclick="toggleSubmenu('submenu-concepts')"
+                ><i class="fas fa-lightbulb w-5 mr-2"></i>Core Concepts
+                <i class="fas fa-chevron-down float-right"></i
+              ></span>
+              <ul id="submenu-concepts" class="ml-4 mt-1 space-y-1 hidden">
+                <li>
+                  <a
+                    href="#what-are-spices"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >What are Spices?</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#what-are-condiments"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >What are Condiments?</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#culinary-herbs"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Culinary Herbs</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700 cursor-pointer"
+                onclick="toggleSubmenu('submenu-classification')"
+                ><i class="fas fa-sitemap w-5 mr-2"></i>Classification
+                <i class="fas fa-chevron-down float-right"></i
+              ></span>
+              <ul
+                id="submenu-classification"
+                class="ml-4 mt-1 space-y-1 hidden"
+              >
+                <li>
+                  <a
+                    href="#classification-intro"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Overview</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-by-parts"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >By Parts Used</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-by-economic"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >By Economic Importance</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-by-climatic"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >By Climatic Requirement</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-by-origin-flavor"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >By Origin & Flavor</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-by-growing-season"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >By Growing Season</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-by-growth-habit"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >By Growth Habit</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#classification-botanical-descriptions"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Botanical Descriptions</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700 cursor-pointer"
+                onclick="toggleSubmenu('submenu-context')"
+                ><i class="fas fa-seedling w-5 mr-2"></i>Context & Cultivation
+                <i class="fas fa-chevron-down float-right"></i
+              ></span>
+              <ul id="submenu-context" class="ml-4 mt-1 space-y-1 hidden">
+                <li>
+                  <a
+                    href="#importance-of-spices"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Importance of Spices</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#problems-in-cultivation"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Problems in Cultivation</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#scope-for-cultivation"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Scope for Cultivation</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#present-situations"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Present Situations</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                href="#international-spicy-food-day"
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700"
+                ><i class="fas fa-calendar-alt w-5 mr-2"></i>Intl. Spicy Food
+                Day</a
+              >
+            </li>
+            <li>
+              <span
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700 cursor-pointer"
+                onclick="toggleSubmenu('submenu-featured-spices')"
+                ><i class="fas fa-pepper-hot w-5 mr-2"></i>Featured Spices
+                <i class="fas fa-chevron-down float-right"></i
+              ></span>
+              <ul
+                id="submenu-featured-spices"
+                class="ml-4 mt-1 space-y-1 hidden"
+              >
+                <li>
+                  <a
+                    href="#cardamom"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Cardamom</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#turmeric"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Turmeric</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#onion"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Onion</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#cinnamon"
+                    class="sidebar-submenu-link block p-1.5 rounded-lg text-slate-600"
+                    >Cinnamon</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a
+                href="#general-quiz"
+                class="sidebar-link block p-2 rounded-lg font-medium text-slate-700"
+                ><i class="fas fa-question-circle w-5 mr-2"></i>Test Your
+                Knowledge</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main
+        class="flex-1 p-6 md:p-10 bg-white overflow-y-auto"
+        style="max-height: calc(100vh - 4rem)"
+      >
+        <section id="introduction" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Introduction to Spices & Condiments
+          </h2>
+          <p class="mb-4 text-lg leading-relaxed">
+            Welcome to the comprehensive guide on Spices and Condiments. This
+            documentation explores the fascinating world of these essential
+            culinary ingredients, their classifications, uses, and cultivation.
+          </p>
+          <div
+            class="bg-amber-50 border-l-4 border-amber-500 text-amber-700 p-4 rounded-md"
+            role="alert"
+          >
+            <p class="font-bold">Concept Origin</p>
+            <p>
+              This guide is based on materials from the Faculty of Agriculture,
+              অঙ্কুর'৮০ Batch.
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Define spices and condiments. How does the ISO define them?
+              </li>
+              <li>List three general groups into which spices are divided.</li>
+              <li>What are the main functions and properties of spices?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="what-are-spices" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            What are Spices?
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Spices are plant products primarily used to flavor food due to their
+            distinct aromas and processing properties. They can make food more
+            pungent, stimulating, or pleasantly sharp. Spices often contain
+            essential oils that provide flavor and taste, and many can increase
+            the shelf life of food. They are used whole, ground, as a paste, or
+            in liquid form.
+          </p>
+          <p class="mb-4 leading-relaxed">
+            According to the International Organization for Standardization
+            (ISO), spices and condiments refer to natural plant or vegetable
+            products (or mixtures) used in whole or ground form for imparting
+            flavor, aroma, piquancy, or taste, and for seasoning foods.
+          </p>
+          <p class="mb-4 leading-relaxed">
+            There is no clear cut division between 'spices' and 'condiments' and
+            as such they have been clubbed together.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            General Grouping
+          </h3>
+          <p class="mb-4 leading-relaxed">
+            Spices are generally divided into three groups:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>Spice</li>
+            <li>Condiment</li>
+            <li>Culinary herb</li>
+          </ul>
+          <p class="mb-4 leading-relaxed">
+            A spice is typically used during cooking or baking to add flavor,
+            aroma, color, and texture. Examples include onion, garlic, turmeric,
+            ginger, chili, cardamom, and cinnamon. Spices can also be used in
+            medicine, religious rituals, cosmetics, or perfume production.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            Functions and Properties of Spices:
+          </h3>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>Act as antioxidants.</li>
+            <li>Act as antimicrobial compounds.</li>
+            <li>Added at the initial stage of food preparation.</li>
+            <li>
+              Can be simple or complex, and used in condiment preparation.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-green-50 border-l-4 border-green-500 rounded-md"
+          >
+            <h4 class="text-xl font-semibold text-green-700 mb-2">
+              <i class="fas fa-flask mr-2"></i>Did You Know?
+            </h4>
+            <p class="text-green-600">
+              Many spices not only enhance flavor but also possess significant
+              health benefits due to their antioxidant and antimicrobial
+              properties!
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>What are the main functions and properties of spices?</li>
+              <li>Name two examples of spices used in medicine.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="what-are-condiments" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            What are Condiments?
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Condiments are prepared food compounds containing one or more spices
+            or spice extracts. They are typically added to food
+            <strong class="text-amber-600">after cooking</strong> or at the
+            table to enhance flavor or quality. Examples include barbecue sauce,
+            chili sauce, chutney, ketchup, mustard, soy sauce, and vinegar.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            Functions and Properties of Condiments:
+          </h3>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>Enhance color and flavor.</li>
+            <li>
+              The condiment trade is a significant market in specialty foods.
+            </li>
+            <li>
+              Food ingredients such as salt, mustard, or pickle are used to add
+              only taste to the food.
+            </li>
+            <li>
+              Added immediately before serving to enhance the taste of the food.
+            </li>
+            <li>Categorized based on their botany.</li>
+          </ul>
+
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            Key Differences: Spices vs. Condiments
+          </h3>
+          <div class="table-responsive shadow rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-slate-200">
+                <tr>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Feature
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Spices
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Condiments
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Usage Time
+                  </td>
+                  <td class="px-6 py-4">
+                    A spice is basically used during the cooking or baking
+                    preparation and process to add flavor, aroma, color, and
+                    texture to a certain dish/food.
+                  </td>
+                  <td class="px-6 py-4">
+                    A condiment is used after cooking or at the table when
+                    serving to improve its flavor, color, aroma, and texture.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Nature
+                  </td>
+                  <td class="px-6 py-4">
+                    A spice is technically a single culinary element.
+                  </td>
+                  <td class="px-6 py-4">
+                    Condiments are usually considered supplementary components
+                    of food.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap font-medium">
+                    Examples
+                  </td>
+                  <td class="px-6 py-4">
+                    Cumin seeds, Cinnamon, Nutmeg, Coriander seeds, Ginger,
+                    Garlic, Cloves, onion etc.
+                  </td>
+                  <td class="px-6 py-4">
+                    Barbecue sauce, Ketchup, Red chili paste, Ranch dressing,
+                    Butter, Mayonnaise etc.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>What is a condiment? Give three examples.</li>
+              <li>
+                How do condiments differ from spices in terms of usage and
+                nature?
+              </li>
+              <li>List two key functions of condiments.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="culinary-herbs" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">Culinary Herbs</h2>
+          <p class="mb-4 leading-relaxed">
+            When leaves or twigs (in their green stage) are used to stimulate
+            the taste of food, they are called culinary herbs. Examples include
+            mint, coriander, and curry leaf.
+          </p>
+          <div class="mt-6 p-4 bg-sky-50 border-l-4 border-sky-500 rounded-md">
+            <h4 class="text-xl font-semibold text-sky-700 mb-2">
+              <i class="fas fa-leaf mr-2"></i>Quick Tip!
+            </h4>
+            <p class="text-sky-600">
+              Culinary herbs are often best added towards the end of cooking or
+              used fresh to preserve their delicate flavors.
+            </p>
+          </div>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>What are culinary herbs? Give two examples.</li>
+              <li>
+                How are culinary herbs best used to preserve their flavor?
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="classification-intro" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification of Spices: Overview
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Spices can be classified in different ways depending on plant parts
+            used, the economic importance, climatic requirements, origin and
+            flavour, requirement of season and botanical description.
+          </p>
+        </section>
+
+        <section id="classification-by-parts" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification: Based on Parts Used
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Spices can be classified depending on the parts of the plant that
+            are to be used. Different plant parts like leaf, root, bulb, fruit,
+            seed, etc. are used as spice.
+          </p>
+          <ul
+            class="list-disc list-inside mb-4 pl-4 space-y-2 columns-1 md:columns-2"
+          >
+            <li>
+              <strong>a) Seed:</strong> Cumin, black cumin, fenugreek,
+              coriander, fennel, ajowan, poppy, aniseed and mustard.
+            </li>
+            <li><strong>b) Bulb:</strong> Onion, garlic, leek and shallot.</li>
+            <li><strong>c) Bark:</strong> Cinnamon and cassia.</li>
+            <li><strong>d) Fruit:</strong> Chilli, cardamom and kokam.</li>
+            <li>
+              <strong>e) Leaf:</strong> Mint, curry leaf, bay leaf, chive,
+              rosemary and savory.
+            </li>
+            <li>
+              <strong>f) Rhizome:</strong> Turmeric, ginger, and galangal.
+            </li>
+            <li><strong>g) Pod:</strong> Vanilla and tamarind.</li>
+            <li><strong>h) Kernel:</strong> Nutmeg.</li>
+            <li>
+              <strong>i) Floral part:</strong> Saffron, savory, caper and
+              marjoram.
+            </li>
+            <li><strong>j) Bud:</strong> Clove and caper.</li>
+            <li><strong>k) Latex:</strong> Asafetida.</li>
+            <li><strong>l) Aril:</strong> Mace and anardana.</li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Classify spices based on the plant part used and give one
+                example for each part.
+              </li>
+              <li>
+                Which part of the plant is used as a spice in saffron and clove?
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="classification-by-economic" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification: Based on Economic Importance
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            On the basis of economic importance of the spices can be grouped
+            into two viz, major and minor spices.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            I. Major spices
+          </h3>
+          <p class="mb-2 leading-relaxed">
+            The spices which contribute major share in the spice trade industry
+            of the world are called major spices. The spices come under this
+            group are small cardamom, black pepper, chilli, turmeric and ginger.
+            These spices contribute about 75-90% of the total foreign exchange
+            earned through spices.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            II. Minor spices
+          </h3>
+          <p class="mb-2 leading-relaxed">
+            Excluding all these five major spices, all other are called minor
+            spices. Minor spices are further divided into five sub groups. They
+            are mentioned hereunder:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              <strong>a. Seed spices:</strong> Coriander, cumin, black cumin,
+              fennel, aniseed, celery, mustard, poppy and caraway
+            </li>
+            <li>
+              <strong>b. Bulbous spices:</strong> Garlic, onion, leek and
+              shallot
+            </li>
+            <li>
+              <strong>c. Aromatic spices:</strong> Clove, cinnamon, aniseed and
+              nutmeg
+            </li>
+            <li>
+              <strong>d. Leafy spices:</strong> Curry leaf, mint, rosemary,
+              bayleaf, and parsley.
+            </li>
+            <li>
+              <strong>e. Acidulant tree spices:</strong> Tamarind, kokam and
+              anardana.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                What are major and minor spices? Name two examples of each.
+              </li>
+              <li>How are minor spices further classified?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="classification-by-climatic" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification: Based on Climatic Requirement
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Depending on suitable climatic conditions like temperature,
+            sunlight, humidity and air of a particular climatic zone, spices are
+            grouped into three categories.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-4 mb-2">
+            Tropical spices
+          </h3>
+          <p class="mb-2 leading-relaxed">
+            Spices of this category need high temperature, and abundant
+            humidity. They are easily damaged by low temperature. Tropical
+            spices are ginger, turmeric, black pepper, cinnamon, kokam,
+            galangal, small cardamom and clove.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-4 mb-2">
+            Subtropical spices
+          </h3>
+          <p class="mb-2 leading-relaxed">
+            Sub-tropical climate is found where three distinct seasons like
+            winter, summer and monsoon are found. Low temperature occurs in
+            winter and high temperature during summer. Most of the spices
+            require relatively low temperature during their vegetative or early
+            growth stage and high temperature in reproductive stage. The
+            examples of sub-tropical spices grown in winter are cumin, fennel,
+            coriander, fenugreek, onion and garlic. Subtropical spices grown
+            during summer are turmeric and ginger.
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-4 mb-2">
+            Temperate spices
+          </h3>
+          <p class="mb-2 leading-relaxed">
+            Spices of this type can withstand low temperature and frosty weather
+            but are damaged easily in hot weather. Examples of temperate spices
+            are thymes, saffron, savoy, caraway seed and asfoetida.
+          </p>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Classify spices based on climatic requirements and give two
+                examples for each category.
+              </li>
+              <li>
+                What are the main characteristics of tropical, subtropical, and
+                temperate spices?
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="classification-by-origin-flavor"
+          class="content-section card"
+        >
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification: Based on Origin and Flavor
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Depending on the origin and flavour content of the spices, they can
+            be classified as follows:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              <strong>Aromatic spices:</strong> Cardamom, aniseed, celery,
+              cumin, coriander, fenugreek and cinnamon.
+            </li>
+            <li>
+              <strong>Pungent spices:</strong> Ginger, chilli, black pepper and
+              mustard.
+            </li>
+            <li><strong>Phenolic spices:</strong> Clove.</li>
+            <li>
+              <strong>Coloured spices:</strong> Turmeric, saffron and paprika.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Classify spices based on origin and flavor, and give one example
+                for each type.
+              </li>
+              <li>What is a phenolic spice? Give an example.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="classification-by-growing-season"
+          class="content-section card"
+        >
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification: Based on Growing Season
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            According to the requirement of season of growth, spices are grouped
+            into following three classes:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              <strong>Annual spices:</strong> Spices which complete their life
+              cycle in one growing season are called annuals. Example of this
+              type of spices is coriander, cumin, fennel, fenugreek, ajowan and
+              black cumin.
+            </li>
+            <li>
+              <strong>Biennial spices:</strong> It needs two growing seasons to
+              complete the life cycle. Examples of biennial spices are onion and
+              parsley.
+            </li>
+            <li>
+              <strong>Perennial spices:</strong> Perennial spices are those
+              which live for more than two years. Black pepper, saffron, clove,
+              nutmeg and cinnamon are example of perennial spices.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Classify spices based on growing season and give two examples
+                for each class.
+              </li>
+              <li>
+                What is the difference between annual, biennial, and perennial
+                spices?
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="classification-by-growth-habit"
+          class="content-section card"
+        >
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Classification: Based on Growth Habit
+          </h2>
+          <ol class="list-decimal list-inside mb-4 pl-4 space-y-1">
+            <li>
+              <strong>Herbs:</strong> Ajowan, coriander. Cumin, tenet,
+              fenugreek, chillies, parsley
+              <ul class="list-disc list-inside ml-6">
+                <li>
+                  <strong>Climbers:</strong> Black pepper, tailed pepper,
+                  vanilla
+                </li>
+                <li>
+                  <strong>Perennial herbs (Rhizomatous herbs):</strong> Ginger,
+                  turmeric, mango ginger, Japanese ginger, galanga, asafetida.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Shrubs:</strong> Rosemary, Chillies (perennial chillies)
+            </li>
+            <li>
+              <strong>Trees:</strong> Nutmeg, clove, cinnamon, tamarind,
+              Garcinia, Japanese pepper
+            </li>
+          </ol>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Classify spices based on growth habit and give two examples for
+                each group.
+              </li>
+              <li>What are perennial herbs? Give two examples.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section
+          id="classification-botanical-descriptions"
+          class="content-section card"
+        >
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Botanical Description of Some Spices
+          </h2>
+          <div class="table-responsive shadow rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-slate-200">
+                <tr>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Name
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Botanical Name
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Family
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Habit of Growth
+                  </th>
+                  <th
+                    class="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider"
+                  >
+                    Parts Used
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4">Onion</td>
+                  <td class="px-6 py-4"><em>Allium cepa</em></td>
+                  <td class="px-6 py-4">Alliaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Green leaves and bulbs</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Garlic</td>
+                  <td class="px-6 py-4"><em>Allium sativum</em></td>
+                  <td class="px-6 py-4">Alliaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Green leaves and bulbs</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Cumin</td>
+                  <td class="px-6 py-4"><em>Cuminum cyminum</em></td>
+                  <td class="px-6 py-4">Apiaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Fruit</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Coriander</td>
+                  <td class="px-6 py-4"><em>Coriandrum sativum</em></td>
+                  <td class="px-6 py-4">Apiaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Leaf and the seed</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Aniseed</td>
+                  <td class="px-6 py-4"><em>Pimpinella anisum</em></td>
+                  <td class="px-6 py-4">Apiaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Fruit</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Black cumin</td>
+                  <td class="px-6 py-4"><em>Nigella sativa</em></td>
+                  <td class="px-6 py-4">Apiaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Fruit</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Fennel</td>
+                  <td class="px-6 py-4"><em>Foeniculum vulgare</em></td>
+                  <td class="px-6 py-4">Apiaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Fruit</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Mustard</td>
+                  <td class="px-6 py-4"><em>Brassica juncea, B. nigra</em></td>
+                  <td class="px-6 py-4">Brassicaceae</td>
+                  <td class="px-6 py-4">Herb, Annual</td>
+                  <td class="px-6 py-4">seed</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Chilli</td>
+                  <td class="px-6 py-4"><em>Capsicum annum</em></td>
+                  <td class="px-6 py-4">Solanaceae</td>
+                  <td class="px-6 py-4">Annual</td>
+                  <td class="px-6 py-4">Fruit</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Cinnamon</td>
+                  <td class="px-6 py-4"><em>Cinnamomum verum</em></td>
+                  <td class="px-6 py-4">Lauraceae</td>
+                  <td class="px-6 py-4">Perennial Tree</td>
+                  <td class="px-6 py-4">Leaf and stem bark</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Clove</td>
+                  <td class="px-6 py-4"><em>Euginia caryophylus</em></td>
+                  <td class="px-6 py-4">Mytraceae</td>
+                  <td class="px-6 py-4">Tree</td>
+                  <td class="px-6 py-4">Flower bud</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Black pepper</td>
+                  <td class="px-6 py-4"><em>Piper nigrum</em></td>
+                  <td class="px-6 py-4">Piparaceae</td>
+                  <td class="px-6 py-4">Perennial climber</td>
+                  <td class="px-6 py-4">Fruit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Give the botanical name and family of onion, garlic, and
+                cinnamon.
+              </li>
+              <li>
+                Which part of the plant is used as a spice in black pepper and
+                clove?
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="importance-of-spices" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Importance of Spices
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            The role of spices in social, cultural and economic evolution of our
+            country is well known.
+          </p>
+          <ul class="list-decimal list-inside mb-4 pl-4 space-y-1">
+            <li>
+              The spices are being used day to day in the family at all
+              occasions of sorrow, happiness and festivals in one or the other
+              forms. e.g. clove, cardamom etc.
+            </li>
+            <li>
+              They contribute to the national economy by way of export earning.
+            </li>
+            <li>
+              They are indispensable part of our culinary preparations
+              especially used for flavoring and coloring of food.
+            </li>
+            <li>
+              Some spices are used as preservatives in some food items like
+              chutneys and pickles etc.
+            </li>
+            <li>
+              Most of the spices have potential medicinal values. The spice and
+              spice products are used as medicines and in many pharmaceutical
+              preparations.
+            </li>
+            <li>
+              Spices have been used in cosmetic perfumery industries. Spice oils
+              are used in the manufacture of soaps, tooth paste, talcum powder,
+              aftershave lotions, vanishing creams, mouth and room fresheners
+              etc.
+            </li>
+            <li>
+              Spices are used as the raw material for several cottage and heavy
+              industries.
+            </li>
+            <li>
+              Spice crops also protect the soil surface from erosion as a result
+              to water and wind force.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                List four important uses of spices in daily life and industry.
+              </li>
+              <li>How do spices contribute to the national economy?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="problems-in-cultivation" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Problems in Spice Cultivation
+          </h2>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              There is no good cultivar available to the farmer. e.g. cumin
+            </li>
+            <li>Production cost is high.</li>
+            <li>
+              Lack of availability of seed such as onion, garlic, cumin etc.
+            </li>
+            <li>Lack of improved cultural method</li>
+            <li>Lack of awareness and literacy.</li>
+            <li>Propagation problem.</li>
+            <li>High input cost.</li>
+            <li>Lack of extension motivation.</li>
+            <li>
+              Food security: Although profit may be high, in times of food
+              security, a farmer and his family can not depend on the spices to
+              carry him, through to the next harvest. A farmer's first concern
+              is food security which in Bangladesh means rice security.
+            </li>
+            <li>
+              Low postharvest prices: Most of spices double or triple in price
+              between postharvest and off season but only a few farmers are able
+              to realize the benefits.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                List three major problems in spice cultivation in Bangladesh.
+              </li>
+              <li>Why is food security a concern for spice farmers?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="scope-for-cultivation" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Scope for Spice Cultivation
+          </h2>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              Although spice cover less than 1.88% of the total annual cropped
+              area of the country, here importance to individual farmer is far
+              greater then what the national statistics indicate. In some area,
+              the economy of the population is dependent on the cultivation of
+              spices eg. commercial spices production tend to be concentrated in
+              particular areas, for example Faridpur for onion, garlic and
+              coriander, Chittagong hill tract for zinger and turmeric, chilli
+              production in Bogra and Comilla and Rangpur/ Dinajpur for all the
+              major spices.
+            </li>
+            <li>
+              Favorable agro climate conditions in Bangladesh make expansion of
+              spice production, both through yield and area feasible.
+            </li>
+            <li>
+              Spice crops can better fit in the cropping pattern of an area or
+              zone to maintain the soil fertility.
+            </li>
+            <li>
+              The cost of production of these spice crops is relatively less
+              than cereals and other crops.
+            </li>
+            <li>
+              Most of the spice crops are shade loving and can be grown in the
+              space between and within rows of a young or well established
+              orchards and provide security to the farmers as one crop fails
+              this may rescue the farmers.
+            </li>
+            <li>
+              Spices will remain an essential part of the diet in Bangladesh
+              retail prices determining the total quality demanded.
+            </li>
+            <li>
+              These can be grown where ever possible as the growers get more
+              returns per hectare from spice crops per unit area, time and
+              inputs invested than cereals and other commodity crops.
+            </li>
+            <li>
+              Spices help in providing employment opportunities and above all a
+              huge amount of foreign exchange is earned through export of these
+              spices and spice products. They are very useful remunerative crops
+              and they should be grown intensively in the country.
+            </li>
+          </ul>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>What is the scope for spice cultivation in Bangladesh?</li>
+              <li>How can spice crops help maintain soil fertility?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="present-situations" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Present Situations of Spices (Focus on Bangladesh)
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Spices and condiments have great signification for their diversified
+            uses in our daily life. In our country, major spices like onion,
+            chilli, zinger, turmeric, garlic, coriander seed etc although 17
+            different kinds of spices are produced in the area of about 3.48 lac
+            hectare which is only about 1.88% total cultivable land. The total
+            requirement of the country is about 16 lac mt per annum where as,
+            the production is about 28% of our total requirement.
+          </p>
+          <p class="mb-4 leading-relaxed">
+            The existing gap of the production and the requirement is now
+            mitigated every year by spending valuable foreign currency. Some
+            spices such as cinnamon (1500 mt), cumin (5000 mt), cardamom (500
+            mt), clove (500 mt) etc are totally depend on import. Yearly 150
+            crore spent for import of these spices and except those additional
+            30 crore are spent for import of poppy seed, wild mace, saffron,
+            black pepper etc. There are about 107 spices in use all over the
+            world and 20 countries actively engage in the production and export
+            of one or more of them. We should consume per head $32~g/day$ but
+            our availability only $8g/day$.
+          </p>
+          <p class="mb-4 leading-relaxed">
+            Most the spice crops are grown well in our climate but their low
+            yield due to use of local variety, use of traditional cultivation
+            and storage techniques etc are the limiting factors. Keeping the
+            above fact, we can say that if we develop high yielding modern
+            variety as well as modern storage techniques of different spice
+            crops then we can solve our existing gap of production and
+            requirements.
+          </p>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>
+                Summarize the present situation of spice production and
+                requirement in Bangladesh.
+              </li>
+              <li>
+                Why is there a gap between spice production and requirement in
+                Bangladesh?
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="international-spicy-food-day" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            International Spicy Food Day
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            International Spicy Food Day is celebrated annually on January 21.
+            The Event planning industry recognizes a different "International
+            Hot & Spicy Food Day" date of January 16.
+          </p>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>When is International Spicy Food Day celebrated?</li>
+              <li>Why is this day significant for the spice industry?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="cardamom" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            <i class="fas fa-seedling mr-2 text-green-600"></i>Cardamom (Queen
+            of Spices)
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Cardamoms of commerce one the dried capsules of a group of species
+            or plants belonging to the family Zingiberaceae, which contain
+            seeds, possessing a pleasant characteristic aroma. Cardamoms are
+            broadly grouped into two categories- (a) Small cardamom: Popularly
+            known as chhota Elaichi or the true cardamom (<em
+              >Elettaria cardamomum</em
+            >) and (b) Large cardamom: Bara Elaichi (<em>Aframomum</em> and
+            <em>Amomum</em> species).
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">
+            Key Varieties of <em>Elettaria cardamomum</em>:
+          </h3>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              <strong>Malabar:</strong> Medium-sized plants (2-3m), prostrate
+              panicles, small globose fruits.
+            </li>
+            <li>
+              <strong>Mysore:</strong> Robust plants (3-4m), erect panicles,
+              fusiform fruits.
+            </li>
+            <li>
+              <strong>Vazhuka:</strong> Natural hybrid of Malabar and Mysore
+              types.
+            </li>
+          </ul>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">Uses:</h3>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>Flavoring foods, confectionery, beverages, and liquors.</li>
+            <li>Medicinal purposes (Allopathic and Ayurvedic).</li>
+            <li>
+              Preparation of 'Gahwa' (Arab Coffee) in Middle Eastern countries.
+            </li>
+          </ul>
+          <div class="mt-8">
+            <h4 class="text-xl font-semibold text-slate-700 mb-2">
+              Test Your Cardamom Knowledge!
+            </h4>
+            <div
+              class="quiz-question bg-slate-50 p-3 rounded-lg border border-slate-200 mb-2"
+            >
+              <p
+                class="font-medium cursor-pointer"
+                onclick="toggleAnswer(this)"
+              >
+                1. Which type of cardamom is known as the 'Queen of Spices'?
+              </p>
+              <p class="quiz-answer mt-2 text-sm text-green-700 pl-4">
+                Answer: Small Cardamom (<em>Elettaria cardamomum</em>).
+              </p>
+            </div>
+            <div
+              class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+            >
+              <h4 class="text-lg font-semibold text-amber-700 mb-2">
+                <i class="fas fa-question-circle mr-2"></i>Important Questions
+                for Exam
+              </h4>
+              <ul class="list-disc ml-6 text-amber-900">
+                <li>What are the two main types of cardamom?</li>
+                <li>List two uses of cardamom.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="turmeric" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            <i class="fas fa-paint-brush mr-2 text-yellow-500"></i>Turmeric
+            (Golden Spice)
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Turmeric (<em>Curcuma longa</em>), from the Zingiberaceae family, is
+            a vital tropical spice. India is its largest producer. Key species
+            include <em>C. longa</em> (widely cultivated),
+            <em>C. aromatica</em> (Cochin turmeric),
+            <em>C. angustifolia</em> (East Indian arrowroot), and
+            <em>C. amada</em> (mango ginger).
+          </p>
+          <h3 class="text-2xl font-semibold text-slate-700 mt-6 mb-3">Uses:</h3>
+          <ul
+            class="list-disc list-inside mb-4 pl-4 space-y-1 columns-1 md:columns-2"
+          >
+            <li>Important yellow dye (for cotton, silk, wool).</li>
+            <li>Cosmetics (turmeric powder and water).</li>
+            <li>Preservative and coloring in pickles, cheese.</li>
+            <li>Ceremonial rice coloring.</li>
+            <li>
+              Medicine (Ayurvedic and Unani systems): stomachic, tonic, blood
+              purifier.
+            </li>
+            <li>Treating gall stones.</li>
+            <li>Coloring in pharmacy, confectionery, food industries.</li>
+            <li>Toilet item for skin cleaning, prevents skin infection.</li>
+            <li>Claimed to suppress unwanted hair growth.</li>
+            <li>Converted into kumkum.</li>
+          </ul>
+          <p class="mt-4 mb-4 leading-relaxed">
+            The characteristic yellow color of turmeric comes from
+            <strong class="text-amber-600">curcumin</strong>, a phenolic
+            pigment. The aroma is due to
+            <strong class="text-amber-600">turmerone</strong>.
+          </p>
+          <div class="mt-8">
+            <h4 class="text-xl font-semibold text-slate-700 mb-2">
+              Test Your Turmeric Trivia!
+            </h4>
+            <div
+              class="quiz-question bg-slate-50 p-3 rounded-lg border border-slate-200 mb-2"
+            >
+              <p
+                class="font-medium cursor-pointer"
+                onclick="toggleAnswer(this)"
+              >
+                1. What compound gives turmeric its yellow color?
+              </p>
+              <p class="quiz-answer mt-2 text-sm text-green-700 pl-4">
+                Answer: Curcumin.
+              </p>
+            </div>
+            <div
+              class="quiz-question bg-slate-50 p-3 rounded-lg border border-slate-200"
+            >
+              <p
+                class="font-medium cursor-pointer"
+                onclick="toggleAnswer(this)"
+              >
+                2. Name one traditional medicinal use of turmeric.
+              </p>
+              <p class="quiz-answer mt-2 text-sm text-green-700 pl-4">
+                Answer: As a blood purifier (or stomachic, tonic, etc.).
+              </p>
+            </div>
+          </div>
+          <div
+            class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-500 rounded-md"
+          >
+            <h4 class="text-lg font-semibold text-amber-700 mb-2">
+              <i class="fas fa-question-circle mr-2"></i>Important Questions for
+              Exam
+            </h4>
+            <ul class="list-disc ml-6 text-amber-900">
+              <li>What is the botanical name of turmeric?</li>
+              <li>Which compound gives turmeric its yellow color?</li>
+              <li>List two traditional uses of turmeric.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="onion" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            <i class="fas fa-layer-group mr-2 text-purple-500"></i>Onion (Queen
+            of the Kitchen)
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Onion (<em>Allium cepa</em>) from the Alliaceae family, has been
+            used as food and medicine since ancient times. It's grown in 170
+            countries and is valued for its peculiar taste, unique flavor, and
+            health benefits. It ranks first in production among spices in
+            Bangladesh.
+          </p>
+        </section>
+
+        <section id="cinnamon" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            <i class="fas fa-scroll mr-2 text-yellow-700"></i>Cinnamon (Aromatic
+            Bark)
+          </h2>
+          <p class="mb-4 leading-relaxed">
+            Cinnamon (<em>Cinnamomum zeylanicum</em>) from the Lauraceae family,
+            consists of dried inner bark pieces. True cinnamon is distinct from
+            Cassia, which is a common substitute. Sri Lankan cinnamon is
+            considered among the best.
+          </p>
+        </section>
+
+        <section id="general-quiz" class="content-section card">
+          <h2 class="text-3xl font-bold text-amber-700 mb-6">
+            Test Your General Spice Knowledge
+          </h2>
+          <div
+            class="quiz-question bg-slate-50 p-3 rounded-lg border border-slate-200 mb-2"
+          >
+            <p class="font-medium cursor-pointer" onclick="toggleAnswer(this)">
+              1. What are the three general groups spices are divided into?
+            </p>
+            <p class="quiz-answer mt-2 text-sm text-green-700 pl-4">
+              Answer: Spice, Condiment, and Culinary herb.
+            </p>
+          </div>
+          <div
+            class="quiz-question bg-slate-50 p-3 rounded-lg border border-slate-200 mb-2"
+          >
+            <p class="font-medium cursor-pointer" onclick="toggleAnswer(this)">
+              2. Name one major spice based on economic importance.
+            </p>
+            <p class="quiz-answer mt-2 text-sm text-green-700 pl-4">
+              Answer: Black pepper (or chilli, turmeric, ginger, small
+              cardamom).
+            </p>
+          </div>
+          <div
+            class="quiz-question bg-slate-50 p-3 rounded-lg border border-slate-200"
+          >
+            <p class="font-medium cursor-pointer" onclick="toggleAnswer(this)">
+              3. Which part of the cinnamon plant is primarily used as a spice?
+            </p>
+            <p class="quiz-answer mt-2 text-sm text-green-700 pl-4">
+              Answer: The inner bark.
+            </p>
+          </div>
+        </section>
+
+        <section id="visual-aid-example" class="content-section card">
+          <h3 class="text-2xl font-semibold text-slate-700 mb-3">
+            Visualizing Spice Classification
+          </h3>
+          <div
+            class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center"
+          >
+            <i class="fas fa-chart-pie fa-3x text-blue-500 mb-3"></i>
+            <p class="text-blue-700">
+              Imagine a pie chart here showing the percentage of spices
+              classified by plant part (seeds, leaves, roots, etc.). This visual
+              would help in understanding the diversity of spice sources.
+            </p>
+            <button class="btn btn-primary mt-4">
+              Learn More (Placeholder)
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-slate-800 text-slate-300 p-6 text-center mt-auto">
+      <p>
+        &copy; <span id="currentYear"></span> Spices & Condiments Documentation.
+        All rights reserved.
+      </p>
+      <p class="text-sm mt-1">
+        Based on materials from Faculty of Agriculture, অঙ্কুর'৮০ Batch.
+      </p>
+      <p class="text-sm mt-1">
+        Designed with <i class="fas fa-heart text-red-500"></i> by MD RAHAT.
+      </p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="btn btn-primary p-3 rounded-full shadow-lg"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+      // Sidebar toggle for mobile
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const sidebar = document.getElementById("sidebar");
+      mobileMenuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+      });
+
+      // Close sidebar when a link is clicked on mobile
+      const sidebarLinks = document.querySelectorAll("#sidebar a");
+      sidebarLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          // Check if the link is part of a submenu toggle or a direct navigation link
+          const isSubmenuToggle =
+            link.parentElement.tagName === "SPAN" &&
+            link.parentElement.hasAttribute("onclick");
+          if (!isSubmenuToggle && window.innerWidth < 1024) {
+            // lg breakpoint
+            sidebar.classList.add("-translate-x-full");
+          }
+        });
+      });
+      // Corrected: Close sidebar when a direct navigation link (not a submenu span) is clicked
+      document.querySelectorAll("#sidebar nav a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          // Only close if it's a direct link and on mobile
+          if (
+            !link.closest('span[onclick^="toggleSubmenu"]') &&
+            window.innerWidth < 1024
+          ) {
+            sidebar.classList.add("-translate-x-full");
+          }
+        });
+      });
+
+      // Submenu toggle
+      function toggleSubmenu(submenuId) {
+        const submenu = document.getElementById(submenuId);
+        submenu.classList.toggle("hidden");
+        const icon = submenu.previousElementSibling.querySelector(
+          "i.fa-chevron-down, i.fa-chevron-up"
+        );
+        if (icon) {
+          icon.classList.toggle("fa-chevron-down");
+          icon.classList.toggle("fa-chevron-up");
+        }
+      }
+
+      // Quiz answer toggle
+      function toggleAnswer(element) {
+        element.parentElement.classList.toggle("open");
+      }
+
+      // Set current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+      // Active sidebar link highlighting based on scroll position
+      const sections = document.querySelectorAll(".content-section");
+      const navLinks = document.querySelectorAll(
+        ".sidebar-link, .sidebar-submenu-link"
+      ); // Selects both main and submenu links
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= sectionTop - 90) {
+            // Adjust offset for header height + a little margin
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active", "font-bold"); // General active styles removed
+          // Specific active styles for main links and submenu links
+          if (link.classList.contains("sidebar-link")) {
+            link.classList.remove("bg-amber-500", "text-white");
+          } else if (link.classList.contains("sidebar-submenu-link")) {
+            link.classList.remove("text-amber-600");
+          }
+
+          if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active", "font-bold");
+            if (link.classList.contains("sidebar-link")) {
+              // Main link specific active style
+              link.classList.add("bg-amber-500", "text-white");
+            } else if (link.classList.contains("sidebar-submenu-link")) {
+              // Submenu link specific active style
+              link.classList.add("text-amber-600");
+            }
+
+            // Open parent submenu if active link is inside and submenu is hidden
+            const parentSubmenuLI = link.closest('ul[id^="submenu-"]');
+            if (parentSubmenuLI) {
+              const parentSubmenu = document.getElementById(parentSubmenuLI.id);
+              if (parentSubmenu && parentSubmenu.classList.contains("hidden")) {
+                // Find the span that controls this submenu and simulate a click or directly call toggle
+                const controllerSpan = parentSubmenu.previousElementSibling;
+                if (controllerSpan && controllerSpan.tagName === "SPAN") {
+                  toggleSubmenu(parentSubmenuLI.id); // Open it
+                }
+              }
+            }
+          }
+        });
+      });
+
+      // Scroll to Top button
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+      window.onscroll = function () {
+        if (
+          document.body.scrollTop > 100 ||
+          document.documentElement.scrollTop > 100
+        ) {
+          scrollToTopBtn.style.display = "block";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
+      };
+      scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>

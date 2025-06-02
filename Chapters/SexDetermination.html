@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sex Determination Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+        color: #1f2937; /* Tailwind gray-800 */
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        vertical-align: middle;
+      }
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 0.375rem;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        color: #4b5563; /* Tailwind gray-600 */
+        font-weight: 500;
+      }
+      .sidebar-link:hover,
+      .sidebar-link.active {
+        background-color: #e0f2fe; /* Tailwind sky-100 */
+        color: #0ea5e9; /* Tailwind sky-500 */
+      }
+      .sidebar-link .material-symbols-outlined {
+        margin-right: 0.75rem;
+        color: #9ca3af; /* Tailwind gray-400 */
+      }
+      .sidebar-link:hover .material-symbols-outlined,
+      .sidebar-link.active .material-symbols-outlined {
+        color: #0ea5e9; /* Tailwind sky-500 */
+      }
+      .content-section h2 {
+        font-size: 1.875rem; /* text-3xl */
+        font-weight: 700;
+        color: #111827; /* Tailwind gray-900 */
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e5e7eb; /* Tailwind gray-200 */
+      }
+      .content-section h3 {
+        font-size: 1.5rem; /* text-2xl */
+        font-weight: 600;
+        color: #1f2937; /* Tailwind gray-800 */
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .content-section h4 {
+        font-size: 1.25rem; /* text-xl */
+        font-weight: 600;
+        color: #374151; /* Tailwind gray-700 */
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .content-section p,
+      .content-section ul,
+      .content-section ol {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: #374151; /* Tailwind gray-700 */
+      }
+      .content-section ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+      }
+      .content-section ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+      }
+      .content-section strong {
+        font-weight: 600;
+        color: #111827; /* Tailwind gray-900 */
+      }
+      .content-section .note {
+        background-color: #f0f9ff; /* Tailwind sky-50 */
+        border-left: 4px solid #0ea5e9; /* Tailwind sky-500 */
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 0.25rem;
+      }
+      .content-section .diagram-placeholder {
+        background-color: #f3f4f6; /* Tailwind gray-100 */
+        border: 1px dashed #d1d5db; /* Tailwind gray-300 */
+        padding: 2rem;
+        text-align: center;
+        color: #6b7280; /* Tailwind gray-500 */
+        border-radius: 0.375rem;
+        margin: 1rem 0;
+      }
+      .content-section img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.375rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      /* Scrollbar styling for webkit browsers */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #0ea5e9; /* Tailwind sky-500 */
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0284c7; /* Tailwind sky-600 */
+      }
+    </style>
+  </head>
+  <body class="flex h-screen overflow-hidden">
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-30 w-72 bg-white border-r border-gray-200 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto p-4 space-y-2"
+    >
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-sky-600">Sex Determination</h1>
+        <button
+          id="closeSidebarButton"
+          class="md:hidden text-gray-500 hover:text-sky-600"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <nav id="sidebarNav">
+        <a href="#intro" class="sidebar-link active"
+          ><span class="material-symbols-outlined">science</span>Introduction</a
+        >
+        <a href="#environmental" class="sidebar-link"
+          ><span class="material-symbols-outlined">thermostat</span
+          >Environmental SD</a
+        >
+        <a href="#chromosomal" class="sidebar-link"
+          ><span class="material-symbols-outlined">genetics</span>Chromosomal
+          SD</a
+        >
+        <a href="#genic-balance" class="sidebar-link"
+          ><span class="material-symbols-outlined">balance</span>Genic Balance
+          System</a
+        >
+        <a href="#gynandromorphy" class="sidebar-link"
+          ><span class="material-symbols-outlined">merge_type</span
+          >Gynandromorphy</a
+        >
+        <a href="#plants" class="sidebar-link"
+          ><span class="material-symbols-outlined">eco</span>SD in Plants</a
+        >
+        <a href="#uv-system" class="sidebar-link"
+          ><span class="material-symbols-outlined">filter_vintage</span>UV
+          System</a
+        >
+        <a href="#importance" class="sidebar-link"
+          ><span class="material-symbols-outlined">star</span>Importance of
+          SD</a
+        >
+        <a href="#sex-limited" class="sidebar-link"
+          ><span class="material-symbols-outlined">transgender</span>Sex-Limited
+          Traits</a
+        >
+        <a href="#sex-influenced" class="sidebar-link"
+          ><span class="material-symbols-outlined">wc</span>Sex-Influenced
+          Traits</a
+        >
+        <a href="#sex-linked" class="sidebar-link"
+          ><span class="material-symbols-outlined">link</span>Sex-Linked
+          Traits</a
+        >
+      </nav>
+    </aside>
+
+    <main
+      id="mainContent"
+      class="flex-1 md:ml-72 p-6 lg:p-10 overflow-y-auto transition-all duration-300 ease-in-out"
+    >
+      <button
+        id="openSidebarButton"
+        class="md:hidden fixed top-4 left-4 z-40 p-2 bg-sky-500 text-white rounded-md shadow-lg"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+
+      <section id="intro" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >science</span
+          >Introduction to Sex Determination
+        </h2>
+        <p>
+          Sex determination is a fundamental biological system that dictates the
+          development of sexual characteristics within an organism.
+          Historically, sex was identified based on primary and secondary sexual
+          characters. However, the scientific exploration of sex determination
+          began in earnest after the discovery of sex chromosomes by McClung in
+          1902.
+        </p>
+        <p>
+          <strong>Primary sexual differentiation</strong> refers to structures
+          directly related to the gonads (ovaries and testes).
+          <strong>Secondary sexual differentiation</strong> encompasses the
+          overall appearance and characteristics of an organism, such as breast
+          development in females or beard growth in males.
+        </p>
+        <p>
+          Sexual differentiation is the intricate process by which differences
+          between males and females arise from an initially undifferentiated
+          zygote. In many species, sex determination is genetically rooted, with
+          males and females possessing distinct chromosomes, alleles, or even
+          specific genes that define their sexual morphology.
+        </p>
+        <img
+          src="https://placehold.co/800x400/E0F2FE/0EA5E9?text=Human+Karyotype+Illustration"
+          alt="Illustration of Human Karyotype showing sex chromosomes"
+          class="my-4"
+          onerror="this.src='https://placehold.co/800x400/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <p>
+          Across the diverse tree of life, various mechanisms of sex
+          determination exist. Many higher organisms exhibit distinct sex
+          phenotypes—male or female—where females produce female gametes (eggs)
+          and males produce male gametes (sperm). Species with separate sexes in
+          different individuals are termed <strong>dioecious</strong>.
+        </p>
+        <p>
+          While environmental cues like temperature, pH, or social conditions
+          can determine the genetic sex of some organisms (e.g., turtles,
+          snakes), a vast number of organisms rely on genetic systems. The
+          primary modes of sex determination include:
+        </p>
+        <ul>
+          <li><strong>Environmental Sex Determination (ESD)</strong></li>
+          <li>
+            <strong>Chromosomal Sex Determination</strong>
+            <ul>
+              <li>
+                Homomorphic chromosomes (e.g., XX/XY, ZW/ZZ where chromosomes
+                look similar)
+              </li>
+              <li>
+                Heteromorphic chromosomes (e.g., XX/XY, ZW/ZZ where X/Y or Z/W
+                look different)
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Genic Sex Determination</strong> (Involving single or
+            multiple genes)
+          </li>
+        </ul>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Define sex determination and distinguish between primary and
+              secondary sexual differentiation.
+            </li>
+            <li>
+              Who discovered sex chromosomes and what is their significance in
+              sex determination?
+            </li>
+            <li>
+              List the main types of sex determination systems found in nature.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="environmental" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >thermostat</span
+          >Environmental Sex Determination (ESD)
+        </h2>
+        <p>
+          In some species, environmental factors play a crucial role in
+          determining the sex of offspring. This phenomenon is known as
+          Environmental Sex Determination (ESD).
+        </p>
+        <img
+          src="https://placehold.co/800x450/E0F2FE/0EA5E9?text=Turtle+Nesting+Site"
+          alt="Turtle nesting site, illustrating temperature-dependent sex determination"
+          class="my-4"
+          onerror="this.src='https://placehold.co/800x450/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <h4>Examples of ESD:</h4>
+        <ul>
+          <li>
+            <strong>Turtles:</strong> For many turtle species, the incubation
+            temperature of eggs is critical. Eggs incubated above a certain
+            threshold (e.g., $32^{\circ}C$) develop into females, while those
+            incubated below another threshold (e.g., $28^{\circ}C$) become
+            males. Intermediate temperatures can produce a mix of sexes.
+          </li>
+          <li>
+            <strong>Bonellia viridis (Marine Worm):</strong> Larvae that settle
+            freely on the seabed develop into females. However, if a larva
+            settles on the proboscis (a trunk-like appendage) of an existing
+            female, it develops into a parasitic male.
+          </li>
+          <li>
+            <strong>Coral Reef Fish:</strong> Some species of coral reef fish
+            can change sex during their lifetime. This change can be triggered
+            by social cues, such as the disappearance of a dominant male or
+            female in the group.
+          </li>
+          <li>
+            <strong>Nematodes:</strong> Certain nematodes exhibit sex
+            determination based on nutrient availability. They may develop into
+            males if nutrients are scarce, and into females in nutrient-rich
+            conditions, thereby enhancing the population's reproductive
+            potential.
+          </li>
+        </ul>
+        <div class="note">
+          <p>
+            <strong>Key Takeaway:</strong> ESD demonstrates the fascinating
+            interplay between an organism's development and its surrounding
+            environment, highlighting nature's adaptability.
+          </p>
+        </div>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What is Environmental Sex Determination (ESD)? Give two examples
+              from the animal kingdom.
+            </li>
+            <li>How does temperature affect sex determination in turtles?</li>
+            <li>
+              Describe the role of environmental cues in sex determination in
+              Bonellia viridis or coral reef fish.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="chromosomal" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >genetics</span
+          >Genotypic/Chromosomal Sex Determination
+        </h2>
+        <p>
+          Sexual reproduction typically involves two parents, a male and a
+          female, each contributing a sex cell (gamete) containing half the
+          normal amount of DNA. The male gamete is usually a sperm, and the
+          female gamete is an egg. Fertilization occurs when these gametes fuse
+          to form a zygote, which then develops into an embryo.
+        </p>
+        <p>
+          Within these gametes is one copy of each chromosome from the parent,
+          including a sex chromosome that specifies the genetic sex of the
+          individual. This system, known as genotypic or chromosomal sex
+          determination, is prevalent in many species, including humans.
+        </p>
+
+        <h3>Heterogametic Males</h3>
+        <p>
+          In these systems, males produce two different types of gametes
+          regarding sex chromosomes, making them "heterogametic."
+        </p>
+        <h4>1. XX-XY System</h4>
+        <p>
+          This is the system found in humans, other mammals, and certain insects
+          like <em>Drosophila</em> (fruit flies).
+        </p>
+        <ul>
+          <li>
+            <strong>Females</strong> have two X chromosomes (XX) and are
+            homogametic, producing eggs that all carry a single X chromosome.
+          </li>
+          <li>
+            <strong>Males</strong> have one X chromosome and one Y chromosome
+            (XY) and are heterogametic. They produce two types of sperm: half
+            carrying an X chromosome and half carrying a Y chromosome.
+          </li>
+        </ul>
+        <p>
+          The sex of the offspring is determined by the type of sperm that
+          fertilizes the egg:
+        </p>
+        <ul>
+          <li>
+            If an X-bearing sperm fertilizes an egg (X), the resulting zygote
+            (XX) will be female.
+          </li>
+          <li>
+            If a Y-bearing sperm fertilizes an egg (X), the resulting zygote
+            (XY) will be male.
+          </li>
+        </ul>
+        <div class="diagram-placeholder my-4">
+          <p>
+            <strong>Diagram: XX-XY Sex Determination (Punnett Square)</strong>
+          </p>
+          <p>
+            Mother (XX) produces X eggs. Father (XY) produces X and Y sperm.
+          </p>
+          <p>
+            Offspring: XX (Female), XX (Female), XY (Male), XY (Male) - 50%
+            chance of each.
+          </p>
+          <p>
+            (This would ideally be a visual Punnett square like the one on page
+            2 of "sex determination.pdf")
+          </p>
+        </div>
+        <p>
+          The Y chromosome carries the
+          <strong>SRY gene (Sex-determining Region Y)</strong>, which acts as a
+          master switch. It initiates the release of testosterone and the
+          development of male sex organs. In the absence of a functional SRY
+          gene, the gonads typically develop into ovaries.
+        </p>
+
+        <h4>2. XX-XO System</h4>
+        <p>Found in certain plants and insects like grasshoppers and bugs.</p>
+        <ul>
+          <li>
+            <strong>Females</strong> have two X chromosomes (XX) and are
+            homogametic.
+          </li>
+          <li>
+            <strong>Males</strong> have only one X chromosome (XO). The "O"
+            signifies the absence of a second sex chromosome. Males are
+            heterogametic, producing sperm, half with an X chromosome and half
+            with no sex chromosome.
+          </li>
+        </ul>
+        <p>Sex determination:</p>
+        <ul>
+          <li>Egg (X) + Sperm (X) = XX (Female)</li>
+          <li>Egg (X) + Sperm (O) = XO (Male)</li>
+        </ul>
+        <div class="diagram-placeholder my-4">
+          <p>
+            <strong>Diagram: XX-XO Sex Determination in Grasshopper</strong>
+          </p>
+          <p>
+            (Illustrating female AA+XX and male AA+XO, and gamete formation,
+            similar to page 2 of "sex determination.pdf")
+          </p>
+        </div>
+
+        <h3>Heterogametic Females</h3>
+        <p>
+          In these systems, females produce two different types of gametes
+          regarding sex chromosomes.
+        </p>
+        <h4>1. ZO-ZZ System</h4>
+        <p>Found in certain moths and butterflies.</p>
+        <ul>
+          <li>
+            <strong>Females</strong> have one Z chromosome and no W chromosome
+            (ZO). They are heterogametic, producing two types of eggs: half with
+            a Z chromosome and half with no Z chromosome.
+          </li>
+          <li>
+            <strong>Males</strong> have two Z chromosomes (ZZ) and are
+            homogametic, producing sperm that all carry a Z chromosome.
+          </li>
+        </ul>
+        <p>The sex of the offspring depends on the egg:</p>
+        <ul>
+          <li>Egg (Z) + Sperm (Z) = ZZ (Male)</li>
+          <li>Egg (O) + Sperm (Z) = ZO (Female)</li>
+        </ul>
+
+        <h4>2. ZW-ZZ System</h4>
+        <p>
+          This system is found in birds, some fishes, reptiles, and certain
+          insects.
+        </p>
+        <ul>
+          <li>
+            <strong>Females</strong> have one Z chromosome and one W chromosome
+            (ZW) and are heterogametic. They produce two types of eggs: 50% with
+            a Z chromosome and 50% with a W chromosome.
+          </li>
+          <li>
+            <strong>Males</strong> have two Z chromosomes (ZZ) and are
+            homogametic, producing sperm that all carry a Z chromosome.
+          </li>
+        </ul>
+        <p>
+          The sex of the offspring is determined by the egg, making the mother's
+          sex chromosome decisive:
+        </p>
+        <ul>
+          <li>Egg (Z) + Sperm (Z) = ZZ (Male)</li>
+          <li>Egg (W) + Sperm (Z) = ZW (Female)</li>
+        </ul>
+        <img
+          src="https://placehold.co/600x400/E0F2FE/0EA5E9?text=ZW+System+in+Birds"
+          alt="ZW sex determination in birds"
+          class="my-4"
+          onerror="this.src='https://placehold.co/600x400/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <p>
+          (This would ideally be a visual diagram like the one on page 3 of "sex
+          determination.pdf" showing male and female bird chromosomes.)
+        </p>
+        <p>
+          Similar to the SRY gene on the mammalian Y chromosome, the bird W
+          chromosome carries master switch genes like <strong>FET1</strong> and
+          <strong>ASW</strong>, which are essential for female development.
+        </p>
+
+        <h3>Haplo-Diploid System (Haplodiploidy)</h3>
+        <p>
+          This unique system is found in insects like honey bees, ants, and
+          wasps.
+        </p>
+        <ul>
+          <li>
+            <strong>Females</strong> (queens and workers) develop from
+            fertilized eggs and are diploid (2n), meaning they have two sets of
+            chromosomes (e.g., 32 in honey bees).
+          </li>
+          <li>
+            <strong>Males</strong> (drones) develop from unfertilized eggs
+            (parthenogenesis) and are haploid (n), having only one set of
+            chromosomes (e.g., 16 in honey bees).
+          </li>
+        </ul>
+        <p>
+          The queen bee produces haploid eggs through meiosis. If an egg is
+          fertilized by sperm (which are produced by haploid males via mitosis,
+          not meiosis), it develops into a diploid female. If an egg remains
+          unfertilized, it develops into a haploid male.
+        </p>
+        <div class="diagram-placeholder my-4">
+          <p>
+            <strong
+              >Diagram: Haplo-Diploid Sex Determination in Honey Bees</strong
+            >
+          </p>
+          <p>
+            (Illustrating fertilized eggs becoming diploid females
+            (queen/worker) and unfertilized eggs becoming haploid males
+            (drones), similar to diagrams on page 3 & 4 of "sex
+            determination.pdf")
+          </p>
+        </div>
+        <p>
+          An interesting consequence is that a male bee has a grandfather and
+          can have grandsons, but he has no father and cannot have sons in the
+          traditional sense.
+        </p>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Explain the XX-XY and XX-XO systems of sex determination with
+              examples.
+            </li>
+            <li>What is the role of the SRY gene in mammals?</li>
+            <li>
+              Describe the ZW-ZZ system and name an organism where it is found.
+            </li>
+            <li>How does haplodiploidy determine sex in honey bees?</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="genic-balance" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >balance</span
+          >Genic Balance System
+        </h2>
+        <p>
+          The Genic Balance Theory, notably studied in
+          <em>Drosophila melanogaster</em> (fruit fly) by Calvin Bridges,
+          proposes that sex is determined by the balance between genes for
+          maleness (primarily on autosomes) and genes for femaleness (primarily
+          on the X chromosome).
+        </p>
+        <p>
+          The sex of an individual depends on the ratio of X chromosomes to sets
+          of autosomes (X/A ratio or sex index):
+        </p>
+        <ul>
+          <li>
+            <strong>X/A ratio = 1.0 (e.g., XX in a diploid, 2X:2A):</strong>
+            Develops into a normal female.
+          </li>
+          <li>
+            <strong>X/A ratio = 0.5 (e.g., XY in a diploid, 1X:2A):</strong>
+            Develops into a normal male. (Note: In Drosophila, the Y chromosome
+            is important for male fertility but not primary sex determination).
+          </li>
+          <li>
+            <strong>X/A ratio > 1.0 (e.g., 3X:2A = 1.5):</strong> Develops into
+            a "superfemale" (metafemale), often sterile and with developmental
+            issues.
+          </li>
+          <li>
+            <strong>X/A ratio < 0.5 (e.g., 1X:3A = 0.33):</strong> Develops into
+            a "supermale" (metamale), often sterile.
+          </li>
+          <li>
+            <strong>X/A ratio between 0.5 and 1.0 (e.g., 2X:3A = 0.67):</strong>
+            Develops into an intersex individual, showing characteristics of
+            both sexes.
+          </li>
+        </ul>
+        <div class="diagram-placeholder my-4">
+          <p>
+            <strong
+              >Table: Sex Expression in Drosophila in Relation to X/A
+              Ratio</strong
+            >
+          </p>
+          <p>
+            (This would be a table similar to the one on page 4 of "sex
+            determination.pdf", showing ploidy, X chromosomes, autosome sets,
+            X/A ratio, and resulting sex phenotype.)
+          </p>
+        </div>
+        <div class="note">
+          <p>
+            The Y chromosome in Drosophila, while not determining sex directly
+            like the SRY gene in mammals, carries genes essential for male
+            fertility.
+          </p>
+        </div>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>What is the Genic Balance Theory of sex determination?</li>
+            <li>How does the X/A ratio affect sex phenotype in Drosophila?</li>
+            <li>What is the role of the Y chromosome in Drosophila?</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="gynandromorphy" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >merge_type</span
+          >Gynandromorphy
+        </h2>
+        <p>
+          A gynandromorph is an organism that exhibits both male and female
+          characteristics. The term derives from Greek: <em>gyne</em> (female),
+          <em>andro</em> (male), and <em>morph</em> (form). This phenomenon
+          often results from chromosomal anomalies during early development,
+          such as the loss of a sex chromosome in a cell lineage.
+        </p>
+        <img
+          src="https://placehold.co/600x350/E0F2FE/0EA5E9?text=Gynandromorph+Butterfly"
+          alt="Gynandromorph butterfly showing bilateral asymmetry"
+          class="my-4"
+          onerror="this.src='https://placehold.co/600x350/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <h4>Types of Gynandromorphs:</h4>
+        <ul>
+          <li>
+            <strong>Bilateral Gynandromorphs:</strong> One half of the body
+            displays female characteristics, while the other half displays male
+            characteristics. This is often strikingly visible in insects like
+            butterflies or birds with sexually dimorphic coloration.
+          </li>
+          <li>
+            <strong>Anterior-Posterior Gynandromorphs:</strong> The anterior
+            (front) region of the body has characteristics of one sex, and the
+            posterior (rear) region has characteristics of the other sex.
+          </li>
+          <li>
+            <strong>Sex Piebalds (Mosaic Gynandromorphs):</strong> The body
+            consists predominantly of tissue of one sex, with patches of tissue
+            characteristic of the other sex scattered irregularly.
+          </li>
+        </ul>
+        <p>
+          Gynandromorphy provides valuable insights into the genetic and
+          developmental processes underlying sexual differentiation.
+        </p>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>What is a gynandromorph? How does it arise?</li>
+            <li>Describe two types of gynandromorphs with examples.</li>
+            <li>Why is the study of gynandromorphy important in genetics?</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="plants" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2">eco</span
+          >Sex Determination in Plants
+        </h2>
+        <p>
+          Sex determination in plants is remarkably diverse. While many plants
+          are <strong>hermaphroditic</strong> (bisexual), having both male
+          (stamens) and female (carpels/pistils) reproductive organs in the same
+          flower, others have evolved mechanisms for separate sexes.
+        </p>
+        <ul>
+          <li>
+            <strong>Monoecious plants:</strong> Have separate male and female
+            flowers on the same individual plant (e.g., maize, castor, coconut).
+          </li>
+          <li>
+            <strong>Dioecious plants:</strong> Have male and female flowers on
+            different individual plants (e.g., papaya, spinach, hops,
+            asparagus). This necessitates cross-pollination.
+          </li>
+        </ul>
+        <img
+          src="https://placehold.co/700x400/E0F2FE/0EA5E9?text=Monoecious+vs+Dioecious+Plants"
+          alt="Illustration comparing monoecious and dioecious plants"
+          class="my-4"
+          onerror="this.src='https://placehold.co/700x400/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+
+        <h4>Environmental Sex Determination in Plants</h4>
+        <p>
+          Similar to some animals, environmental factors can influence sex
+          expression in certain plants:
+        </p>
+        <ul>
+          <li>
+            <strong>Equisetum (Horsetail):</strong> Spores may develop into
+            female gametophytes under optimal conditions and male gametophytes
+            under adverse conditions.
+          </li>
+          <li>
+            <strong>Cucumber, Melons, Cannabis:</strong> Sex expression can be
+            affected by temperature, day length, and plant hormones like
+            ethylene (promotes female flowers) and gibberellins (can promote
+            male flowers in some cases, or female in others like cannabis).
+          </li>
+        </ul>
+
+        <h4>Chromosomal Sex Determination in Plants</h4>
+        <p>
+          Some dioecious plants utilize sex chromosome systems, analogous to
+          those in animals.
+        </p>
+        <h5>
+          1. Heteromorphic Sex Chromosomes (X and Y morphologically distinct)
+        </h5>
+        <ul>
+          <li>
+            <strong>XX/XY System (Male Heterogamety):</strong>
+            <ul>
+              <li>Females are XX, Males are XY.</li>
+              <li>
+                Found in species like <em>Melandrium album</em> (white campion),
+                <em>Silene latifolia</em>, <em>Cannabis sativa</em> (hemp),
+                <em>Rumex hastatulus</em>.
+              </li>
+              <li>
+                In <em>Melandrium</em>, the Y chromosome is a strong male
+                determinant. Different regions of the Y chromosome control
+                various aspects of male development (e.g., suppression of
+                femaleness, promotion of maleness, male fertility). The X
+                chromosome carries genes for femaleness.
+                <div class="diagram-placeholder my-4">
+                  <p>
+                    <strong
+                      >Diagram: X and Y chromosomes in Melandrium album</strong
+                    >
+                  </p>
+                  <p>
+                    (Showing different segments I, II, III, IV, V controlling
+                    sex determination, similar to page 6 of "sex
+                    determination.pdf" and page 7 of "S.D.(edited).pdf")
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong
+              >Complex XY Systems (e.g., $X_1X_1X_2X_2$ Female / $X_1X_2Y_1Y_2$
+              Male):</strong
+            >
+            <ul>
+              <li>Found in some strains of <em>Humulus lupulus</em> (hops).</li>
+              <li>
+                Females produce $X_1X_2$ eggs. Males produce $X_1X_2$ and
+                $Y_1Y_2$ pollen.
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h5>
+          2. Homomorphic Sex Chromosomes (X and Y morphologically similar but
+          functionally different)
+        </h5>
+        <ul>
+          <li>
+            <strong>XX/XY System (Male Heterogamety):</strong>
+            <ul>
+              <li>
+                Found in <em>Spinacia oleracea</em> (spinach) and
+                <em>Asparagus officinalis</em>.
+              </li>
+              <li>
+                Although X and Y chromosomes are morphologically similar, the Y
+                chromosome often carries genes suppressing carpel development
+                and promoting stamen development. YY males have been produced in
+                Asparagus.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>XY/XX System (Female Heterogamety):</strong>
+            <ul>
+              <li>Females are XY, Males are XX.</li>
+              <li>
+                Reported in some species like <em>Fragaria elatior</em> (wild
+                strawberry). Females are heterogametic.
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          The X/Autosome ratio can also play a role in some plant systems,
+          though often the Y chromosome has a more dominant effect than in
+          Drosophila.
+        </p>
+
+        <h4>Genic Sex Determination in Plants</h4>
+        <p>
+          In many plants, sex is controlled by one or a few major genes, rather
+          than entire sex chromosomes.
+        </p>
+        <ul>
+          <li>
+            <strong>Single Locus Systems:</strong>
+            <ul>
+              <li>
+                <strong
+                  >Spitting Cucumber (<em>Ecballium elaterium</em>):</strong
+                >
+                A single gene 'a' with three alleles ($a^D$ for monoecious,
+                $a^+$ for male, $a^d$ for female) controls sex, with a dominance
+                hierarchy ($a^D > a^+ > a^d$).
+              </li>
+              <li>
+                <strong>Papaya (<em>Carica papaya</em>):</strong> A single gene
+                with three alleles (M1 for male, M2 for hermaphrodite, m for
+                female) determines sex. Genotypes $M_1M_1$, $M_2M_2$, and
+                $M_1M_2$ are lethal.
+                <ul>
+                  <li>mm: Female</li>
+                  <li>$M_1m$: Male</li>
+                  <li>$M_2m$: Hermaphrodite</li>
+                </ul>
+                <img
+                  src="https://placehold.co/700x350/E0F2FE/0EA5E9?text=Papaya+Flower+Types"
+                  alt="Papaya flower types: male, female, hermaphrodite"
+                  class="my-4"
+                  onerror="this.src='https://placehold.co/700x350/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+                />
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Multiple Loci Systems / Gene Interactions:</strong>
+            <ul>
+              <li>
+                <strong>Maize (<em>Zea mays</em>):</strong> A monoecious plant.
+                <ul>
+                  <li>
+                    Recessive gene <em>ba</em> (barren stalk) in homozygous
+                    state (<em>baba</em>) makes cobs (female inflorescences)
+                    non-functional, effectively creating a male plant.
+                  </li>
+                  <li>
+                    Recessive gene <em>ts</em> (tassel seed) in homozygous state
+                    (<em>tsts</em>) converts tassels (male inflorescences) into
+                    female flowers, effectively creating a female plant.
+                  </li>
+                  <li>
+                    A <em>baba tsts</em> plant would be female (female tassel,
+                    barren cob).
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong
+                  >Cucumber (<em>Cucumis sativus</em>) and Melon (<em
+                    >Cucumis melo</em
+                  >):</strong
+                >
+                Complex interactions of genes (e.g., M/m, F/f, A/a, G/g)
+                determine different sex phenotypes like gynoecious (all female
+                flowers), monoecious, andromonoecious (male and hermaphrodite
+                flowers), hermaphrodite.
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          <strong>Metabolic Differentiation:</strong> Proposed by Riddle,
+          suggesting that metabolic states, like carbohydrate or nitrogen
+          deficiency, could influence sex expression in plants like tomato or
+          cucumber, often by affecting hormone levels.
+        </p>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Differentiate between monoecious and dioecious plants with
+              examples.
+            </li>
+            <li>
+              How can environmental factors influence sex expression in plants?
+            </li>
+            <li>
+              Describe the XX/XY system in plants and give an example species.
+            </li>
+            <li>What is genic sex determination in plants? Give an example.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="uv-system" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >filter_vintage</span
+          >UV Sex Determination System
+        </h2>
+        <p>
+          The UV sex determination system is found in some lower plants like
+          bryophytes (mosses, liverworts, hornworts) and certain algae. This
+          system is distinct because it operates in the haploid phase of the
+          life cycle.
+        </p>
+        <ul>
+          <li>Individuals are haploid and possess only one sex chromosome.</li>
+          <li>
+            <strong>Females</strong> carry a single
+            <strong>U chromosome</strong>.
+          </li>
+          <li>
+            <strong>Males</strong> carry a single <strong>V chromosome</strong>.
+          </li>
+        </ul>
+        <p>
+          Unlike the XY and ZW systems where one chromosome is often largely
+          inert or primarily carries the sex-determining gene (Y or W), in the
+          UV system, both the U and V chromosomes are considered
+          sex-determining.
+        </p>
+        <p>
+          In bryophytes, a diploid sporophyte produces haploid spores through
+          meiosis. These spores, carrying either a U or a V chromosome, grow
+          into haploid gametophytes (the dominant phase of the life cycle). The
+          U-bearing gametophyte is female and produces eggs, while the V-bearing
+          gametophyte is male and produces sperm. Fertilization of an egg by a
+          sperm (both haploid) results in a diploid zygote, which develops into
+          the sporophyte, completing the cycle.
+        </p>
+        <div class="diagram-placeholder my-4">
+          <p>
+            <strong
+              >Diagram: UV Sex Determination Life Cycle in Bryophytes</strong
+            >
+          </p>
+          <p>
+            (Illustrating haploid U and V gametophytes and diploid UV
+            sporophyte, similar to the diagram on page 9 of "sex
+            determination.pdf")
+          </p>
+        </div>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What is the UV sex determination system and in which organisms is
+              it found?
+            </li>
+            <li>How does the UV system differ from the XY and ZW systems?</li>
+            <li>
+              Describe the life cycle of a bryophyte with respect to sex
+              determination.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="importance" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2">star</span
+          >Importance of Sex Determination
+        </h2>
+        <p>
+          Understanding sex determination systems is crucial for several
+          reasons:
+        </p>
+        <img
+          src="https://placehold.co/800x400/E0F2FE/0EA5E9?text=Diverse+Plant+Pollination"
+          alt="Diverse plant pollination mechanisms"
+          class="my-4"
+          onerror="this.src='https://placehold.co/800x400/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <ul>
+          <li>
+            <strong>Evolution and Adaptation:</strong> Sexual reproduction,
+            facilitated by distinct sexes, allows for genetic recombination,
+            leading to increased variation within populations. This variation is
+            the raw material for evolution and helps species adapt to changing
+            environments.
+          </li>
+          <li>
+            <strong>Genetic Health:</strong> Sexual processes can combine
+            beneficial mutations and help eliminate deleterious mutations from a
+            population more efficiently than asexual reproduction.
+          </li>
+          <li>
+            <strong>Crop Improvement:</strong> In agriculture, knowing the sex
+            determination mechanism of crop plants is vital.
+            <ul>
+              <li>
+                For dioecious fruit crops (e.g., papaya, date palm, kiwi),
+                ensuring a proper ratio of male to female plants is necessary
+                for pollination and fruit set.
+              </li>
+              <li>
+                Understanding sex determination can aid in breeding programs,
+                for example, to develop gynoecious lines in cucumbers
+                (all-female flowers, leading to higher yields) or to manage
+                pollination in hybrid seed production.
+              </li>
+              <li>
+                In many crops like melon, squash, strawberries, and grapes, only
+                female or hermaphrodite flowers produce fruit.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Species Conservation:</strong> For endangered species,
+            understanding their sex determination system can be critical for
+            captive breeding programs and conservation efforts.
+          </li>
+          <li>
+            <strong>Pest Control:</strong> Manipulating sex determination or sex
+            ratios can be a strategy in controlling certain insect pests.
+          </li>
+          <li>
+            <strong>Preventing Inbreeding Depression:</strong> In flowering
+            plants, various strategies for sex determination (like dioecy) have
+            evolved to promote outcrossing and prevent self-fertilization, which
+            can lead to inbreeding depression (loss of fitness).
+          </li>
+          <li>
+            <strong>Basic Biological Research:</strong> Studying the diverse
+            mechanisms of sex determination provides fundamental insights into
+            gene regulation, developmental biology, and evolution. Sex
+            determination systems can evolve relatively rapidly, making them
+            interesting models for evolutionary studies.
+          </li>
+        </ul>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              Why is understanding sex determination important in agriculture
+              and crop improvement?
+            </li>
+            <li>
+              How can knowledge of sex determination aid in species
+              conservation?
+            </li>
+            <li>
+              List two ways sex determination is relevant to pest control or
+              genetic health.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="sex-limited" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2"
+            >transgender</span
+          >Sex-Limited Traits
+        </h2>
+        <p>
+          Sex-limited traits are characteristics that are expressed in only one
+          sex, even though the genes responsible for them may be present in both
+          sexes. These genes are typically located on autosomes (non-sex
+          chromosomes), and their expression is controlled by sex hormones or
+          other physiological differences between males and females.
+        </p>
+        <img
+          src="https://placehold.co/600x400/E0F2FE/0EA5E9?text=Peacock+Displaying+Feathers"
+          alt="Peacock displaying elaborate tail feathers, a sex-limited trait in males"
+          class="my-4"
+          onerror="this.src='https://placehold.co/600x400/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <h4>Key Characteristics:</h4>
+        <ul>
+          <li>Genes are autosomal.</li>
+          <li>
+            Expression occurs in only one sex (zero penetrance in the other
+            sex).
+          </li>
+          <li>
+            The same genotype produces different phenotypes in males versus
+            females due to hormonal environments.
+          </li>
+        </ul>
+        <h4>Examples:</h4>
+        <ul>
+          <li>
+            <strong>Lactation (Milk Production):</strong> Genes for milk
+            production are present in both male and female mammals, but milk is
+            typically only produced by females after parturition due to hormonal
+            influences (e.g., prolactin, estrogen).
+          </li>
+          <li>
+            <strong>Beard Growth in Humans:</strong> The genes for beard growth
+            are present in both sexes, but significant beard development is
+            typically limited to males due to higher levels of androgens.
+          </li>
+          <li>
+            <strong>Plumage Differences in Birds:</strong> Elaborate and
+            colorful plumage in males of many bird species (e.g., peacocks,
+            birds of paradise) is a sex-limited trait, while females often have
+            more cryptic coloration.
+          </li>
+          <li>
+            <strong>Horn Development in Some Sheep Breeds:</strong> In certain
+            sheep breeds, horns may develop only in males, or be significantly
+            larger in males, even if both sexes carry the genes for horn growth.
+          </li>
+          <li>
+            <strong
+              >Prostate Gland in Males / Ovarian Development in Females:</strong
+            >
+            These are anatomical structures limited to one sex. Conditions like
+            prostate cancer are male-limited, and ovarian cancer is
+            female-limited, though genes predisposing to these can be carried by
+            either sex.
+          </li>
+          <li>
+            <strong>Barred Coloring in Chickens:</strong> This pattern is
+            typically visible only in roosters in some breeds.
+          </li>
+          <li>
+            <strong>Tone of Voice:</strong> The deeper voice in adult human
+            males is a sex-limited trait influenced by testosterone's effect on
+            the larynx.
+          </li>
+          <li>
+            <strong>Hairy Ears (Hypertrichosis Pinnae Auris):</strong> While
+            sometimes cited as Y-linked, some sources consider pronounced ear
+            hair development as a sex-limited trait influenced by androgens,
+            becoming more apparent in males with age. (Note: True Y-linkage
+            means the gene is on the Y chromosome.)
+          </li>
+        </ul>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What are sex-limited traits? Give two examples from animals or
+              humans.
+            </li>
+            <li>
+              How do sex-limited traits differ from sex-influenced traits?
+            </li>
+            <li>
+              Why are some traits expressed only in one sex even if the genes
+              are present in both?
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="sex-influenced" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2">wc</span
+          >Sex-Influenced Traits
+        </h2>
+        <p>
+          Sex-influenced traits (also called sex-conditioned traits) are traits
+          whose expression is conditioned or influenced by the sex of the
+          individual. The genes for these traits are typically autosomal, but
+          the trait appears differently or with different frequencies in males
+          and females, usually due to hormonal differences.
+        </p>
+        <p>
+          Unlike sex-limited traits (where the trait is expressed in only one
+          sex), sex-influenced traits can appear in both sexes but are more
+          common or more pronounced in one sex than the other. The allele for
+          the trait might behave as dominant in one sex and recessive in the
+          other.
+        </p>
+        <img
+          src="https://placehold.co/600x350/E0F2FE/0EA5E9?text=Pattern+Baldness+Illustration"
+          alt="Illustration showing pattern baldness, a sex-influenced trait"
+          class="my-4"
+          onerror="this.src='https://placehold.co/600x350/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <h4>Key Characteristics:</h4>
+        <ul>
+          <li>Genes are autosomal.</li>
+          <li>
+            Expressed in both sexes, but to different degrees or frequencies.
+          </li>
+          <li>
+            An allele can be dominant in one sex and recessive in the other.
+          </li>
+        </ul>
+        <h4>Examples:</h4>
+        <ul>
+          <li>
+            <strong>Pattern Baldness (Androgenic Alopecia) in Humans:</strong>
+            This is a classic example. The allele for baldness (B) behaves as
+            dominant in males but recessive in females.
+            <ul>
+              <li>
+                <strong>Males:</strong> Genotypes BB and Bb will lead to
+                baldness. Only bb males will not be bald.
+              </li>
+              <li>
+                <strong>Females:</strong> Only genotype BB will lead to
+                significant hair thinning/baldness. Bb females usually have
+                normal hair or minimal thinning, and bb females have normal
+                hair. Higher levels of androgens in males contribute to this
+                pattern.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Horn Presence in Some Sheep Breeds:</strong> In some breeds,
+            an allele for horns might be dominant in males (males with one copy
+            are horned) but recessive in females (females need two copies to be
+            horned).
+          </li>
+          <li>
+            <strong>Length of Index Finger vs. Ring Finger:</strong> Some
+            studies suggest this ratio can be a sex-influenced trait, with males
+            more often having a shorter index finger relative to the ring
+            finger, possibly influenced by prenatal androgen exposure.
+          </li>
+          <li>
+            <strong>Certain Autoimmune Diseases:</strong> Some autoimmune
+            diseases like lupus or rheumatoid arthritis are more prevalent in
+            females, suggesting sex hormones may influence their development or
+            expression.
+          </li>
+          <li>
+            <strong
+              >Soft Facial Hair in Females vs. Coarse Facial Hair in
+              Males:</strong
+            >
+            While significant beard growth is sex-limited to males, the general
+            texture and amount of facial hair can be considered sex-influenced.
+          </li>
+        </ul>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What are sex-influenced traits? Give an example and explain the
+              genetic basis.
+            </li>
+            <li>
+              How does pattern baldness illustrate sex-influenced inheritance?
+            </li>
+            <li>How do sex-influenced traits differ from sex-linked traits?</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="sex-linked" class="content-section scroll-mt-20">
+        <h2>
+          <span class="material-symbols-outlined text-sky-600 mr-2">link</span
+          >Sex-Linked Traits
+        </h2>
+        <p>
+          Sex-linked traits are determined by genes located on the sex
+          chromosomes (X or Y in humans/mammals; Z or W in birds/some insects).
+          The inheritance patterns of these traits differ from autosomal traits
+          because they are linked to the inheritance of sex chromosomes.
+        </p>
+
+        <h4>1. X-Linked Traits</h4>
+        <p>
+          Genes located on the X chromosome. Since males (XY) have only one X
+          chromosome, they are hemizygous for X-linked genes. This means that a
+          single recessive allele on the X chromosome will be expressed in
+          males. Females (XX) have two X chromosomes, so a recessive allele on
+          one X can be masked by a dominant allele on the other X (making them
+          carriers).
+        </p>
+        <img
+          src="https://placehold.co/700x450/E0F2FE/0EA5E9?text=X-Linked+Inheritance+Pedigree"
+          alt="Example of an X-linked recessive inheritance pedigree chart"
+          class="my-4"
+          onerror="this.src='https://placehold.co/700x450/E0F2FE/0EA5E9?text=Image+Not+Available'; this.alt='Placeholder Image';"
+        />
+        <p>
+          (This would ideally be a visual pedigree chart like those on page 10
+          of "sex determination.pdf" or "S.D.(edited).pdf")
+        </p>
+        <h5>X-Linked Recessive Traits:</h5>
+        <ul>
+          <li>More frequently expressed in males than females.</li>
+          <li>
+            Affected males inherit the recessive allele from their carrier or
+            affected mother. They cannot pass the trait to their sons (because
+            sons get the Y chromosome from their father), but all their
+            daughters will be carriers if the mother is homozygous normal.
+          </li>
+          <li>
+            Examples:
+            <ul>
+              <li>
+                <strong>Red-Green Color Blindness:</strong> Difficulty
+                distinguishing between red and green hues.
+              </li>
+              <li>
+                <strong>Hemophilia A and B:</strong> Blood clotting disorders.
+              </li>
+              <li>
+                <strong>Duchenne Muscular Dystrophy (DMD):</strong> Progressive
+                muscle degeneration.
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <h5>X-Linked Dominant Traits:</h5>
+        <ul>
+          <li>Less common than X-linked recessive traits.</li>
+          <li>
+            Affected males pass the trait to all their daughters but none of
+            their sons.
+          </li>
+          <li>
+            Affected heterozygous females pass the trait to 50% of their
+            offspring (both sons and daughters).
+          </li>
+          <li>
+            Affected homozygous females pass the trait to all their offspring.
+          </li>
+          <li>
+            Examples:
+            <ul>
+              <li>
+                <strong
+                  >Hypophosphatemic Rickets (Vitamin D-resistant
+                  rickets)</strong
+                >
+              </li>
+              <li>
+                <strong
+                  >Rett Syndrome (primarily in females, often lethal in
+                  males)</strong
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>2. Y-Linked Traits (Holandric Traits)</h4>
+        <p>
+          Genes located on the Y chromosome. These traits are only found in
+          males and are passed directly from father to all his sons. The Y
+          chromosome is relatively small and contains fewer genes compared to
+          the X chromosome, many of which are related to male fertility (like
+          the SRY gene).
+        </p>
+        <ul>
+          <li>
+            Example:
+            <ul>
+              <li>
+                <strong>Hairy Ears (Hypertrichosis Pinnae Auris):</strong> Some
+                forms are thought to be Y-linked, though this is debated and may
+                also be influenced by autosomal genes with sex-limited
+                expression.
+              </li>
+              <li>
+                SRY gene itself is a Y-linked gene critical for male
+                development.
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="note">
+          <p>
+            Understanding sex-linked inheritance is crucial for genetic
+            counseling and predicting the probability of offspring inheriting
+            certain genetic conditions.
+          </p>
+        </div>
+        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-md">
+          <h4 class="text-lg font-semibold text-blue-700 mb-2">
+            <i class="material-symbols-outlined mr-2 align-middle">help</i
+            >Important Questions for Exam
+          </h4>
+          <ul class="list-disc ml-6 text-blue-900">
+            <li>
+              What are sex-linked traits? Distinguish between X-linked and
+              Y-linked inheritance with examples.
+            </li>
+            <li>
+              Why are X-linked recessive traits more common in males than
+              females?
+            </li>
+            <li>
+              Describe the inheritance pattern of hemophilia or color blindness.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.getElementById("mainContent");
+      const openSidebarButton = document.getElementById("openSidebarButton");
+      const closeSidebarButton = document.getElementById("closeSidebarButton");
+      const sidebarNav = document.getElementById("sidebarNav");
+      const navLinks = sidebarNav.querySelectorAll("a");
+      const contentSections = document.querySelectorAll(".content-section");
+
+      function openSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        // Optional: Add overlay or disable main content scroll
+      }
+
+      function closeSidebar() {
+        sidebar.classList.add("-translate-x-full");
+      }
+
+      openSidebarButton.addEventListener("click", openSidebar);
+      closeSidebarButton.addEventListener("click", closeSidebar);
+
+      // Close sidebar when a link is clicked on mobile
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 768) {
+            // md breakpoint
+            closeSidebar();
+          }
+          // Smooth scroll
+          const targetId = link.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Calculate scroll position considering fixed header/navbar if any
+            // For now, a simple scrollIntoView
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Active link highlighting based on scroll
+      function updateActiveLink() {
+        let currentSectionId = "";
+        contentSections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          // Adjust offset if you have a fixed header
+          const scrollOffset = 100; // Adjust as needed, e.g., height of fixed header + some margin
+          if (window.scrollY >= sectionTop - scrollOffset) {
+            currentSectionId = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${currentSectionId}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveLink);
+      window.addEventListener("load", updateActiveLink); // Initial check
+
+      // Ensure main content has margin-left when sidebar is open on desktop
+      // This is handled by Tailwind's md:ml-72 on mainContent
+      // If you were to dynamically change sidebar width, you'd adjust this
+    </script>
+  </body>
+</html>
